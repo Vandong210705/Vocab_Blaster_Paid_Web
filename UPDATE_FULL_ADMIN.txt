@@ -1,0 +1,12 @@
+Trang Admin đã làm lại đầy đủ:
+- Admin key
+- Bật/tắt chơi miễn phí
+- Vĩnh viễn / số phút
+- Số tiền
+- Ngân hàng
+- Số tài khoản
+- Chủ tài khoản
+- QR preview
+- Danh sách giao dịch + duyệt thủ công
+- Tự nhớ cấu hình trên trình duyệt
+- ADMIN_KEY không lưu localStorage

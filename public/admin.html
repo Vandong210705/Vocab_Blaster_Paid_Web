@@ -12,101 +12,104 @@ h1{margin:0 0 6px}.muted{color:#94a2ca}.card{background:#121832;border:1px solid
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 label{display:block;color:#b7c3e7;font-size:14px}
 input,select{width:100%;margin-top:6px;padding:12px 13px;border-radius:11px;border:1px solid #3b4779;background:#090e25;color:#fff;outline:none}
-input:focus,select:focus{border-color:#7766ff;box-shadow:0 0 0 3px rgba(119,102,255,.12)}
 button{border:0;border-radius:11px;padding:11px 16px;font-weight:800;color:white;background:#6855ff;cursor:pointer}
-button:hover{filter:brightness(1.08)}button.gray{background:#29325d}button.green{background:#15885a}
+button.gray{background:#29325d}button.green{background:#15885a}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.hidden{display:none!important}
 .hint{font-size:12px;color:#8190bb;margin-top:6px;line-height:1.5}
+.notice{padding:12px 14px;border:1px solid #394677;background:#0b1027;border-radius:12px;margin-top:14px}
 .qr-box{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:center;margin-top:16px}
 .qr-frame{width:250px;height:250px;border:1px dashed #58679d;border-radius:16px;background:#090d20;display:grid;place-items:center;overflow:hidden}
 .qr-frame img{width:100%;height:100%;object-fit:contain}.qr-empty{color:#7280a9;text-align:center;padding:20px}
 .preview-info{background:#0b1027;border:1px solid #293462;border-radius:14px;padding:14px;line-height:1.8}
-.preview-info b{color:#fff}.ok{color:#56e89a}.warn{color:#ffd15a}
 table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;border-bottom:1px solid #27305a;text-align:left;white-space:nowrap}
 .badge{padding:4px 8px;border-radius:10px;background:#29325a}.paid{background:#15593f}.pending{background:#6b5115}
+.switchbox{display:flex;align-items:flex-start;gap:10px;padding:13px 14px;border:1px solid #364273;border-radius:12px;background:#0b1027}
+.switchbox input{width:auto;margin:3px 0 0;transform:scale(1.15)}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.qr-box{grid-template-columns:1fr}.qr-frame{margin:auto}}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>🛠️ Vocab Blaster Admin</h1>
-  <div class="muted">Chỉ giữ các mục cần thiết: giá, ngân hàng, số tài khoản, chủ tài khoản, thời gian quyền chơi và QR.</div>
+  <div class="muted">Trang quản trị đầy đủ: miễn phí/thu phí, ngân hàng, QR, thời gian chơi và giao dịch.</div>
 
   <div class="card">
-    <h3>🔐 Admin key</h3>
-    <input id="key" type="password" placeholder="Nhập ADMIN_KEY trên server">
-    <p><button id="load">Tải cấu hình & giao dịch</button></p>
+    <h3>🔐 Admin</h3>
+    <div class="row">
+      <input id="key" type="password" placeholder="Nhập ADMIN_KEY" style="flex:1;min-width:260px">
+      <button id="load">Tải cấu hình</button>
+    </div>
+    <div class="hint">ADMIN_KEY không được lưu trên trình duyệt.</div>
   </div>
 
   <div class="card">
-    <h3>💰 Cấu hình thanh toán & quyền chơi</h3>
+    <h3>🎮 Chế độ truy cập</h3>
+    <div class="switchbox">
+      <input id="freePlay" type="checkbox" checked>
+      <div>
+        <b>Cho phép chơi miễn phí</b>
+        <div class="hint">Mặc định bật. Khi bật: người dùng vào chơi ngay. Khi bỏ tick và lưu: hệ thống mới yêu cầu thanh toán.</div>
+      </div>
+    </div>
 
-    <div class="grid">
-      <label>Số tiền / mức ủng hộ gợi ý (VNĐ)
-        <input id="priceVnd" type="number" min="0" step="1000" placeholder="1000">
-      </label>
-
-      <label>Ngân hàng
-        <input id="bankName" list="bankList" placeholder="Ví dụ: Vietcombank">
-        <datalist id="bankList">
-          <option value="Vietcombank">
-          <option value="VietinBank">
-          <option value="BIDV">
-          <option value="Agribank">
-          <option value="MBBank">
-          <option value="Techcombank">
-          <option value="ACB">
-          <option value="VPBank">
-          <option value="TPBank">
-          <option value="Sacombank">
-          <option value="VIB">
-          <option value="SHB">
-          <option value="OCB">
-          <option value="MSB">
-        </datalist>
-      </label>
-
-      <label>Số tài khoản
-        <input id="bankAccount" inputmode="numeric" placeholder="Nhập số tài khoản nhận tiền">
-      </label>
-
-      <label>Chủ tài khoản
-        <input id="bankAccountName" placeholder="NGUYEN VAN A">
-      </label>
-
+    <div class="grid" style="margin-top:16px">
       <label>Thời gian quyền chơi
         <select id="accessMode">
-          <option value="permanent">Vĩnh viễn — nạp 1 lần chơi vĩnh viễn</option>
+          <option value="permanent">Vĩnh viễn</option>
           <option value="minutes">Tùy chỉnh số phút</option>
         </select>
       </label>
 
       <label id="minutesWrap" class="hidden">Số phút
-        <input id="playMinutes" type="number" min="1" step="1" placeholder="Ví dụ: 60">
-        <div class="hint">Nhập tùy ý: 30, 60, 120, 1440...</div>
+        <input id="playMinutes" type="number" min="1" step="1" value="60">
       </label>
-    </div>
-
-    <div style="margin-top:18px;padding:13px 14px;border:1px solid #364273;border-radius:12px;background:#0b1027">
-      <label style="display:flex;align-items:center;gap:10px;color:#eef3ff;font-weight:700;cursor:pointer">
-        <input id="freePlay" type="checkbox" checked style="width:auto;margin:0;transform:scale(1.15)">
-        Cho phép chơi miễn phí
-      </label>
-      <div class="hint">Mặc định là miễn phí. Chỉ khi bạn bỏ chọn mục này rồi bấm Lưu cấu hình thì game mới yêu cầu thanh toán.</div>
-    </div>
-
-    <div class="row" style="margin-top:18px">
-      <button id="save">💾 Lưu cấu hình</button>
-      <button id="previewQr" class="gray">🔄 Cập nhật / xem mã QR</button>
     </div>
   </div>
 
   <div class="card">
-    <h3>📱 Mã QR thanh toán</h3>
+    <h3>💳 Ngân hàng & ủng hộ</h3>
+    <div class="grid">
+      <label>Số tiền / mức ủng hộ gợi ý (VNĐ)
+        <input id="priceVnd" type="number" min="0" step="1000" value="1000">
+      </label>
+
+      <label>Ngân hàng
+        <input id="bankName" list="bankList" placeholder="Ví dụ: Vietcombank">
+        <datalist id="bankList">
+          <option value="Vietcombank"><option value="VietinBank"><option value="BIDV">
+          <option value="Agribank"><option value="MBBank"><option value="Techcombank">
+          <option value="ACB"><option value="VPBank"><option value="TPBank">
+          <option value="Sacombank"><option value="VIB"><option value="SHB">
+          <option value="OCB"><option value="MSB">
+        </datalist>
+      </label>
+
+      <label>Số tài khoản
+        <input id="bankAccount" inputmode="numeric" placeholder="Nhập số tài khoản">
+      </label>
+
+      <label>Chủ tài khoản
+        <input id="bankAccountName" placeholder="NGUYEN VAN A">
+      </label>
+    </div>
+
+    <div class="row" style="margin-top:18px">
+      <button id="save">💾 Lưu cấu hình</button>
+      <button id="previewQr" class="gray">🔄 Cập nhật / xem QR</button>
+    </div>
+
+    <div class="notice">
+      <b>💖 Nút “Ủng hộ tui ở đây nhen” trên game</b>
+      <div class="hint">QR ở đó sẽ tự lấy ngân hàng, STK, chủ tài khoản và số tiền bạn nhập ở đây.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📱 Xem trước mã QR</h3>
     <div class="qr-box">
       <div class="qr-frame">
-        <img id="qrPreview" class="hidden" alt="QR thanh toán">
-        <div id="qrEmpty" class="qr-empty">Nhập ngân hàng + số tài khoản rồi bấm<br><b>Cập nhật / xem mã QR</b></div>
+        <img id="qrPreview" class="hidden" alt="QR">
+        <div id="qrEmpty" class="qr-empty">Nhập ngân hàng + STK rồi bấm<br><b>Cập nhật / xem QR</b></div>
       </div>
       <div class="preview-info">
         <div>Ngân hàng: <b id="pvBank">-</b></div>
@@ -114,17 +117,20 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;bord
         <div>Chủ tài khoản: <b id="pvName">-</b></div>
         <div>Số tiền: <b id="pvAmount">-</b></div>
         <div>Quyền chơi: <b id="pvDuration">-</b></div>
-        <div class="hint">QR xem thử dùng nội dung <b>VOCABTEST</b>. Khi người chơi tạo thanh toán, hệ thống tự sinh mã riêng VOCAB... để xác nhận đúng giao dịch.</div>
       </div>
     </div>
   </div>
 
   <div class="card">
     <h3>🧾 Giao dịch</h3>
-    <button id="refresh" class="gray">↻ Làm mới</button>
+    <div class="row">
+      <button id="refresh" class="gray">↻ Làm mới</button>
+    </div>
     <div style="overflow:auto;margin-top:12px">
       <table>
-        <thead><tr><th>Mã</th><th>Số tiền</th><th>Nội dung</th><th>Quyền</th><th>Trạng thái</th><th>Tạo lúc</th><th></th></tr></thead>
+        <thead>
+          <tr><th>Mã</th><th>Số tiền</th><th>Nội dung</th><th>Quyền</th><th>Trạng thái</th><th>Tạo lúc</th><th></th></tr>
+        </thead>
         <tbody id="rows"></tbody>
       </table>
     </div>
@@ -134,15 +140,24 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;bord
 <script>
 const $=id=>document.getElementById(id);
 const money=n=>Number(n||0).toLocaleString('vi-VN')+'₫';
+const CACHE='vocabBlasterAdminConfigV2';
+
 const req=async(url,opt={})=>{
   const r=await fetch(url,{...opt,headers:{'Content-Type':'application/json',...(opt.headers||{})}});
   const d=await r.json().catch(()=>({}));
   if(!r.ok)throw new Error(d.error||'API error');
   return d;
 };
+
 const key=()=>$('key').value.trim();
 
-const ADMIN_CFG_CACHE='vocabBlasterAdminConfigV1';
+function durationText(mode,minutes){
+  return mode==='permanent'?'Vĩnh viễn':`${Number(minutes||0)} phút`;
+}
+function syncDuration(){
+  $('minutesWrap').classList.toggle('hidden',$('accessMode').value!=='minutes');
+}
+$('accessMode').addEventListener('change',syncDuration);
 
 function formConfig(){
   return {
@@ -155,12 +170,7 @@ function formConfig(){
     freePlay:$('freePlay').checked
   };
 }
-function saveLocalConfig(c){
-  try{ localStorage.setItem(ADMIN_CFG_CACHE,JSON.stringify(c)); }catch(_){}
-}
-function loadLocalConfig(){
-  try{ return JSON.parse(localStorage.getItem(ADMIN_CFG_CACHE)||'{}')||{}; }catch(_){ return {}; }
-}
+
 function applyConfig(c={}){
   $('priceVnd').value=c.priceVnd??1000;
   $('bankName').value=c.bankName??'';
@@ -172,29 +182,58 @@ function applyConfig(c={}){
   syncDuration();
 }
 
-function durationText(mode,minutes){
-  return mode==='permanent'?'Vĩnh viễn':`${Number(minutes||0)} phút`;
+function saveLocal(c){
+  try{localStorage.setItem(CACHE,JSON.stringify(c))}catch(_){}
 }
-function syncDuration(){
-  $('minutesWrap').classList.toggle('hidden',$('accessMode').value!=='minutes');
+function loadLocal(){
+  try{return JSON.parse(localStorage.getItem(CACHE)||'{}')||{}}catch(_){return{}}
 }
-$('accessMode').addEventListener('change',syncDuration);
 
 async function loadAll(){
   try{
     const cfg=await req('/api/admin/config?key='+encodeURIComponent(key()));
-    const cached=loadLocalConfig();
+    const local=loadLocal();
     const merged={
       ...cfg,
-      bankName:cfg.bankName||cached.bankName||'',
-      bankAccount:cfg.bankAccount||cached.bankAccount||'',
-      bankAccountName:cfg.bankAccountName||cached.bankAccountName||''
+      bankName:cfg.bankName||local.bankName||'',
+      bankAccount:cfg.bankAccount||local.bankAccount||'',
+      bankAccountName:cfg.bankAccountName||local.bankAccountName||''
     };
     applyConfig(merged);
-    saveLocalConfig(merged);
+    saveLocal(merged);
     await loadPayments();
     await previewQr(false);
   }catch(e){alert(e.message)}
+}
+
+async function saveConfig(){
+  const body={key:key(),...formConfig()};
+  try{
+    await req('/api/admin/config',{method:'POST',body:JSON.stringify(body)});
+    saveLocal(formConfig());
+    alert('Đã lưu cấu hình.');
+    await previewQr(false);
+  }catch(e){alert(e.message)}
+}
+
+async function previewQr(showAlert=true){
+  const b=formConfig();
+  try{
+    const p=await req('/api/admin/qr-preview',{method:'POST',body:JSON.stringify({key:key(),...b})});
+    $('qrPreview').src=p.qrUrl;
+    $('qrPreview').classList.remove('hidden');
+    $('qrEmpty').classList.add('hidden');
+    $('pvBank').textContent=p.bankName||'-';
+    $('pvAccount').textContent=p.bankAccount||'-';
+    $('pvName').textContent=p.bankAccountName||'-';
+    $('pvAmount').textContent=money(p.amount);
+    $('pvDuration').textContent=durationText(b.accessMode,b.playMinutes);
+  }catch(e){
+    $('qrPreview').removeAttribute('src');
+    $('qrPreview').classList.add('hidden');
+    $('qrEmpty').classList.remove('hidden');
+    if(showAlert)alert(e.message);
+  }
 }
 
 async function loadPayments(){
@@ -217,50 +256,13 @@ async function approve(id){
   await loadPayments();
 }
 
-async function saveConfig(){
-  const body={key:key(),...formConfig()};
-  try{
-    await req('/api/admin/config',{method:'POST',body:JSON.stringify(body)});
-    saveLocalConfig(formConfig());
-    alert('Đã lưu cấu hình.');
-    await previewQr(false);
-  }catch(e){alert(e.message)}
-}
-
-async function previewQr(showAlert=true){
-  const body={
-    key:key(),
-    priceVnd:Number($('priceVnd').value),
-    bankName:$('bankName').value.trim(),
-    bankAccount:$('bankAccount').value.trim(),
-    bankAccountName:$('bankAccountName').value.trim(),
-    accessMode:$('accessMode').value,
-    playMinutes:Number($('playMinutes').value||60)
-  };
-  try{
-    const p=await req('/api/admin/qr-preview',{method:'POST',body:JSON.stringify(body)});
-    $('qrPreview').src=p.qrUrl;
-    $('qrPreview').classList.remove('hidden');
-    $('qrEmpty').classList.add('hidden');
-    $('pvBank').textContent=p.bankName||'-';
-    $('pvAccount').textContent=p.bankAccount||'-';
-    $('pvName').textContent=p.bankAccountName||'-';
-    $('pvAmount').textContent=money(p.amount);
-    $('pvDuration').textContent=durationText(body.accessMode,body.playMinutes);
-  }catch(e){
-    $('qrPreview').removeAttribute('src');
-    $('qrPreview').classList.add('hidden');
-    $('qrEmpty').classList.remove('hidden');
-    if(showAlert)alert(e.message);
-  }
-}
-
 $('load').onclick=loadAll;
-$('refresh').onclick=loadPayments;
 $('save').onclick=saveConfig;
 $('previewQr').onclick=()=>previewQr(true);
-const cachedAtOpen=loadLocalConfig();
-if(Object.keys(cachedAtOpen).length) applyConfig(cachedAtOpen);
+$('refresh').onclick=loadPayments;
+
+const local=loadLocal();
+if(Object.keys(local).length)applyConfig(local);
 else syncDuration();
 </script>
 </body>

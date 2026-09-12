@@ -1,0 +1,5 @@
+SPACING FIX
+- Giữ khoảng cách dọc tối thiểu 145px giữa các từ đang rơi.
+- Từ mới chỉ được sinh khi từ gần mép trên nhất đã đi xuống đủ xa.
+- Nếu từ phía sau nhanh hơn và đuổi kịp, game tự giữ lại để không dính sát từ phía trước.
+- Vẫn giữ vị trí ngang ngẫu nhiên và tốc độ theo độ khó.

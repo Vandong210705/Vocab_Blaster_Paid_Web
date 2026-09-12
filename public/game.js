@@ -34,6 +34,10 @@
     hard: {speed: 55, spawn: 1050, lives: 3}
   };
 
+  // Khoảng cách dọc tối thiểu giữa 2 từ đang rơi.
+  // Mục tiêu: không còn cảnh 2 từ dính sát nhau khi rơi xuống.
+  const MIN_ENEMY_VERTICAL_GAP = 145;
+
   const game = {
     running:false, paused:false, score:0, combo:0, maxCombo:0, level:1, lives:3, kills:0,
     correctKeys:0, wrongKeys:0, enemies:[], bullets:[], particles:[], floaters:[], stars:[], clouds:[],
@@ -334,8 +338,18 @@
 
   function spawn(){
     if(!game.running||game.paused) return false;
+    const active=game.enemies.filter(e=>!e.dead);
     const max=Math.max(1,+ui.maxEnemies.value||1);
-    if(game.enemies.filter(e=>!e.dead).length>=max) return false;
+    if(active.length>=max) return false;
+
+    // Không sinh từ mới nếu từ gần mép trên nhất chưa đi xuống đủ xa.
+    // Đây là khoảng cách thật theo pixel, không chỉ dựa vào timer.
+    const spawnY=-58-Math.random()*18;
+    if(active.length){
+      const topmostY=Math.min(...active.map(e=>e.y));
+      if(topmostY-spawnY<MIN_ENEMY_VERTICAL_GAP) return false;
+    }
+
     const item=randomWord(); if(!item) return false;
     const cfg=currentCfg(), size=46+Math.random()*16, margin=95;
     const x=margin+Math.random()*Math.max(50,game.w-margin*2);
@@ -343,7 +357,7 @@
     const display=displayText(item), answer=answerText(item), meaning=meaningText(item);
     game.enemies.push({
       id:game.nextEnemyId++, en:item.en, vi:item.vi, display, answer, meaning, target:norm(answer),
-      skin:SKINS[Math.floor(Math.random()*SKINS.length)], x, y:-50-Math.random()*70,
+      skin:SKINS[Math.floor(Math.random()*SKINS.length)], x, y:spawnY,
       vx:(Math.random()-.5)*24, vy:speed, size, wobble:Math.random()*Math.PI*2, dead:false, hitFlash:0, angle:0
     });
     return true;
@@ -513,7 +527,19 @@
     for(const e of game.enemies){
       if(e.dead)continue; e.wobble+=dt*2.3;e.angle=Math.sin(e.wobble)*.09;e.x+=(e.vx+Math.sin(e.wobble)*14)*dt;e.y+=e.vy*dt;
       if(e.x<55){e.x=55;e.vx=Math.abs(e.vx);}if(e.x>game.w-55){e.x=game.w-55;e.vx=-Math.abs(e.vx);}e.hitFlash=Math.max(0,e.hitFlash-dt);
-      if(e.y>missLine)miss(e);
+    }
+
+    // Từ sinh sau có thể nhanh hơn từ phía dưới và đuổi kịp.
+    // Ép khoảng cách dọc tối thiểu trong SUỐT lúc rơi để chúng không dính sát nhau.
+    const falling=game.enemies.filter(e=>!e.dead).sort((a,b)=>b.y-a.y); // dưới -> trên
+    for(let i=1;i<falling.length;i++){
+      const below=falling[i-1], above=falling[i];
+      const highestAllowedY=below.y-MIN_ENEMY_VERTICAL_GAP;
+      if(above.y>highestAllowedY) above.y=highestAllowedY;
+    }
+
+    for(const e of game.enemies){
+      if(!e.dead && e.y>missLine) miss(e);
     }
     game.enemies=game.enemies.filter(e=>!e.dead||Math.random()>.97);
     for(const b of game.bullets)b.life-=dt;game.bullets=game.bullets.filter(b=>b.life>0);
