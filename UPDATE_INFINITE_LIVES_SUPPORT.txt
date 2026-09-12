@@ -1,0 +1,26 @@
+BẢN CHỐT MỚI
+
+1. SỐNG VÔ HẠN TRONG TÙY CHỈNH
+- Chọn Độ khó -> Tùy chỉnh.
+- Tick "Sống vô hạn — học từ, không Game Over".
+- HUD mạng hiện ∞.
+- Từ bị lọt không làm mất mạng.
+- Vẫn hiện rõ English = Tiếng Việt.
+- Từ bị lọt được đưa lại vào danh sách để xuất hiện sau khoảng 3-5 lượt.
+
+2. NÚT "QUYỀN CHƠI" ĐỔI THÀNH "ỦNG HỘ TUI Ở ĐÂY NHEN"
+- Bấm vào sẽ hiện QR ủng hộ + ngân hàng + STK + chủ tài khoản + mức ủng hộ gợi ý.
+- QR tự lấy thông tin đã nhập trong Admin.
+- Nội dung QR: UNGHO VOCAB.
+
+3. CHẾ ĐỘ THU PHÍ VẪN GIỮ NGUYÊN
+- Mặc định freePlay = true: người dùng chơi miễn phí.
+- Khi Admin bỏ tick "Cho phép chơi miễn phí" rồi Lưu, luồng thanh toán quyền chơi cũ vẫn hoạt động.
+
+4. ZIP KHÔNG CHỨA .git
+- Chép đè vào project hiện tại rồi git add/commit/push, không làm hỏng lịch sử Git.
+
+LỆNH CẬP NHẬT:
+git add .
+git commit -m "Add infinite learning mode and support QR"
+git push origin main

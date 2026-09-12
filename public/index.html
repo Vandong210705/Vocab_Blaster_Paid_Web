@@ -26,7 +26,7 @@
         <button id="btnSound" class="icon-btn" title="Âm thanh">🔊</button>
         <button id="btnPause" class="icon-btn" title="Tạm dừng">⏸️</button>
         <button id="btnWords" class="primary small">📚 Bộ từ</button>
-        <button id="btnAccess" class="ghost small">💳 Quyền chơi</button>
+        <button id="btnAccess" class="ghost small">💖 Ủng hộ tui ở đây nhen</button>
       </div>
     </header>
 
@@ -56,6 +56,32 @@
             <span>🔥 Combo max: <b id="finalCombo">0</b></span>
           </div>
           <button id="btnRestart" class="primary">🔁 Chơi lại</button>
+        </div>
+      </div>
+
+      <div id="supportGate" class="overlay hidden">
+        <div class="modal pay-modal">
+          <div class="big-emoji">💖</div>
+          <h2>Ủng hộ tui ở đây nhen</h2>
+          <p class="pay-lead">Game hiện đang <b>miễn phí</b>. Nếu thấy hữu ích, bạn có thể ủng hộ tui một chút nha ❤️</p>
+
+          <div class="qr-wrap">
+            <img id="supportQr" class="pay-qr hidden" alt="VietQR ủng hộ" />
+            <div id="supportQrEmpty" class="qr-empty">Admin chưa nhập đủ ngân hàng / số tài khoản để tạo QR.</div>
+          </div>
+
+          <div class="payment-card">
+            <div><span>Ngân hàng</span><b id="supportBank">-</b></div>
+            <div><span>Số tài khoản</span><b id="supportAccount">-</b></div>
+            <div><span>Chủ tài khoản</span><b id="supportAccountName">-</b></div>
+            <div><span>Mức ủng hộ gợi ý</span><b id="supportAmount">-</b></div>
+            <div><span>Nội dung</span><b>UNGHO VOCAB</b></div>
+          </div>
+
+          <p class="tiny">Đây chỉ là ủng hộ tự nguyện. Không ủng hộ vẫn chơi miễn phí khi Admin đang bật chế độ miễn phí.</p>
+          <div class="modal-actions">
+            <button id="btnCloseSupport" class="ghost">Đóng</button>
+          </div>
         </div>
       </div>
 
@@ -169,13 +195,21 @@
         </select>
       </label>
 
-      <label id="customSpeedWrap" class="speed-setting hidden">Tốc độ rơi tùy chỉnh
-        <div class="speed-row">
-          <input id="customSpeed" type="range" min="8" max="100" step="1" value="28" />
-          <b id="speedValue">28</b>
-        </div>
-        <small>Thấp = rơi chậm để học, cao = thử thách hơn.</small>
-      </label>
+      <div id="customSpeedWrap" class="speed-setting hidden">
+        <label>Tốc độ rơi tùy chỉnh
+          <div class="speed-row">
+            <input id="customSpeed" type="range" min="8" max="100" step="1" value="28" />
+            <b id="speedValue">28</b>
+          </div>
+          <small>Thấp = rơi chậm để học, cao = thử thách hơn.</small>
+        </label>
+
+        <label class="check infinite-lives-option">
+          <input id="infiniteLives" type="checkbox" />
+          ❤️ Sống vô hạn — học từ, không Game Over
+        </label>
+        <small>Khi từ rơi lọt: không mất mạng, vẫn hiện Anh = Việt và từ đó sẽ quay lại sau vài lượt để học lại.</small>
+      </div>
 
       <label class="check"><input id="speakEnglish" type="checkbox" checked /> Đọc từ tiếng Anh khi hạ</label>
     </div>

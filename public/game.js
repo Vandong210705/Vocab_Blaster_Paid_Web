@@ -19,7 +19,7 @@
     imeSink: $("imeSink"), toast: $("toast"), panel: $("wordPanel"), wordInput: $("wordInput"),
     wordCount: $("wordCount"), separatorInput: $("separatorInput"), studyDirection: $("studyDirection"),
     formatPattern: $("formatPattern"), formatExamples: $("formatExamples"), maxEnemies: $("maxEnemies"),
-    difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"),
+    difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"), infiniteLives: $("infiniteLives"),
     speedValue: $("speedValue"), speak: $("speakEnglish"), gameOver: $("gameOver"),
     pauseScreen: $("pauseScreen"), finalScore: $("finalScore"), finalKills: $("finalKills"),
     finalAccuracy: $("finalAccuracy"), finalCombo: $("finalCombo"), payQr: $("payQr"), payQrEmpty: $("payQrEmpty")
@@ -116,6 +116,29 @@
   }
 
   function closePaymentGate(){ $("paymentGate").classList.add("hidden"); }
+  async function showSupportGate(){
+    await loadAccessConfig();
+    const c=access.config||{};
+    $("supportGate").classList.remove("hidden");
+    $("supportBank").textContent=c.bankName||"Chưa cấu hình";
+    $("supportAccount").textContent=c.bankAccount||"Chưa cấu hình";
+    $("supportAccountName").textContent=c.bankAccountName||"Chưa cấu hình";
+    $("supportAmount").textContent=moneyVND(c.priceVnd||0);
+    if(c.supportQrUrl){
+      $("supportQr").src=c.supportQrUrl;
+      $("supportQr").classList.remove("hidden");
+      $("supportQrEmpty").classList.add("hidden");
+    }else{
+      $("supportQr").removeAttribute("src");
+      $("supportQr").classList.add("hidden");
+      $("supportQrEmpty").classList.remove("hidden");
+    }
+  }
+
+  function closeSupportGate(){
+    $("supportGate").classList.add("hidden");
+  }
+
 
   function applyPaymentInfo(p){
     if(!p) return;
@@ -247,6 +270,7 @@
     localStorage.setItem("vocabBlasterMaxEnemies",ui.maxEnemies.value);
     localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);
     localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);
+    localStorage.setItem("vocabBlasterInfiniteLives",String(ui.infiniteLives.checked));
     localStorage.setItem("vocabBlasterSpeak",String(ui.speak.checked));
     toast("💾 Đã lưu bộ từ và cài đặt");
   }
@@ -259,6 +283,7 @@
     ui.difficulty.value=localStorage.getItem("vocabBlasterDifficulty")||"normal";
     ui.customSpeed.value=localStorage.getItem("vocabBlasterCustomSpeed")||"28";
     ui.speedValue.textContent=ui.customSpeed.value;
+    ui.infiniteLives.checked=localStorage.getItem("vocabBlasterInfiniteLives")==="true";
     ui.speak.checked=localStorage.getItem("vocabBlasterSpeak")!=="false";
     updateCustomSpeedVisibility();
     updateFormatPreview();
@@ -276,7 +301,7 @@
   }
 
   function currentCfg(){
-    if(ui.difficulty.value==="custom") return {speed:+ui.customSpeed.value,spawn:1450,lives:3,uniform:true};
+    if(ui.difficulty.value==="custom") return {speed:+ui.customSpeed.value,spawn:1450,lives:3,uniform:true,infiniteLives:!!ui.infiniteLives.checked};
     return {...DIFF[ui.difficulty.value],uniform:false};
   }
 
@@ -328,7 +353,7 @@
     if(vocab.length<1){ toast("⚠️ Cần ít nhất 1 cặp từ hợp lệ"); return; }
     saveWords();
     const cfg=currentCfg();
-    Object.assign(game,{vocabulary:vocab,usedBag:[],enemies:[],bullets:[],particles:[],floaters:[],score:0,combo:0,maxCombo:0,level:1,kills:0,correctKeys:0,wrongKeys:0,typed:"",spawnTimer:0,nextEnemyId:1,lives:cfg.lives,running:true,paused:false});
+    Object.assign(game,{vocabulary:vocab,usedBag:[],enemies:[],bullets:[],particles:[],floaters:[],score:0,combo:0,maxCombo:0,level:1,kills:0,correctKeys:0,wrongKeys:0,typed:"",spawnTimer:0,nextEnemyId:1,infiniteLives:!!cfg.infiniteLives,lives:cfg.infiniteLives?Infinity:cfg.lives,running:true,paused:false});
     ui.gameOver.classList.add("hidden"); ui.pauseScreen.classList.add("hidden"); ui.panel.classList.remove("open");
     clearTyped(); hud(); typingUI();
     const initial=Math.min(Math.max(1,+ui.maxEnemies.value||1),3);
@@ -337,7 +362,7 @@
   }
 
   function hud(){
-    ui.score.textContent=game.score.toLocaleString(); ui.combo.textContent=game.combo; ui.level.textContent=game.level; ui.lives.textContent=game.lives;
+    ui.score.textContent=game.score.toLocaleString(); ui.combo.textContent=game.combo; ui.level.textContent=game.level; ui.lives.textContent=game.infiniteLives?"∞":game.lives;
   }
 
   function typingUI(){
@@ -414,15 +439,32 @@
     game.particles.push({x,y,vx:0,vy:-20,life:.7,size:30,hue:0,emoji:"💥"});
   }
 
+  function queueMissedWordForRetry(e){
+    if(!game.infiniteLives) return;
+    const retry={en:e.en,vi:e.vi};
+    // randomWord() lấy từ cuối mảng, nên chèn gần cuối để từ quay lại sau khoảng 3-5 lượt.
+    const gap=3+Math.floor(Math.random()*3);
+    const pos=Math.max(0,game.usedBag.length-gap);
+    game.usedBag.splice(pos,0,retry);
+  }
+
   function miss(e){
-    e.dead=true; game.lives--; game.combo=0;
+    e.dead=true;
+    game.combo=0;
+    if(game.infiniteLives){
+      queueMissedWordForRetry(e);
+    }else{
+      game.lives--;
+    }
     game.floaters.push({
       x:game.w/2,y:Math.max(120,game.h-215),
       text:`😵 ${e.en} = ${e.vi}`,
-      sub:"Lọt mất rồi — ghi nhớ từ này!",
+      sub:game.infiniteLives?"Học lại từ này — nó sẽ quay lại sau vài lượt!":"Lọt mất rồi — ghi nhớ từ này!",
       life:4.5,maxLife:4.5,learning:true
     });
-    sfx("miss"); hud(); if(game.lives<=0) end();
+    sfx("miss");
+    hud();
+    if(!game.infiniteLives && game.lives<=0) end();
   }
 
   function end(){
@@ -591,7 +633,8 @@
   $("btnResume").onclick=()=>pause(false);
   $("btnRestart").onclick=async()=>{access.startAfterPayment=true;if(await requireAccess()){access.startAfterPayment=false;start();}};
   $("btnSound").onclick=()=>{game.sound=!game.sound;$("btnSound").textContent=game.sound?"🔊":"🔇";};
-  $("btnAccess").onclick=()=>{access.startAfterPayment=false;showPaymentGate();};
+  $("btnAccess").onclick=()=>{access.startAfterPayment=false;showSupportGate();};
+  $("btnCloseSupport").onclick=closeSupportGate;
   $("btnCreatePayment").onclick=createPayment;
   $("btnClosePayment").onclick=closePaymentGate;
 
@@ -612,6 +655,7 @@
   ui.difficulty.addEventListener("change",()=>{updateCustomSpeedVisibility();localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);});
   ui.customSpeed.addEventListener("input",()=>{ui.speedValue.textContent=ui.customSpeed.value;localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);});
   ui.maxEnemies.addEventListener("change",()=>localStorage.setItem("vocabBlasterMaxEnemies",ui.maxEnemies.value));
+  ui.infiniteLives.addEventListener("change",()=>localStorage.setItem("vocabBlasterInfiniteLives",String(ui.infiniteLives.checked)));
 
   $("fileInput").addEventListener("change",async ev=>{
     const f=ev.target.files?.[0];if(!f)return;
