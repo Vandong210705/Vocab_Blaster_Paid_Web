@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vocab Blaster - Bắn từ vựng</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><div class="logo">💥</div><div><h1>VOCAB BLASTER</h1><div class="subtitle">Gõ tiếng Anh • Bắn quái • Nhớ nghĩa tiếng Việt</div></div></div>
+      <div class="hud"><div class="pill">⭐ <span id="score">0</span></div><div class="pill">🔥 <span id="combo">0</span></div><div class="pill">🏆 Lv.<span id="level">1</span></div><div class="pill">❤️ <span id="lives">3</span></div></div>
+      <div class="top-actions"><button id="btnSound" class="icon-btn" title="Âm thanh">🔊</button><button id="btnPause" class="icon-btn" title="Tạm dừng">⏸️</button><button id="btnWords" class="primary small">📚 Bộ từ</button>
+        <button id="btnAccess" class="ghost small">💳 Quyền chơi</button></div>
+    </header>
+    <main class="game-shell">
+      <canvas id="gameCanvas"></canvas>
+      <div id="typingBar" class="typing-bar"><div class="crosshair">⌖</div><div class="typing-copy"><div class="mini">MỤC TIÊU ĐANG KHÓA</div><div id="typingWord" class="typing-word">Gõ chữ cái đầu tiên...</div></div><div id="typingMeaning" class="typing-meaning">Hạ mục tiêu để hiện nghĩa 🇻🇳</div></div>
+      <div id="toast" class="toast"></div>
+      <div id="gameOver" class="overlay hidden"><div class="modal compact"><div class="big-emoji">💀</div><h2>Hết mạng rồi!</h2><p>Điểm của bạn: <b id="finalScore">0</b></p><div class="stats-row"><span>🎯 Hạ: <b id="finalKills">0</b></span><span>⌨️ Đúng: <b id="finalAccuracy">0%</b></span><span>🔥 Combo max: <b id="finalCombo">0</b></span></div><button id="btnRestart" class="primary">🔁 Chơi lại</button></div></div>
+
+      <div id="paymentGate" class="overlay hidden">
+        <div class="modal pay-modal">
+          <div class="big-emoji">🎟️</div>
+          <h2>Mở quyền chơi</h2>
+          <p class="pay-lead">Phí hiện tại: <b id="payPrice">1.000₫</b> / lượt truy cập</p>
+
+          <div id="payCreateBox">
+            <p class="muted">Bấm bên dưới để tạo mã thanh toán riêng. Sau khi chủ web xác nhận hoặc cổng thanh toán gửi webhook, game sẽ tự mở.</p>
+            <button id="btnCreatePayment" class="primary">💳 Tạo mã thanh toán</button>
+          </div>
+
+          <div id="payInfoBox" class="hidden">
+            <div class="payment-card">
+              <div><span>Ngân hàng</span><b id="payBank">-</b></div>
+              <div><span>Số tài khoản</span><b id="payAccount">-</b></div>
+              <div><span>Chủ tài khoản</span><b id="payAccountName">-</b></div>
+              <div><span>Số tiền</span><b id="payAmount">-</b></div>
+              <div><span>Nội dung CK</span><b id="payNote">-</b></div>
+            </div>
+            <div class="waiting"><span class="spinner"></span> Đang chờ xác nhận thanh toán...</div>
+            <p class="tiny">Không đóng trang này. Khi giao dịch được xác nhận, game tự mở.</p>
+          </div>
+
+          <div class="modal-actions">
+            <button id="btnClosePayment" class="ghost">Đóng</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="pauseScreen" class="overlay hidden"><div class="modal compact"><div class="big-emoji">⏸️</div><h2>Đang tạm dừng</h2><p>Nhấn <b>Esc</b> hoặc nút tiếp tục.</p><button id="btnResume" class="primary">▶️ Tiếp tục</button></div></div>
+    </main>
+    <footer class="helpbar"><span><kbd>Gõ chữ</kbd> khóa mục tiêu</span><span><kbd>Backspace</kbd> sửa chữ</span><span><kbd>Esc</kbd> tạm dừng</span><span>💡 Hạ xong hiện nghĩa tiếng Việt</span></footer>
+  </div>
+
+  <div id="wordPanel" class="side-panel open">
+    <div class="panel-head"><div><h2>📚 Bộ từ của bạn</h2><p>Dán danh sách hoặc chọn tệp TXT/CSV/JSON.</p></div><button id="btnCloseWords" class="icon-btn">✕</button></div>
+    <div class="format-box">
+      <b>Định dạng từ vựng:</b>
+      <div class="separator-config">
+        <label for="separatorInput">Ký tự / từ ngăn cách do bạn chọn</label>
+        <input id="separatorInput" type="text" value="|" spellcheck="false" placeholder="Ví dụ: |  =>  ###  NGHIA  <->" />
+        <div class="separator-hint">Có thể nhập bất kỳ chuỗi nào, ví dụ <b>|</b>, <b>:</b>, <b>=&gt;</b>, <b>###</b>, <b>NGHIA</b>, <b>&lt;-&gt;</b>. Gõ <b>\t</b> nếu tệp dùng TAB.</div>
+      </div>
+      <code id="formatPattern">english|nghĩa tiếng Việt</code>
+      <div id="formatExamples" class="example">abandon|từ bỏ<br>ability|khả năng<br>take off|cất cánh</div>
+    </div>
+    <textarea id="wordInput" spellcheck="false"></textarea>
+    <div class="file-row"><label class="file-label">📂 Chọn tệp từ vựng<input id="fileInput" type="file" accept=".txt,.csv,.json,text/plain,text/csv,application/json" /></label><button id="btnSample" class="ghost">🎲 Mẫu vui</button></div>
+    <div class="panel-options"><label>Số quái cùng lúc<select id="maxEnemies"><option value="4">4</option><option value="6" selected>6</option><option value="8">8</option><option value="10">10</option></select></label><label>Độ khó<select id="difficulty"><option value="easy">Dễ</option><option value="normal" selected>Vừa</option><option value="hard">Khó</option></select></label><label class="check"><input id="speakEnglish" type="checkbox" checked /> Đọc từ tiếng Anh khi hạ</label></div>
+    <div id="wordCount" class="word-count">0 từ hợp lệ</div>
+    <div class="panel-actions"><button id="btnSaveWords" class="ghost">💾 Lưu bộ từ</button><button id="btnStart" class="primary">🚀 BẮT ĐẦU BẮN</button></div>
+    <div class="note">Không cần server, không cần cài thư viện. Mở <b>index.html</b> bằng Chrome/Edge là chơi.</div>
+  </div>
+<script src="game.js"></script>
+</body></html>

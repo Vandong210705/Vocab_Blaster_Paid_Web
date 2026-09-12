@@ -1,0 +1,62 @@
+abandon|từ bỏ
+ability|khả năng
+abroad|ở nước ngoài
+absolute|tuyệt đối
+academic|thuộc học thuật
+accept|chấp nhận
+accident|tai nạn
+achieve|đạt được
+active|năng động
+adventure|cuộc phiêu lưu
+advice|lời khuyên
+afford|có đủ khả năng chi trả
+agree|đồng ý
+allow|cho phép
+amazing|đáng kinh ngạc
+ancient|cổ xưa
+announce|thông báo
+anxious|lo lắng
+apologize|xin lỗi
+appear|xuất hiện
+apply|áp dụng, nộp đơn
+arrive|đến nơi
+attention|sự chú ý
+avoid|tránh
+behavior|hành vi
+believe|tin tưởng
+brave|dũng cảm
+breathe|hít thở
+careful|cẩn thận
+challenge|thử thách
+choose|lựa chọn
+comfortable|thoải mái
+compare|so sánh
+complete|hoàn thành
+confident|tự tin
+congratulations|chúc mừng
+continue|tiếp tục
+dangerous|nguy hiểm
+decide|quyết định
+develop|phát triển
+different|khác nhau
+discover|khám phá
+education|giáo dục
+encourage|khuyến khích
+environment|môi trường
+example|ví dụ
+exercise|bài tập, tập thể dục
+experience|kinh nghiệm
+explain|giải thích
+famous|nổi tiếng
+future|tương lai
+improve|cải thiện
+important|quan trọng
+knowledge|kiến thức
+opportunity|cơ hội
+practice|luyện tập
+remember|ghi nhớ
+success|thành công
+support|hỗ trợ
+take off|cất cánh
+understand|hiểu
+victory|chiến thắng

@@ -1,0 +1,28 @@
+VOCAB BLASTER - PUBLIC WEB
+
+Game, giao dien, admin, gia 1.000d va logic thanh toan duoc giu nguyen.
+Ban nay chi bo sung cau hinh de hosting cap mot link Internet public.
+
+DEPLOY LEN RENDER
+1. Tao mot GitHub repository moi.
+2. Upload NGUYEN thu muc Vocab_Blaster_Paid_Web len repository.
+3. Vao https://render.com -> New -> Blueprint.
+4. Ket noi repository vua tao.
+5. Render se doc render.yaml.
+6. Nhap ADMIN_KEY khi Render hoi. TOKEN_SECRET va WEBHOOK_SECRET duoc tao tu dong.
+7. Bam Deploy.
+8. Khi hoan tat, Render cap link dang:
+   https://vocab-blaster-paid-web.onrender.com
+
+Gui link do cho bat ky ai. Dien thoai/laptop/may khac deu truy cap duoc.
+
+Luu y:
+- http://localhost:3000 van chi la link tren may ban.
+- Link *.onrender.com moi la link public.
+- Paywall 1.000d van giu nguyen.
+
+
+CẬP NHẬT BỘ TỪ:
+- Người dùng tự nhập ký tự/từ ngăn cách trên giao diện.
+- Ví dụ: |, =>, ###, NGHIA, <-> hoặc \t cho TAB.
+- Không cần sửa code khi định dạng file từ vựng thay đổi.
