@@ -1,0 +1,6 @@
+Bổ sung lựa chọn giọng đọc tiếng Anh:
+- Nữ (mặc định, tương đương kiểu hiện tại)
+- Nam (ưu tiên voice nam có sẵn; hạ pitch nếu cần)
+- Trẻ em dễ thương (voice tiếng Anh + pitch cao)
+Cài đặt được lưu trên trình duyệt bằng localStorage.
+Lưu ý: danh sách voice thật phụ thuộc Chrome/Windows của máy người chơi.

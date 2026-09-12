@@ -20,7 +20,7 @@
     wordCount: $("wordCount"), separatorInput: $("separatorInput"), studyDirection: $("studyDirection"),
     formatPattern: $("formatPattern"), formatExamples: $("formatExamples"), maxEnemies: $("maxEnemies"),
     difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"), infiniteLives: $("infiniteLives"),
-    speedValue: $("speedValue"), speak: $("speakEnglish"), gameOver: $("gameOver"),
+    speedValue: $("speedValue"), speak: $("speakEnglish"), voicePreset: $("voicePreset"), gameOver: $("gameOver"),
     pauseScreen: $("pauseScreen"), finalScore: $("finalScore"), finalKills: $("finalKills"),
     finalAccuracy: $("finalAccuracy"), finalCombo: $("finalCombo"), payQr: $("payQr"), payQrEmpty: $("payQrEmpty")
   };
@@ -276,6 +276,7 @@
     localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);
     localStorage.setItem("vocabBlasterInfiniteLives",String(ui.infiniteLives.checked));
     localStorage.setItem("vocabBlasterSpeak",String(ui.speak.checked));
+    localStorage.setItem("vocabBlasterVoicePreset",ui.voicePreset.value);
     toast("💾 Đã lưu bộ từ và cài đặt");
   }
 
@@ -289,6 +290,7 @@
     ui.speedValue.textContent=ui.customSpeed.value;
     ui.infiniteLives.checked=localStorage.getItem("vocabBlasterInfiniteLives")==="true";
     ui.speak.checked=localStorage.getItem("vocabBlasterSpeak")!=="false";
+    ui.voicePreset.value=localStorage.getItem("vocabBlasterVoicePreset")||"female";
     updateCustomSpeedVisibility();
     updateFormatPreview();
     countWords();
@@ -438,6 +440,77 @@
     game.bullets.push({x:p.x+34,y:p.y-18,tx:e.x,ty:e.y,life:.16,maxLife:.16}); sfx("shot");
   }
 
+
+  function englishVoices(){
+    if(!("speechSynthesis" in window)) return [];
+    return speechSynthesis.getVoices().filter(v=>{
+      const lang=String(v.lang||"").toLowerCase();
+      return lang.startsWith("en");
+    });
+  }
+
+  function pickVoice(preset){
+    const voices=englishVoices();
+    if(!voices.length) return null;
+
+    const femaleNames=[
+      "zira","samantha","jenny","aria","ava","victoria","karen","moira",
+      "tessa","susan","hazel","female","google us english"
+    ];
+    const maleNames=[
+      "david","mark","guy","george","daniel","alex","fred","tom",
+      "ryan","brian","male"
+    ];
+
+    const findByNames=names=>voices.find(v=>{
+      const n=String(v.name||"").toLowerCase();
+      return names.some(k=>n.includes(k));
+    });
+
+    if(preset==="male"){
+      return findByNames(maleNames)
+        || voices.find(v=>String(v.lang||"").toLowerCase()==="en-us")
+        || voices[0];
+    }
+
+    // Trình duyệt thường không có voice "trẻ em" thật.
+    // Chọn một voice Anh rõ rồi tăng pitch ở speakEnglishWord() để tạo giọng dễ thương.
+    if(preset==="child"){
+      return findByNames(femaleNames)
+        || voices.find(v=>String(v.lang||"").toLowerCase()==="en-us")
+        || voices[0];
+    }
+
+    return findByNames(femaleNames)
+      || voices.find(v=>String(v.lang||"").toLowerCase()==="en-us")
+      || voices[0];
+  }
+
+  function speakEnglishWord(text){
+    if(!ui.speak.checked || !("speechSynthesis" in window)) return;
+    try{
+      speechSynthesis.cancel();
+      const preset=ui.voicePreset?.value || "female";
+      const u=new SpeechSynthesisUtterance(text);
+      u.lang="en-US";
+      u.voice=pickVoice(preset);
+
+      if(preset==="male"){
+        u.rate=.88;
+        u.pitch=.78;
+      }else if(preset==="child"){
+        u.rate=.96;
+        u.pitch=1.48;
+      }else{
+        u.rate=.90;
+        u.pitch=1.05;
+      }
+
+      u.volume=1;
+      speechSynthesis.speak(u);
+    }catch(_){ }
+  }
+
   function kill(e){
     e.dead=true; game.kills++; game.combo++; game.maxCombo=Math.max(game.maxCombo,game.combo); game.level=1+Math.floor(game.kills/10);
     const gain=100+e.target.length*12+Math.min(20,game.combo)*8; game.score+=gain; explode(e.x,e.y);
@@ -447,9 +520,7 @@
       sub:`+${gain} • Ghi nhớ`,
       life:4.5,maxLife:4.5,learning:true
     });
-    if(ui.speak.checked && "speechSynthesis" in window){
-      try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(e.en); u.lang="en-US"; u.rate=.9; speechSynthesis.speak(u); }catch(_){ }
-    }
+    speakEnglishWord(e.en);
     sfx("boom"); hud();
   }
 
@@ -692,6 +763,8 @@
   ui.customSpeed.addEventListener("input",()=>{ui.speedValue.textContent=ui.customSpeed.value;localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);});
   ui.maxEnemies.addEventListener("change",()=>localStorage.setItem("vocabBlasterMaxEnemies",ui.maxEnemies.value));
   ui.infiniteLives.addEventListener("change",()=>localStorage.setItem("vocabBlasterInfiniteLives",String(ui.infiniteLives.checked)));
+  ui.speak.addEventListener("change",()=>localStorage.setItem("vocabBlasterSpeak",String(ui.speak.checked)));
+  ui.voicePreset.addEventListener("change",()=>localStorage.setItem("vocabBlasterVoicePreset",ui.voicePreset.value));
 
   $("fileInput").addEventListener("change",async ev=>{
     const f=ev.target.files?.[0];if(!f)return;

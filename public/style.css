@@ -60,3 +60,18 @@
   z-index:2;
 }
 .support-close:hover{background:rgba(255,255,255,.18)}
+
+
+/* ===== Voice presets: female / male / child ===== */
+.panel-options .voice-setting{
+  grid-column:1/-1;
+}
+.panel-options .voice-setting select{
+  width:100%;
+  margin-top:5px;
+  background:#0d1128;
+  color:white;
+  border:1px solid #3a4474;
+  border-radius:8px;
+  padding:7px;
+}
