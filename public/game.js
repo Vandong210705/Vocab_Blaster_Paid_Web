@@ -506,7 +506,7 @@
         u.pitch = .78;
       } else if (preset === "child") {
         // Bé trai dễ thương: sáng, lanh, hơi nhanh; không bị the thé.
-        u.rate = 1.03;
+        u.rate = 2.0;
         u.pitch = 1.24;
       } else {
         u.rate = .90;
