@@ -1,0 +1,7 @@
+BẢN CẬP NHẬT GỘP MỚI NHẤT
+- Giữ trang Admin đầy đủ tại /admin.html
+- Giữ bản sửa khoảng cách từ/enemy khi rơi
+- Gộp bộ từ đầy đủ 1.634 mục, nghĩa Việt ngắn gọn
+- Dấu phân cách mặc định đổi thành ':'
+- Parser tự nhận ':' trước các dấu phân cách cũ
+- Không chứa thư mục .git

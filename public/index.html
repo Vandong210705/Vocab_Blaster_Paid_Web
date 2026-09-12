@@ -60,7 +60,8 @@
       </div>
 
       <div id="supportGate" class="overlay hidden">
-        <div class="modal pay-modal">
+        <div class="modal pay-modal support-modal">
+          <button id="btnCloseSupport" class="support-close" type="button" aria-label="Đóng">×</button>
           <div class="big-emoji">💖</div>
           <h2>Ủng hộ tui ở đây nhen</h2>
           <p class="pay-lead">Game hiện đang <b>miễn phí</b>. Nếu thấy hữu ích, bạn có thể ủng hộ tui một chút nha ❤️</p>
@@ -79,9 +80,6 @@
           </div>
 
           <p class="tiny">Đây chỉ là ủng hộ tự nguyện. Không ủng hộ vẫn chơi miễn phí khi Admin đang bật chế độ miễn phí.</p>
-          <div class="modal-actions">
-            <button id="btnCloseSupport" class="ghost">Đóng</button>
-          </div>
         </div>
       </div>
 
@@ -163,11 +161,11 @@
 
       <div class="separator-config">
         <label for="separatorInput">Ký tự / từ ngăn cách do bạn chọn</label>
-        <input id="separatorInput" type="text" value="|" spellcheck="false" placeholder="Ví dụ: |  =>  ###  NGHIA  <->" />
+        <input id="separatorInput" type="text" value=":" spellcheck="false" placeholder="Ví dụ: :  |  =>  ###  <->" />
         <div class="separator-hint">Có thể nhập bất kỳ chuỗi nào. Gõ <b>\t</b> nếu tệp dùng TAB.</div>
       </div>
 
-      <code id="formatPattern">english|nghĩa tiếng Việt</code>
+      <code id="formatPattern">english : nghĩa tiếng Việt</code>
       <div id="formatExamples" class="example">abandon|từ bỏ<br>ability|khả năng<br>take off|cất cánh</div>
     </div>
 

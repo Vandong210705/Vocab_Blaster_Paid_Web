@@ -37,3 +37,26 @@
 .qr-empty{width:min(360px,80vw);padding:24px 16px;border:1px dashed #59668f;border-radius:14px;color:#aab5d7;background:#0b0f25}
 .payment-app-note{font-size:12px;color:#9fb0dd;margin:8px 0 4px;line-height:1.45}
 @media(max-width:850px){.typing-bar{bottom:2px}.qr-wrap{min-height:180px}.pay-qr{width:min(220px,70vw)}}
+
+
+/* Nút đóng popup ủng hộ: chỉ hiện dấu × ở góc phải trên */
+.support-modal{position:relative}
+.support-close{
+  position:absolute;
+  top:12px;
+  right:14px;
+  width:34px;
+  height:34px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  font-size:27px;
+  font-weight:400;
+  line-height:32px;
+  text-align:center;
+  cursor:pointer;
+  z-index:2;
+}
+.support-close:hover{background:rgba(255,255,255,.18)}

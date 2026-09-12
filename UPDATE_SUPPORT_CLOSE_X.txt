@@ -1,0 +1,2 @@
+Đã đổi popup ủng hộ: bỏ nút 'Đóng' phía dưới và thêm duy nhất nút × ở góc phải trên.
+Không thay đổi các chức năng game/admin khác.
