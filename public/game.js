@@ -481,7 +481,7 @@
     game.floaters.push({
       x: game.w / 2, y: Math.max(120, game.h - 215),
       text: `🥳 ${e.en} = ${e.vi}`,
-      sub: game.infiniteLives ? "Học lại từ này — nó sẽ quay lại sau vài lượt!" : "Lọt mất rồi — ghi nhớ từ này!",
+      sub: game.infiniteLives ? "gàn nhớ rồi còn một tí nữa thôi!" : "sắp nhớ rồi cố lên nhé!",
       life: 4.5, maxLife: 4.5, learning: true
     });
     sfx("miss");
