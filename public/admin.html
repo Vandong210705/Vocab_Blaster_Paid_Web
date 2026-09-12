@@ -142,6 +142,36 @@ const req=async(url,opt={})=>{
 };
 const key=()=>$('key').value.trim();
 
+const ADMIN_CFG_CACHE='vocabBlasterAdminConfigV1';
+
+function formConfig(){
+  return {
+    priceVnd:Number($('priceVnd').value||0),
+    bankName:$('bankName').value.trim(),
+    bankAccount:$('bankAccount').value.trim(),
+    bankAccountName:$('bankAccountName').value.trim(),
+    accessMode:$('accessMode').value,
+    playMinutes:Number($('playMinutes').value||60),
+    freePlay:$('freePlay').checked
+  };
+}
+function saveLocalConfig(c){
+  try{ localStorage.setItem(ADMIN_CFG_CACHE,JSON.stringify(c)); }catch(_){}
+}
+function loadLocalConfig(){
+  try{ return JSON.parse(localStorage.getItem(ADMIN_CFG_CACHE)||'{}')||{}; }catch(_){ return {}; }
+}
+function applyConfig(c={}){
+  $('priceVnd').value=c.priceVnd??1000;
+  $('bankName').value=c.bankName??'';
+  $('bankAccount').value=c.bankAccount??'';
+  $('bankAccountName').value=c.bankAccountName??'';
+  $('accessMode').value=c.accessMode==='minutes'?'minutes':'permanent';
+  $('playMinutes').value=c.playMinutes??60;
+  $('freePlay').checked=c.freePlay!==false;
+  syncDuration();
+}
+
 function durationText(mode,minutes){
   return mode==='permanent'?'Vĩnh viễn':`${Number(minutes||0)} phút`;
 }
@@ -153,14 +183,15 @@ $('accessMode').addEventListener('change',syncDuration);
 async function loadAll(){
   try{
     const cfg=await req('/api/admin/config?key='+encodeURIComponent(key()));
-    $('priceVnd').value=cfg.priceVnd??1000;
-    $('bankName').value=cfg.bankName??'';
-    $('bankAccount').value=cfg.bankAccount??'';
-    $('bankAccountName').value=cfg.bankAccountName??'';
-    $('accessMode').value=cfg.accessMode==='minutes'?'minutes':'permanent';
-    $('playMinutes').value=cfg.playMinutes??60;
-    $('freePlay').checked=!!cfg.freePlay;
-    syncDuration();
+    const cached=loadLocalConfig();
+    const merged={
+      ...cfg,
+      bankName:cfg.bankName||cached.bankName||'',
+      bankAccount:cfg.bankAccount||cached.bankAccount||'',
+      bankAccountName:cfg.bankAccountName||cached.bankAccountName||''
+    };
+    applyConfig(merged);
+    saveLocalConfig(merged);
     await loadPayments();
     await previewQr(false);
   }catch(e){alert(e.message)}
@@ -187,18 +218,10 @@ async function approve(id){
 }
 
 async function saveConfig(){
-  const body={
-    key:key(),
-    priceVnd:Number($('priceVnd').value),
-    bankName:$('bankName').value.trim(),
-    bankAccount:$('bankAccount').value.trim(),
-    bankAccountName:$('bankAccountName').value.trim(),
-    accessMode:$('accessMode').value,
-    playMinutes:Number($('playMinutes').value||60),
-    freePlay:$('freePlay').checked
-  };
+  const body={key:key(),...formConfig()};
   try{
     await req('/api/admin/config',{method:'POST',body:JSON.stringify(body)});
+    saveLocalConfig(formConfig());
     alert('Đã lưu cấu hình.');
     await previewQr(false);
   }catch(e){alert(e.message)}
@@ -236,7 +259,9 @@ $('load').onclick=loadAll;
 $('refresh').onclick=loadPayments;
 $('save').onclick=saveConfig;
 $('previewQr').onclick=()=>previewQr(true);
-syncDuration();
+const cachedAtOpen=loadLocalConfig();
+if(Object.keys(cachedAtOpen).length) applyConfig(cachedAtOpen);
+else syncDuration();
 </script>
 </body>
 </html>

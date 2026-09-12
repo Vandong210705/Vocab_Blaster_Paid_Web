@@ -1,0 +1,7 @@
+BẢN CẬP NHẬT:
+- Từ/quái không còn rơi cùng lúc.
+- Lúc bắt đầu chỉ có 1 từ rơi.
+- Từ tiếp theo xuất hiện ngẫu nhiên nhưng luôn có khoảng cách tối thiểu.
+- Admin nhớ lại cấu hình trên trình duyệt sau khi đóng/mở tab.
+- Không lưu ADMIN_KEY vào localStorage.
+- Có file DONG_TU_DA_LOC_NGAN_GON.txt: chỉ động từ/cụm động từ, nghĩa Việt ngắn gọn, sửa các dòng bị dấu '-' phía trước.

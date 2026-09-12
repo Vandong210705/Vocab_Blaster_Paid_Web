@@ -1,0 +1,399 @@
+Achieve|Đạt được
+Advertise|Quảng cáo
+Affect|Ảnh hưởng
+Afford|Có đủ tiền mua
+Allow|Cho phép
+Analyze|Phân tích
+Announce|Thông báo
+Apologize|Xin lỗi
+Apply for|Ứng tuyển
+Appreciate|Trân trọng
+Approach|Tiếp cận
+Argue|Tranh luận
+Attend|Tham dự
+Attract|Thu hút
+Avoid|Tránh
+Balance|Cân bằng
+Ban|Cấm
+Believe|Tin
+Benefit|Có lợi
+Blame|Đổ lỗi
+Book|Đặt
+Browse|Lướt web
+Calm|Làm dịu
+Cancel|Hủy
+Celebrate|Ăn mừng
+Challenge|Thử thách
+Cheat|Gian lận
+Claim|Khẳng định
+Close|Đóng
+Collapse|Sụp đổ
+Command|Ra lệnh
+Comment|Bình luận
+Communicate|Giao tiếp
+Commute|Đi làm hằng ngày
+Compare|So sánh
+Compete|Cạnh tranh
+Complain|Than phiền
+Complete|Hoàn thành
+Concentrate|Tập trung
+Concern|Liên quan / lo ngại
+Conduct|Tiến hành
+Confirm|Xác nhận
+Congratulate|Chúc mừng
+Connect|Kết nối
+Consider|Cân nhắc
+Consist of|Bao gồm
+Construct|Xây dựng
+Consume|Tiêu thụ
+Contact|Liên lạc
+Contain|Chứa
+Continue|Tiếp tục
+Contribute|Đóng góp
+Control|Kiểm soát
+Convince|Thuyết phục
+Cook|Nấu ăn
+Cooperate|Hợp tác
+Coordinate|Điều phối
+Cope with|Đối phó
+Correct|Sửa đúng
+Cost|Có giá / tốn
+Count|Đếm
+Cover|Che phủ
+Craft|Làm thủ công
+Create|Tạo ra
+Credit|Ghi công
+Damage|Làm hỏng
+Deal with|Giải quyết
+Debate|Tranh luận
+Decide|Quyết định
+Decline|Giảm / từ chối
+Decorate|Trang trí
+Decrease|Giảm
+Defeat|Đánh bại
+Defend|Bảo vệ
+Delay|Trì hoãn
+Deliberate|Cân nhắc
+Deliver|Giao / chuyển
+Demand|Yêu cầu
+Demonstrate|Chứng minh
+Deny|Phủ nhận
+Depend|Phụ thuộc
+Depend on|Phụ thuộc vào
+Deposit|Đặt cọc / gửi tiền
+Describe|Miêu tả
+Deserve|Xứng đáng
+Design|Thiết kế
+Desire|Khao khát
+Destroy|Phá hủy
+Detect|Phát hiện
+Determine|Xác định
+Develop|Phát triển
+Devote|Cống hiến
+Die|Chết
+Diet|Ăn kiêng
+Differ|Khác nhau
+Dig|Đào
+Direct|Chỉ đạo
+Disagree|Không đồng ý
+Disappear|Biến mất
+Disappoint|Làm thất vọng
+Discipline|Kỷ luật
+Discount|Giảm giá
+Discuss|Thảo luận
+Dislike|Không thích
+Dismiss|Sa thải
+Display|Hiển thị / trưng bày
+Distinguish|Phân biệt
+Distribute|Phân phối
+Dive|Lặn
+Divide|Chia
+Divorce|Ly hôn
+Do|Làm
+Dominate|Thống trị
+Donate|Quyên góp
+Double|Gấp đôi
+Doubt|Nghi ngờ
+Download|Tải xuống
+Draw|Vẽ
+Dream|Mơ
+Dress|Mặc đồ
+Drink|Uống
+Drive|Lái xe
+Drop|Rơi / thả
+Drown|Chết đuối
+Dry|Làm khô
+Earn|Kiếm tiền
+Edit|Chỉnh sửa
+Educate|Giáo dục
+Eliminate|Loại bỏ
+Emerge|Xuất hiện
+Emphasize|Nhấn mạnh
+Enable|Cho phép
+Encounter|Gặp phải
+Encourage|Khuyến khích
+End|Kết thúc
+Endanger|Gây nguy hiểm
+Engage|Tham gia
+Enjoy|Thích / tận hưởng
+Ensure|Đảm bảo
+Enter|Đi vào / nhập
+Entertain|Giải trí
+Equal|Bằng
+Equip|Trang bị
+Establish|Thành lập
+Estimate|Ước tính
+Evaluate|Đánh giá
+Evolve|Tiến hóa
+Examine|Kiểm tra
+Exchange|Trao đổi
+Exercise|Tập thể dục
+Exist|Tồn tại
+Exit|Rời khỏi
+Expand|Mở rộng
+Expect|Mong đợi
+Experience|Trải nghiệm
+Experiment|Thử nghiệm
+Explain|Giải thích
+Explode|Phát nổ
+Explore|Khám phá
+Export|Xuất khẩu
+Expose|Phơi bày
+Express|Bày tỏ
+Extend|Kéo dài / mở rộng
+Face|Đối mặt
+Fade|Phai
+Fail|Thất bại
+Faint|Ngất
+Fall|Rơi / ngã
+Fancy|Thích
+Fasten|Buộc chặt
+Feed|Cho ăn
+Feel|Cảm thấy
+Fetch|Đi lấy
+Fight|Chiến đấu
+Fill|Lấp đầy
+Finance|Tài trợ
+Find|Tìm thấy
+Finish|Hoàn thành
+Fire|Sa thải
+Fish|Câu cá
+Fit|Vừa / phù hợp
+Fix|Sửa chữa
+Flash|Lóe sáng
+Float|Nổi
+Flood|Làm ngập
+Flow|Chảy
+Fly|Bay
+Focus|Tập trung
+Follow|Theo
+Forbid|Cấm
+Force|Ép / bắt buộc
+Forecast|Dự báo
+Forget|Quên
+Forgive|Tha thứ
+Form|Tạo thành
+Format|Định dạng
+Forward|Chuyển tiếp
+Foster|Nuôi dưỡng
+Frame|Đóng khung
+Freeze|Đóng băng
+Fund|Tài trợ
+Gain|Đạt được
+Gain weight|Tăng cân
+Gather|Thu thập
+Generate|Tạo ra
+Get|Nhận / lấy
+Get in touch with|Giữ liên lạc
+Get involved in|Tham gia
+Give|Cho
+Glue|Dán
+Go|Đi
+Grab|Chộp lấy
+Graduate|Tốt nghiệp
+Grant|Cấp / cho
+Grasp|Nắm / hiểu
+Greet|Chào
+Grow|Phát triển
+Grow up|Lớn lên
+Guarantee|Bảo đảm
+Guess|Đoán
+Guide|Hướng dẫn
+Handle|Xử lý
+Happen|Xảy ra
+Harass|Quấy rối
+Harbor|Che giấu
+Harm|Gây hại
+Harvest|Thu hoạch
+Hate|Ghét
+Have a look|Nhìn thử
+Have to|Phải
+Heal|Chữa lành
+Hear|Nghe
+Heat|Làm nóng
+Help|Giúp
+Hesitate|Do dự
+Hide|Trốn / giấu
+Highlight|Làm nổi bật
+Hire|Thuê
+Hit|Đánh / va
+Hold|Giữ / tổ chức
+Honor|Tôn vinh
+Hook|Móc
+Hope|Hy vọng
+Host|Tổ chức
+House|Cho ở
+Humiliate|Làm nhục
+Hurry|Vội
+Hurt|Làm đau
+Identify|Xác định
+Ignore|Phớt lờ
+Illustrate|Minh họa
+Imagine|Tưởng tượng
+Immerse|Đắm mình
+Immigrate|Nhập cư
+Impact|Tác động
+Import|Nhập khẩu
+Improve|Cải thiện
+Include|Bao gồm
+Incorporate|Kết hợp
+Increase|Tăng
+Indicate|Chỉ ra
+Inform|Thông báo
+Inherit|Thừa kế
+Injure|Làm bị thương
+Install|Cài đặt
+Interact|Tương tác
+Interrupt|Ngắt lời
+Invent|Phát minh
+Invest|Đầu tư
+Investigate|Điều tra
+Invite|Mời
+Involve|Liên quan
+Iron|Là quần áo
+Isolate|Cách ly
+Issue|Phát hành
+Join|Tham gia
+Joke|Đùa
+Judge|Đánh giá
+Jump|Nhảy
+Keep|Giữ
+Kick|Đá
+Kid|Trêu
+Kidnap|Bắt cóc
+Kill|Giết
+Kiss|Hôn
+Knock|Gõ
+Know|Biết
+Lack|Thiếu
+Land|Hạ cánh
+Last|Kéo dài
+Laugh|Cười
+Launch|Khởi động / phóng
+Lay|Đặt xuống
+Lead|Dẫn dắt
+Learn|Học
+Leave|Rời đi
+Lend|Cho mượn
+Let someone know|Cho ai biết
+Lift|Nhấc lên
+Light|Thắp sáng
+Like|Thích
+Limit|Giới hạn
+Line|Xếp hàng / lót
+Link|Liên kết
+List|Liệt kê
+Listen|Lắng nghe
+Live|Sống
+Load|Tải / chất lên
+Locate|Xác định vị trí
+Look|Nhìn
+Lose|Mất / thua
+Lose weight|Giảm cân
+Love|Yêu
+Lower|Hạ xuống
+Mail|Gửi thư
+Maintain|Duy trì
+Make|Làm / tạo
+Manage|Quản lý / xoay xở
+Manifest|Biểu hiện
+Manufacture|Sản xuất
+Map|Lập bản đồ
+March|Diễu hành
+Mark|Đánh dấu
+Market|Tiếp thị
+Marry|Kết hôn
+Master|Làm chủ
+Match|Khớp
+Mate|Ghép đôi
+Matter|Quan trọng
+Mature|Trưởng thành
+Mean|Có nghĩa
+Measure|Đo
+Meet|Gặp / đáp ứng
+Melt|Tan chảy
+Mention|Nhắc đến
+Mentor|Hướng dẫn
+Merge|Sáp nhập
+Migrate|Di cư
+Milk|Vắt sữa
+Mind|Để ý / phiền
+Minimize|Giảm thiểu
+Mirror|Phản chiếu
+Miss|Bỏ lỡ / nhớ
+Mix|Trộn
+Model|Làm mẫu
+Modify|Sửa đổi
+Monitor|Theo dõi
+Motivate|Tạo động lực
+Move|Di chuyển
+Name|Đặt tên
+Narrow|Thu hẹp
+Need|Cần
+Nod|Gật đầu
+Nominate|Đề cử
+Note|Ghi chú
+Notice|Chú ý
+Nourish|Nuôi dưỡng
+Nurse|Chăm sóc
+Obey|Tuân theo
+Object|Phản đối
+Occur|Xảy ra
+Omit|Bỏ sót
+Open|Mở
+Operate|Vận hành
+Oppose|Phản đối
+Organize|Tổ chức
+Outfit|Trang bị
+Outline|Phác thảo
+Outrage|Làm phẫn nộ
+Overcome|Vượt qua
+Overflow|Tràn
+Overhear|Nghe lỏm
+Overlap|Chồng lên
+Overlook|Bỏ qua
+Own|Sở hữu
+Prefer|Thích hơn
+Presume|Cho rằng
+Protect|Bảo vệ
+Provide|Cung cấp
+Quit|Nghỉ / bỏ
+Realize|Nhận ra
+Receive|Nhận
+Recycle|Tái chế
+Reduce|Giảm bớt
+Relax|Thư giãn
+Retire|Nghỉ hưu
+Review|Ôn lại
+Specialize in|Chuyên về
+Spend|Tiêu / dành
+Struggle with|Gặp khó khăn với
+Suffer|Chịu đựng
+Suggest|Gợi ý
+Suit|Phù hợp
+Support|Hỗ trợ
+Transport|Vận chuyển
+Upload|Tải lên
+Volunteer|Tình nguyện
+Waste|Lãng phí
+Weed|Nhổ cỏ
