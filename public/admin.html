@@ -1,63 +1,232 @@
 <!doctype html>
 <html lang="vi">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Vocab Blaster Admin</title>
 <style>
-body{margin:0;background:#090c1d;color:#eef2ff;font-family:Segoe UI,Arial,sans-serif}.wrap{max-width:1050px;margin:30px auto;padding:0 18px}h1{margin-bottom:5px}.muted{color:#95a1c6}.card{background:#12172f;border:1px solid #27305b;border-radius:16px;padding:18px;margin:16px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}label{display:block;color:#aeb8db;font-size:13px}input{width:100%;margin-top:5px;padding:10px;border-radius:9px;border:1px solid #394677;background:#090d21;color:#fff;box-sizing:border-box}button{border:0;border-radius:10px;padding:10px 14px;font-weight:800;color:white;background:#6856ff;cursor:pointer}button.gray{background:#27305b}button.green{background:#168b57}table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:9px;border-bottom:1px solid #252d52;text-align:left}.badge{padding:3px 8px;border-radius:10px;background:#242c52}.paid{background:#125a3d}.pending{background:#6f5212}.info{background:#0b1028;border:1px solid #27335f;border-radius:12px;padding:12px;line-height:1.55}.ok{color:#69ef9b}.warn{color:#ffd36b}code{color:#79eaff;word-break:break-all}@media(max-width:700px){.grid{grid-template-columns:1fr}}
+*{box-sizing:border-box}
+body{margin:0;background:#090d20;color:#eef3ff;font-family:Segoe UI,Arial,sans-serif}
+.wrap{max-width:1250px;margin:28px auto;padding:0 18px}
+h1{margin:0 0 6px}.muted{color:#94a2ca}.card{background:#121832;border:1px solid #2c3766;border-radius:18px;padding:22px;margin:18px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+label{display:block;color:#b7c3e7;font-size:14px}
+input,select{width:100%;margin-top:6px;padding:12px 13px;border-radius:11px;border:1px solid #3b4779;background:#090e25;color:#fff;outline:none}
+input:focus,select:focus{border-color:#7766ff;box-shadow:0 0 0 3px rgba(119,102,255,.12)}
+button{border:0;border-radius:11px;padding:11px 16px;font-weight:800;color:white;background:#6855ff;cursor:pointer}
+button:hover{filter:brightness(1.08)}button.gray{background:#29325d}button.green{background:#15885a}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.hidden{display:none!important}
+.hint{font-size:12px;color:#8190bb;margin-top:6px;line-height:1.5}
+.qr-box{display:grid;grid-template-columns:260px 1fr;gap:18px;align-items:center;margin-top:16px}
+.qr-frame{width:250px;height:250px;border:1px dashed #58679d;border-radius:16px;background:#090d20;display:grid;place-items:center;overflow:hidden}
+.qr-frame img{width:100%;height:100%;object-fit:contain}.qr-empty{color:#7280a9;text-align:center;padding:20px}
+.preview-info{background:#0b1027;border:1px solid #293462;border-radius:14px;padding:14px;line-height:1.8}
+.preview-info b{color:#fff}.ok{color:#56e89a}.warn{color:#ffd15a}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;border-bottom:1px solid #27305a;text-align:left;white-space:nowrap}
+.badge{padding:4px 8px;border-radius:10px;background:#29325a}.paid{background:#15593f}.pending{background:#6b5115}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.qr-box{grid-template-columns:1fr}.qr-frame{margin:auto}}
 </style>
 </head>
-<body><div class="wrap">
-<h1>🛠️ Vocab Blaster Admin</h1>
-<div class="muted">Đổi giá, ngân hàng nhận tiền, VietQR và theo dõi giao dịch.</div>
+<body>
+<div class="wrap">
+  <h1>🛠️ Vocab Blaster Admin</h1>
+  <div class="muted">Chỉ giữ các mục cần thiết: giá, ngân hàng, số tài khoản, chủ tài khoản, thời gian quyền chơi và QR.</div>
 
-<div class="card">
-  <h3>🔐 Admin key</h3>
-  <input id="key" type="password" placeholder="Nhập ADMIN_KEY trên server">
-  <p><button id="load">Tải cấu hình & giao dịch</button></p>
-</div>
-
-<div class="card">
-  <h3>💰 Cấu hình quyền chơi</h3>
-  <div class="grid">
-    <label>Giá (VNĐ)<input id="priceVnd" type="number" min="0" step="1000"></label>
-    <label>Thời gian quyền chơi (phút)<input id="playMinutes" type="number" min="1"></label>
-    <label>Mã ngân hàng VietQR<input id="bankId" placeholder="Ví dụ: VCB hoặc 970436"></label>
-    <label>Tên ngân hàng<input id="bankName" placeholder="Ví dụ: Vietcombank"></label>
-    <label>Số tài khoản<input id="bankAccount"></label>
-    <label>Chủ tài khoản<input id="bankAccountName"></label>
-    <label>Tiền tố nội dung CK<input id="paymentNotePrefix" placeholder="VOCAB"></label>
+  <div class="card">
+    <h3>🔐 Admin key</h3>
+    <input id="key" type="password" placeholder="Nhập ADMIN_KEY trên server">
+    <p><button id="load">Tải cấu hình & giao dịch</button></p>
   </div>
-  <p><label><input id="freePlay" type="checkbox" style="width:auto"> Cho chơi miễn phí</label></p>
-  <button id="save">💾 Lưu cấu hình</button>
-</div>
 
-<div class="card">
-  <h3>⚡ Tự động xác nhận bằng SePay</h3>
-  <div class="info">
-    Webhook URL: <code id="sepayUrl"></code><br>
-    Trạng thái secret trên server: <b id="sepayReady" class="warn">chưa kiểm tra</b><br><br>
-    Trên SePay tạo webhook <b>Tiền vào</b>, chọn <b>HMAC-SHA256</b>, rồi đặt cùng Secret Key vào biến môi trường Render <code>SEPAY_WEBHOOK_SECRET</code>.
-    Khi tiền vào đúng số tiền và đúng nội dung <code>VOCAB...</code>, game sẽ tự mở.
+  <div class="card">
+    <h3>💰 Cấu hình thanh toán & quyền chơi</h3>
+
+    <div class="grid">
+      <label>Số tiền (VNĐ)
+        <input id="priceVnd" type="number" min="0" step="1000" placeholder="1000">
+      </label>
+
+      <label>Ngân hàng
+        <input id="bankName" list="bankList" placeholder="Ví dụ: Vietcombank">
+        <datalist id="bankList">
+          <option value="Vietcombank">
+          <option value="VietinBank">
+          <option value="BIDV">
+          <option value="Agribank">
+          <option value="MBBank">
+          <option value="Techcombank">
+          <option value="ACB">
+          <option value="VPBank">
+          <option value="TPBank">
+          <option value="Sacombank">
+          <option value="VIB">
+          <option value="SHB">
+          <option value="OCB">
+          <option value="MSB">
+        </datalist>
+      </label>
+
+      <label>Số tài khoản
+        <input id="bankAccount" inputmode="numeric" placeholder="Nhập số tài khoản nhận tiền">
+      </label>
+
+      <label>Chủ tài khoản
+        <input id="bankAccountName" placeholder="NGUYEN VAN A">
+      </label>
+
+      <label>Thời gian quyền chơi
+        <select id="accessMode">
+          <option value="permanent">Vĩnh viễn — nạp 1 lần chơi vĩnh viễn</option>
+          <option value="minutes">Tùy chỉnh số phút</option>
+        </select>
+      </label>
+
+      <label id="minutesWrap" class="hidden">Số phút
+        <input id="playMinutes" type="number" min="1" step="1" placeholder="Ví dụ: 60">
+        <div class="hint">Nhập tùy ý: 30, 60, 120, 1440...</div>
+      </label>
+    </div>
+
+    <div class="row" style="margin-top:18px">
+      <button id="save">💾 Lưu cấu hình</button>
+      <button id="previewQr" class="gray">🔄 Cập nhật / xem mã QR</button>
+    </div>
   </div>
-</div>
 
-<div class="card">
-  <h3>🧾 Giao dịch</h3>
-  <button id="refresh" class="gray">↻ Làm mới</button>
-  <div style="overflow:auto;margin-top:12px">
-    <table><thead><tr><th>Mã</th><th>Số tiền</th><th>Nội dung</th><th>Trạng thái</th><th>Tạo lúc</th><th></th></tr></thead><tbody id="rows"></tbody></table>
+  <div class="card">
+    <h3>📱 Mã QR thanh toán</h3>
+    <div class="qr-box">
+      <div class="qr-frame">
+        <img id="qrPreview" class="hidden" alt="QR thanh toán">
+        <div id="qrEmpty" class="qr-empty">Nhập ngân hàng + số tài khoản rồi bấm<br><b>Cập nhật / xem mã QR</b></div>
+      </div>
+      <div class="preview-info">
+        <div>Ngân hàng: <b id="pvBank">-</b></div>
+        <div>Số tài khoản: <b id="pvAccount">-</b></div>
+        <div>Chủ tài khoản: <b id="pvName">-</b></div>
+        <div>Số tiền: <b id="pvAmount">-</b></div>
+        <div>Quyền chơi: <b id="pvDuration">-</b></div>
+        <div class="hint">QR xem thử dùng nội dung <b>VOCABTEST</b>. Khi người chơi tạo thanh toán, hệ thống tự sinh mã riêng VOCAB... để xác nhận đúng giao dịch.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>🧾 Giao dịch</h3>
+    <button id="refresh" class="gray">↻ Làm mới</button>
+    <div style="overflow:auto;margin-top:12px">
+      <table>
+        <thead><tr><th>Mã</th><th>Số tiền</th><th>Nội dung</th><th>Quyền</th><th>Trạng thái</th><th>Tạo lúc</th><th></th></tr></thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
   </div>
 </div>
 
 <script>
-const $=id=>document.getElementById(id);$('sepayUrl').textContent=location.origin+'/api/payment/sepay';
-const req=async(url,opt={})=>{const r=await fetch(url,{...opt,headers:{'Content-Type':'application/json',...(opt.headers||{})}});const d=await r.json();if(!r.ok)throw new Error(d.error||'API error');return d};
+const $=id=>document.getElementById(id);
+const money=n=>Number(n||0).toLocaleString('vi-VN')+'₫';
+const req=async(url,opt={})=>{
+  const r=await fetch(url,{...opt,headers:{'Content-Type':'application/json',...(opt.headers||{})}});
+  const d=await r.json().catch(()=>({}));
+  if(!r.ok)throw new Error(d.error||'API error');
+  return d;
+};
 const key=()=>$('key').value.trim();
-async function loadAll(){try{const cfg=await req('/api/admin/config?key='+encodeURIComponent(key()));for(const x of ['priceVnd','playMinutes','bankId','bankName','bankAccount','bankAccountName','paymentNotePrefix'])$(x).value=cfg[x]??'';$('freePlay').checked=!!cfg.freePlay;$('sepayReady').textContent=cfg.sepayWebhookReady?'đã cấu hình':'chưa cấu hình';$('sepayReady').className=cfg.sepayWebhookReady?'ok':'warn';await loadPayments()}catch(e){alert(e.message)}}
-async function loadPayments(){try{const data=await req('/api/admin/payments?key='+encodeURIComponent(key()));$('rows').innerHTML=data.map(p=>`<tr><td>${p.id}</td><td>${Number(p.amount).toLocaleString('vi-VN')}₫</td><td>${p.note}</td><td><span class="badge ${p.status}">${p.status}</span></td><td>${new Date(p.createdAt).toLocaleString('vi-VN')}</td><td>${p.status==='pending'?`<button class="green" onclick="approve('${p.id}')">Duyệt</button>`:''}</td></tr>`).join('')}catch(e){alert(e.message)}}
-async function approve(id){await req('/api/admin/approve',{method:'POST',body:JSON.stringify({key:key(),id})});loadPayments()}
-$('load').onclick=loadAll;$('refresh').onclick=loadPayments;
-$('save').onclick=async()=>{const body={key:key(),priceVnd:Number($('priceVnd').value),playMinutes:Number($('playMinutes').value),bankId:$('bankId').value,bankName:$('bankName').value,bankAccount:$('bankAccount').value,bankAccountName:$('bankAccountName').value,paymentNotePrefix:$('paymentNotePrefix').value,freePlay:$('freePlay').checked};try{await req('/api/admin/config',{method:'POST',body:JSON.stringify(body)});alert('Đã lưu. QR mới sẽ dùng cấu hình này.');await loadAll()}catch(e){alert(e.message)}};
+
+function durationText(mode,minutes){
+  return mode==='permanent'?'Vĩnh viễn':`${Number(minutes||0)} phút`;
+}
+function syncDuration(){
+  $('minutesWrap').classList.toggle('hidden',$('accessMode').value!=='minutes');
+}
+$('accessMode').addEventListener('change',syncDuration);
+
+async function loadAll(){
+  try{
+    const cfg=await req('/api/admin/config?key='+encodeURIComponent(key()));
+    $('priceVnd').value=cfg.priceVnd??1000;
+    $('bankName').value=cfg.bankName??'';
+    $('bankAccount').value=cfg.bankAccount??'';
+    $('bankAccountName').value=cfg.bankAccountName??'';
+    $('accessMode').value=cfg.accessMode==='minutes'?'minutes':'permanent';
+    $('playMinutes').value=cfg.playMinutes??60;
+    syncDuration();
+    await loadPayments();
+    await previewQr(false);
+  }catch(e){alert(e.message)}
+}
+
+async function loadPayments(){
+  try{
+    const data=await req('/api/admin/payments?key='+encodeURIComponent(key()));
+    $('rows').innerHTML=data.map(p=>`<tr>
+      <td>${p.id}</td>
+      <td>${money(p.amount)}</td>
+      <td>${p.note||''}</td>
+      <td>${durationText(p.accessMode,p.playMinutes)}</td>
+      <td><span class="badge ${p.status}">${p.status}</span></td>
+      <td>${new Date(p.createdAt).toLocaleString('vi-VN')}</td>
+      <td>${p.status==='pending'?`<button class="green" onclick="approve('${p.id}')">Duyệt</button>`:''}</td>
+    </tr>`).join('');
+  }catch(e){alert(e.message)}
+}
+
+async function approve(id){
+  await req('/api/admin/approve',{method:'POST',body:JSON.stringify({key:key(),id})});
+  await loadPayments();
+}
+
+async function saveConfig(){
+  const body={
+    key:key(),
+    priceVnd:Number($('priceVnd').value),
+    bankName:$('bankName').value.trim(),
+    bankAccount:$('bankAccount').value.trim(),
+    bankAccountName:$('bankAccountName').value.trim(),
+    accessMode:$('accessMode').value,
+    playMinutes:Number($('playMinutes').value||60)
+  };
+  try{
+    await req('/api/admin/config',{method:'POST',body:JSON.stringify(body)});
+    alert('Đã lưu cấu hình.');
+    await previewQr(false);
+  }catch(e){alert(e.message)}
+}
+
+async function previewQr(showAlert=true){
+  const body={
+    key:key(),
+    priceVnd:Number($('priceVnd').value),
+    bankName:$('bankName').value.trim(),
+    bankAccount:$('bankAccount').value.trim(),
+    bankAccountName:$('bankAccountName').value.trim(),
+    accessMode:$('accessMode').value,
+    playMinutes:Number($('playMinutes').value||60)
+  };
+  try{
+    const p=await req('/api/admin/qr-preview',{method:'POST',body:JSON.stringify(body)});
+    $('qrPreview').src=p.qrUrl;
+    $('qrPreview').classList.remove('hidden');
+    $('qrEmpty').classList.add('hidden');
+    $('pvBank').textContent=p.bankName||'-';
+    $('pvAccount').textContent=p.bankAccount||'-';
+    $('pvName').textContent=p.bankAccountName||'-';
+    $('pvAmount').textContent=money(p.amount);
+    $('pvDuration').textContent=durationText(body.accessMode,body.playMinutes);
+  }catch(e){
+    $('qrPreview').removeAttribute('src');
+    $('qrPreview').classList.add('hidden');
+    $('qrEmpty').classList.remove('hidden');
+    if(showAlert)alert(e.message);
+  }
+}
+
+$('load').onclick=loadAll;
+$('refresh').onclick=loadPayments;
+$('save').onclick=saveConfig;
+$('previewQr').onclick=()=>previewQr(true);
+syncDuration();
 </script>
-</div></body></html>
+</body>
+</html>

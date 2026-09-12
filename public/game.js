@@ -69,7 +69,7 @@
   async function loadAccessConfig(){
     try{
       access.config = await api("/api/config");
-      $("payPrice").textContent = moneyVND(access.config.priceVnd);
+      $("payPrice").textContent = moneyVND(access.config.priceVnd);$("payAccessSummary").textContent = access.config.accessMode==="minutes"?`Quyền chơi ${access.config.playMinutes} phút`:"Quyền chơi vĩnh viễn";
       $("payBank").textContent = access.config.bankName || "Chưa cấu hình";
       $("payAccount").textContent = access.config.bankAccount || "Chưa cấu hình";
       $("payAccountName").textContent = access.config.bankAccountName || "Chưa cấu hình";
@@ -120,6 +120,7 @@
     $("payAccount").textContent = p.bankAccount || access.config?.bankAccount || "-";
     $("payAccountName").textContent = p.bankAccountName || access.config?.bankAccountName || "-";
     $("payAmount").textContent = moneyVND(p.amount ?? access.config?.priceVnd ?? 0);
+    $("payDuration").textContent = (p.accessMode||access.config?.accessMode)==="minutes"?`${p.playMinutes||access.config?.playMinutes||0} phút`:"Vĩnh viễn";
     $("payNote").textContent = p.note || "-";
     setQr(p.qrUrl || "");
   }

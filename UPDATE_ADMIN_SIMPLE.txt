@@ -1,0 +1,31 @@
+ĐÃ ĐƠN GIẢN TRANG ADMIN
+
+Chỉ còn:
+- Số tiền
+- Ngân hàng
+- Số tài khoản
+- Chủ tài khoản
+- Thời gian quyền chơi:
+  + Vĩnh viễn: nạp 1 lần, token không hết hạn
+  + Tùy chỉnh số phút: nhập số phút tùy ý
+- Nút "Cập nhật / xem mã QR"
+
+Đã bỏ khỏi giao diện admin:
+- Mã ngân hàng VietQR
+- Tiền tố nội dung chuyển khoản
+- Cho chơi miễn phí
+- Phần cấu hình SePay dài dòng
+
+QR:
+- Admin chỉ nhập tên ngân hàng, server tự ánh xạ ngân hàng phổ biến sang mã VietQR.
+- Nút xem QR dùng nội dung VOCABTEST.
+- QR thật của người chơi vẫn tự sinh nội dung VOCAB + mã giao dịch riêng.
+
+Lưu ý quyền "Vĩnh viễn":
+- Token không hết hạn trên trình duyệt/thiết bị đã thanh toán.
+- Nếu người dùng xóa dữ liệu trình duyệt hoặc đổi máy thì hiện chưa có hệ thống tài khoản để khôi phục quyền.
+
+ĐẨY LÊN GITHUB:
+git add .
+git commit -m "Simplify admin permanent access and QR update"
+git push origin main

@@ -1,10 +1,9 @@
 {
   "priceVnd": 1000,
+  "accessMode": "permanent",
   "playMinutes": 60,
   "freePlay": false,
-  "bankId": "",
   "bankName": "",
   "bankAccount": "",
-  "bankAccountName": "",
-  "paymentNotePrefix": "VOCAB"
+  "bankAccountName": ""
 }
