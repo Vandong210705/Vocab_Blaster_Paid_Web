@@ -14,3 +14,5 @@ services:
         generateValue: true
       - key: WEBHOOK_SECRET
         generateValue: true
+      - key: SEPAY_WEBHOOK_SECRET
+        sync: false

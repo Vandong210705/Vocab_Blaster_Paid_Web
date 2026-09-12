@@ -21,3 +21,19 @@
 .separator-config input{width:100%;background:#080b1c;color:#fff;border:1px solid #46538b;border-radius:9px;padding:9px 10px;outline:none;font-family:Consolas,monospace}
 .separator-config input:focus{border-color:#65dfff;box-shadow:0 0 0 3px rgba(64,224,255,.10)}
 .separator-hint{margin-top:7px;color:#8796c2;font-size:11px;line-height:1.45}
+
+/* ===== 2026 update: learning controls, payment QR, shooter layout ===== */
+.typing-bar{bottom:4px;z-index:6;width:min(780px,calc(100% - 24px));padding:9px 14px;box-shadow:0 12px 30px rgba(0,0,0,.38)}
+.typing-word{min-height:27px}
+.ime-sink{position:fixed!important;left:-10000px!important;top:-10000px!important;width:1px!important;height:1px!important;opacity:0!important;pointer-events:none!important}
+.separator-config select{width:100%;background:#080b1c;color:#fff;border:1px solid #46538b;border-radius:9px;padding:9px 10px;outline:none}
+.speed-setting{grid-column:1/-1!important}
+.speed-row{display:flex;align-items:center;gap:12px;margin-top:8px}
+.speed-row input[type=range]{flex:1;margin:0}
+.speed-row b{min-width:38px;text-align:center;color:#6ce5ff;font-size:15px}
+.speed-setting small{display:block;margin-top:6px;color:#8796c2;line-height:1.4}
+.qr-wrap{display:grid;place-items:center;margin:12px auto 10px;min-height:210px}
+.pay-qr{width:min(250px,72vw);height:auto;background:#fff;border-radius:16px;padding:8px;box-shadow:0 14px 40px rgba(0,0,0,.38)}
+.qr-empty{width:min(360px,80vw);padding:24px 16px;border:1px dashed #59668f;border-radius:14px;color:#aab5d7;background:#0b0f25}
+.payment-app-note{font-size:12px;color:#9fb0dd;margin:8px 0 4px;line-height:1.45}
+@media(max-width:850px){.typing-bar{bottom:2px}.qr-wrap{min-height:180px}.pay-qr{width:min(220px,70vw)}}

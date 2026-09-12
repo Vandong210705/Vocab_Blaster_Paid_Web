@@ -1,88 +1,63 @@
-# Vocab Blaster - Paid Web Version
+# Vocab Blaster - bản web trả phí + VietQR + SePay
 
-Bản này có thêm **cổng quyền chơi**. Giá mặc định là **1.000đ** và chủ web có thể đổi.
+## Chạy local
 
-## Chạy trên máy
-
-Cần Node.js 18+.
-
-```bash
+```powershell
+$env:ADMIN_KEY="mat-khau-admin"
+$env:TOKEN_SECRET="token-secret-rat-dai"
+$env:SEPAY_WEBHOOK_SECRET="secret-giong-tren-sepay"
 node server.js
 ```
-
-Mở:
 
 - Game: http://localhost:3000
 - Admin: http://localhost:3000/admin.html
 
-### PowerShell
+## Cấu hình ngân hàng / QR
 
-```powershell
-$env:ADMIN_KEY="mat-khau-admin-cua-ban"
-$env:TOKEN_SECRET="chuoi-bi-mat-rat-dai"
-$env:WEBHOOK_SECRET="chuoi-bi-mat-webhook"
-node server.js
-```
+Vào `/admin.html`, nhập:
 
-## Admin
+- Giá, ví dụ `1000`
+- Mã ngân hàng VietQR, ví dụ `VCB` hoặc BIN ngân hàng
+- Tên ngân hàng
+- Số tài khoản
+- Chủ tài khoản
+- Tiền tố nội dung chuyển khoản, nên để `VOCAB`
+- Tắt `Cho chơi miễn phí`
 
-Vào `/admin.html`.
+Khi người chơi bấm tạo thanh toán, server tạo một nội dung riêng như `VOCABABC123...` và sinh VietQR chứa sẵn số tiền + nội dung.
 
-Bạn có thể:
+## Tự xác nhận bằng SePay
 
-- đổi giá từ 1.000đ thành giá khác;
-- bật/tắt chơi miễn phí;
-- đổi thời gian quyền chơi;
-- nhập ngân hàng, số tài khoản, tên chủ tài khoản;
-- xem giao dịch đang chờ;
-- bấm **Duyệt** để xác nhận giao dịch.
-
-Sau khi duyệt, trình duyệt người chơi đang chờ sẽ tự nhận quyền chơi.
-
-## Thanh toán thật / tự động
-
-Hiện project có sẵn endpoint:
+Webhook endpoint:
 
 ```text
-POST /api/payment/webhook
+https://TEN-WEB-CUA-BAN.onrender.com/api/payment/sepay
 ```
 
-Nó dùng để kết nối webhook của cổng thanh toán hoặc hệ thống theo dõi chuyển khoản.
+Trên SePay:
 
-Payload chuẩn nội bộ:
+1. Liên kết tài khoản ngân hàng nhận tiền.
+2. Tạo webhook sự kiện Tiền vào.
+3. Chọn HMAC-SHA256.
+4. Tạo Secret Key.
+5. Trên Render thêm environment variable:
 
-```json
-{
-  "secret": "WEBHOOK_SECRET",
-  "id": "PAYMENT_ID",
-  "amount": 1000,
-  "status": "paid"
-}
+```text
+SEPAY_WEBHOOK_SECRET=<secret giống SePay>
 ```
 
-Khi nối MoMo/VNPAY/SePay/ngân hàng thật, cần adapter chuyển dữ liệu webhook của nhà cung cấp thành payload trên.
+Khi SePay báo giao dịch tiền vào có đúng số tiền và đúng nội dung `VOCAB...`, server đổi giao dịch sang `paid`; trình duyệt đang chờ sẽ tự nhận token và tự bắt đầu game.
 
-**Không nên xác nhận thanh toán chỉ bằng JavaScript phía trình duyệt**, vì người dùng có thể sửa mã và tự mở khóa.
+## MoMo
 
-## Đưa lên Internet
+Project này không giả lập API MoMo. Thanh toán trực tiếp qua MoMo cần tài khoản Merchant/API chính thức và thông tin merchant riêng. Bản hiện tại dùng VietQR ngân hàng + SePay; người dùng quét bằng ứng dụng ngân hàng hỗ trợ VietQR, ví dụ VCB Digibank.
 
-Đây là Node web app. Có thể deploy lên dịch vụ chạy Node hoặc VPS.
+## Deploy Render
 
-Project có `render.yaml` để thuận tiện nếu dùng Render. Trước khi public phải đặt:
+Project có `render.yaml`. Sau khi push GitHub, Render deploy lại branch `main`. Cần đặt:
 
 - `ADMIN_KEY`
 - `TOKEN_SECRET`
-- `WEBHOOK_SECRET`
+- `SEPAY_WEBHOOK_SECRET`
 
-và vào admin sửa thông tin tài khoản nhận tiền.
-
-## Luồng sử dụng
-
-1. Người chơi truy cập web.
-2. Nạp bộ từ của họ.
-3. Bấm bắt đầu.
-4. Nếu chưa có quyền chơi, web hiện phí (mặc định 1.000đ).
-5. Web tạo mã giao dịch và nội dung chuyển khoản riêng.
-6. Chủ web duyệt giao dịch, hoặc payment webhook xác nhận tự động.
-7. Trình duyệt nhận token chơi trong số phút do admin đặt.
-8. Hết hạn thì cần mua quyền mới.
+Lưu ý: filesystem của web service có thể không phải nơi lưu cấu hình/giao dịch bền vững qua mọi lần redeploy. Nếu thu tiền thật ở quy mô lâu dài, nên chuyển config/payment records sang database hoặc persistent storage.

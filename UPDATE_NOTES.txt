@@ -1,0 +1,35 @@
+BẢN CẬP NHẬT THEO YÊU CẦU
+
+1) Chiều học:
+- English -> Tiếng Việt: quái hiện English, gõ English; dùng event.code nên UniKey không làm hỏng từ như injure.
+- Tiếng Việt -> English: quái hiện tiếng Việt; dùng input ẩn nên UniKey/IME hoạt động bình thường.
+
+2) Enter:
+- Đúng: hạ quái, xóa chữ đang gõ.
+- Sai: xóa sạch chữ đang gõ ngay để gõ từ khác.
+
+3) Từ vựng / số lượng:
+- Chỉ cần tối thiểu 1 cặp từ là chơi được.
+- Số quái cùng lúc chỉnh từ 1 đến 10.
+- Có Độ khó -> Tùy chỉnh, kéo tốc độ rơi 8..100.
+
+4) Giao diện game:
+- Nhân vật bắn hiện rõ hơn ở giữa phía dưới.
+- Thanh chữ được đẩy xuống thấp hơn.
+
+5) Thanh toán:
+- Admin có thêm bankId VietQR (ví dụ VCB hoặc BIN 970436).
+- Khi tạo giao dịch, server sinh VietQR có sẵn số tiền + nội dung CK riêng.
+- QR hiển thị ngay trong cửa sổ thanh toán.
+- VCB Digibank/app ngân hàng hỗ trợ VietQR có thể quét QR.
+- SePay webhook mới: /api/payment/sepay
+- Khi SePay báo tiền vào đúng số tiền + đúng nội dung, payment -> paid và game tự mở ngay.
+- Production: đặt SEPAY_WEBHOOK_SECRET trên Render và chọn HMAC-SHA256 ở SePay.
+
+LƯU Ý MOMO:
+MoMo thanh toán trực tiếp cần tài khoản Merchant/API riêng của MoMo. Bản này dùng VietQR ngân hàng + SePay để tự xác nhận, không giả lập API MoMo.
+
+PUSH GITHUB:
+git add .
+git commit -m "Update learning controls QR and SePay auto payment"
+git push origin main
