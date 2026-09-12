@@ -1,0 +1,14 @@
+BẢN NÀY:
+- Mặc định miễn phí.
+- Chỉ khi Admin bỏ tick "Cho phép chơi miễn phí" và Lưu thì mới thu phí.
+- Có 3 chế độ học:
+  1. Tập gõ: hiện English -> gõ English.
+  2. Dịch Anh -> Việt: hiện English -> gõ nghĩa tiếng Việt.
+  3. Dịch Việt -> Anh: hiện nghĩa tiếng Việt -> gõ English.
+- Sau khi bắn hoặc để lọt quái, luôn hiện rõ cặp English = Tiếng Việt ở vùng dưới rồi nổi lên.
+- ZIP không chứa .git để không làm hỏng lịch sử Git hiện tại.
+
+Cập nhật GitHub:
+git add .
+git commit -m "Add 3 learning modes and default free play"
+git push origin main

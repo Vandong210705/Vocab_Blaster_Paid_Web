@@ -44,8 +44,11 @@
   function moneyVND(n){ return new Intl.NumberFormat("vi-VN").format(Number(n||0)) + "₫"; }
   function norm(s){ return String(s||"").normalize("NFC").toLowerCase().trim().replace(/\s+/g," "); }
   function esc(s){ return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[c])); }
-  function direction(){ return ui.studyDirection.value === "vi-en" ? "vi-en" : "en-vi"; }
-  function typingMode(){ return direction() === "en-vi" ? "en" : "vi"; }
+  function direction(){
+    const v=ui.studyDirection.value;
+    return (v==="en-vi"||v==="vi-en") ? v : "typing";
+  }
+  function typingMode(){ return direction()==="en-vi" ? "vi" : "en"; }
 
   async function api(url, options={}){
     const res = await fetch(url,{...options,headers:{"Content-Type":"application/json",...(options.headers||{})}});
@@ -205,15 +208,15 @@
       if(!line || line.startsWith("#")) continue;
       const i=line.indexOf(sep);
       if(i<=0) continue;
-      const left=line.slice(0,i).trim().replace(/^["']|["']$/g,"");
-      const right=line.slice(i+sep.length).trim().replace(/^["']|["']$/g,"");
-      if(!left||!right) continue;
-      rows.push(direction()==="en-vi" ? {en:left,vi:right} : {en:right,vi:left});
+      const en=line.slice(0,i).trim().replace(/^["']|["']$/g,"");
+      const vi=line.slice(i+sep.length).trim().replace(/^["']|["']$/g,"");
+      if(!en||!vi) continue;
+      rows.push({en,vi});
     }
 
     const seen=new Set();
     return rows.filter(x=>{
-      const key=norm(direction()==="en-vi"?x.en:x.vi);
+      const key=norm(x.en)+"|"+norm(x.vi);
       if(seen.has(key)) return false;
       seen.add(key);
       return true;
@@ -222,13 +225,8 @@
 
   function updateFormatPreview(){
     const sep=visibleSeparator() || "(chưa nhập)";
-    if(direction()==="en-vi"){
-      ui.formatPattern.textContent=`english${sep}nghĩa tiếng Việt`;
-      ui.formatExamples.innerHTML=`abandon${esc(sep)}từ bỏ<br>ability${esc(sep)}khả năng<br>take off${esc(sep)}cất cánh`;
-    }else{
-      ui.formatPattern.textContent=`tiếng Việt${sep}english`;
-      ui.formatExamples.innerHTML=`từ bỏ${esc(sep)}abandon<br>khả năng${esc(sep)}ability<br>cất cánh${esc(sep)}take off`;
-    }
+    ui.formatPattern.textContent=`english${sep}nghĩa tiếng Việt`;
+    ui.formatExamples.innerHTML=`abandon${esc(sep)}từ bỏ<br>ability${esc(sep)}khả năng<br>take off${esc(sep)}cất cánh`;
   }
 
   function countWords(){
@@ -245,7 +243,7 @@
   function saveWords(){
     localStorage.setItem("vocabBlasterWords",ui.wordInput.value);
     localStorage.setItem("vocabBlasterSeparator",rawSeparator());
-    localStorage.setItem("vocabBlasterStudyDirection",direction());
+    localStorage.setItem("vocabBlasterStudyModeV2",direction());
     localStorage.setItem("vocabBlasterMaxEnemies",ui.maxEnemies.value);
     localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);
     localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);
@@ -255,7 +253,7 @@
 
   function loadSaved(){
     ui.separatorInput.value=localStorage.getItem("vocabBlasterSeparator")||"|";
-    ui.studyDirection.value=localStorage.getItem("vocabBlasterStudyDirection")||"en-vi";
+    ui.studyDirection.value=localStorage.getItem("vocabBlasterStudyModeV2")||"typing";
     ui.wordInput.value=localStorage.getItem("vocabBlasterWords")||SAMPLE;
     ui.maxEnemies.value=localStorage.getItem("vocabBlasterMaxEnemies")||"6";
     ui.difficulty.value=localStorage.getItem("vocabBlasterDifficulty")||"normal";
@@ -298,8 +296,16 @@
     return game.usedBag.pop();
   }
 
-  function displayText(item){ return direction()==="en-vi" ? item.en : item.vi; }
-  function meaningText(item){ return direction()==="en-vi" ? item.vi : item.en; }
+  function displayText(item){
+    return direction()==="vi-en" ? item.vi : item.en;
+  }
+  function answerText(item){
+    if(direction()==="en-vi") return item.vi;
+    return item.en;
+  }
+  function meaningText(item){
+    return direction()==="vi-en" ? item.en : item.vi;
+  }
 
   function spawn(){
     if(!game.running||game.paused) return;
@@ -309,9 +315,9 @@
     const cfg=currentCfg(), size=46+Math.random()*16, margin=95;
     const x=margin+Math.random()*Math.max(50,game.w-margin*2);
     const speed=cfg.uniform ? cfg.speed : cfg.speed*(1+(game.level-1)*.08)*(.88+Math.random()*.24);
-    const display=displayText(item), meaning=meaningText(item);
+    const display=displayText(item), answer=answerText(item), meaning=meaningText(item);
     game.enemies.push({
-      id:game.nextEnemyId++, en:item.en, vi:item.vi, display, meaning, target:norm(display),
+      id:game.nextEnemyId++, en:item.en, vi:item.vi, display, answer, meaning, target:norm(answer),
       skin:SKINS[Math.floor(Math.random()*SKINS.length)], x, y:-50-Math.random()*70,
       vx:(Math.random()-.5)*24, vy:speed, size, wobble:Math.random()*Math.PI*2, dead:false, hitFlash:0, angle:0
     });
@@ -335,16 +341,29 @@
   }
 
   function typingUI(){
-    if(!game.running){ ui.typingWord.textContent="Chọn bộ từ rồi bắt đầu"; ui.typingMeaning.textContent="Enter = bắn mục tiêu"; return; }
-    ui.typingWord.textContent=game.typed || (typingMode()==="en"?"Gõ English rồi Enter...":"Gõ Tiếng Việt rồi Enter...");
-    ui.typingMeaning.textContent=typingMode()==="en"?"English mode: không bị UniKey đổi chữ":"Tiếng Việt mode: UniKey/IME hoạt động";
+    if(!game.running){
+      ui.typingWord.textContent="Chọn bộ từ rồi bắt đầu";
+      ui.typingMeaning.textContent="Enter = bắn mục tiêu";
+      return;
+    }
+    const mode=direction();
+    if(mode==="typing"){
+      ui.typingWord.textContent=game.typed || "Gõ lại từ English đang hiện rồi Enter...";
+      ui.typingMeaning.textContent="⌨️ Tập gõ: thấy English → gõ đúng English";
+    }else if(mode==="en-vi"){
+      ui.typingWord.textContent=game.typed || "Gõ nghĩa tiếng Việt rồi Enter...";
+      ui.typingMeaning.textContent="🇬🇧 → 🇻🇳 Dịch nghĩa: thấy English → gõ Tiếng Việt";
+    }else{
+      ui.typingWord.textContent=game.typed || "Gõ từ English rồi Enter...";
+      ui.typingMeaning.textContent="🇻🇳 → 🇬🇧 Dịch nghĩa: thấy Tiếng Việt → gõ English";
+    }
   }
 
   function clearTyped(){ game.typed=""; ui.imeSink.value=""; typingUI(); }
 
   function findEnemyByTyped(){
     const answer=norm(game.typed); if(!answer) return null;
-    const list=game.enemies.filter(e=>!e.dead&&norm(e.display)===answer).sort((a,b)=>b.y-a.y);
+    const list=game.enemies.filter(e=>!e.dead&&norm(e.answer)===answer).sort((a,b)=>b.y-a.y);
     return list[0]||null;
   }
 
@@ -354,7 +373,7 @@
     const e=findEnemyByTyped();
     if(e){
       game.correctKeys++; shoot(e); e.hitFlash=.12; kill(e); clearTyped();
-      ui.typingMeaning.textContent=`✅ ${e.display} = ${e.meaning}`;
+      ui.typingMeaning.textContent=`✅ ${e.en} = ${e.vi}`;
       setTimeout(()=>{typingUI();focusTyping();},900);
     }else{
       wrong(); clearTyped();
@@ -375,7 +394,12 @@
   function kill(e){
     e.dead=true; game.kills++; game.combo++; game.maxCombo=Math.max(game.maxCombo,game.combo); game.level=1+Math.floor(game.kills/10);
     const gain=100+e.target.length*12+Math.min(20,game.combo)*8; game.score+=gain; explode(e.x,e.y);
-    game.floaters.push({x:e.x,y:e.y-10,text:`💡 ${e.meaning}`,sub:`+${gain} • ${e.display}`,life:1.8,maxLife:1.8});
+    game.floaters.push({
+      x:game.w/2,y:Math.max(120,game.h-215),
+      text:`💡 ${e.en} = ${e.vi}`,
+      sub:`+${gain} • Ghi nhớ`,
+      life:4.5,maxLife:4.5,learning:true
+    });
     if(ui.speak.checked && "speechSynthesis" in window){
       try{ speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(e.en); u.lang="en-US"; u.rate=.9; speechSynthesis.speak(u); }catch(_){ }
     }
@@ -392,7 +416,12 @@
 
   function miss(e){
     e.dead=true; game.lives--; game.combo=0;
-    game.floaters.push({x:e.x,y:Math.min(e.y,game.h-175),text:`😵 ${e.display} = ${e.meaning}`,sub:"Lọt mất rồi!",life:2.2,maxLife:2.2});
+    game.floaters.push({
+      x:game.w/2,y:Math.max(120,game.h-215),
+      text:`😵 ${e.en} = ${e.vi}`,
+      sub:"Lọt mất rồi — ghi nhớ từ này!",
+      life:4.5,maxLife:4.5,learning:true
+    });
     sfx("miss"); hud(); if(game.lives<=0) end();
   }
 
@@ -437,7 +466,13 @@
     game.enemies=game.enemies.filter(e=>!e.dead||Math.random()>.97);
     for(const b of game.bullets)b.life-=dt;game.bullets=game.bullets.filter(b=>b.life>0);
     for(const p of game.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=100*dt;}game.particles=game.particles.filter(p=>p.life>0);
-    for(const f of game.floaters){f.life-=dt;f.y-=18*dt;}game.floaters=game.floaters.filter(f=>f.life>0);game.muzzle=Math.max(0,game.muzzle-dt);
+    for(const f of game.floaters){
+      f.life-=dt;
+      f.y-=(f.learning?24:18)*dt;
+      if(f.learning)f.y=Math.max(95,Math.min(game.h-190,f.y));
+    }
+    game.floaters=game.floaters.filter(f=>f.life>0);
+    game.muzzle=Math.max(0,game.muzzle-dt);
   }
 
   function rr(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill();}if(stroke){ctx.strokeStyle=stroke;ctx.stroke();}}
@@ -462,7 +497,34 @@
   }
 
   function drawParticles(){for(const p of game.particles){ctx.globalAlpha=Math.max(0,p.life/.8);if(p.emoji){ctx.font=`${p.size}px serif`;ctx.fillText(p.emoji,p.x,p.y);}else{ctx.fillStyle=`hsl(${p.hue} 95% 60%)`;ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();}}ctx.globalAlpha=1;}
-  function drawFloaters(){ctx.textAlign="center";for(const f of game.floaters){ctx.globalAlpha=Math.min(1,f.life*.9);ctx.font="900 23px Segoe UI,Arial";ctx.shadowColor="#000";ctx.shadowBlur=10;ctx.fillStyle="#fff36a";ctx.fillText(f.text,f.x,f.y);ctx.font="700 13px Segoe UI,Arial";ctx.fillStyle="#fff";ctx.fillText(f.sub,f.x,f.y+20);ctx.shadowBlur=0;}ctx.globalAlpha=1;}
+  function drawFloaters(){
+    ctx.textAlign="center";
+    for(const f of game.floaters){
+      ctx.globalAlpha=Math.min(1,f.life*.9);
+      if(f.learning){
+        const maxW=Math.max(260,Math.min(game.w-28,720));
+        ctx.font="900 24px Segoe UI,Arial";
+        const boxW=Math.max(260,Math.min(maxW,ctx.measureText(f.text).width+42));
+        const boxH=74;
+        const x=Math.max(boxW/2+12,Math.min(game.w-boxW/2-12,f.x));
+        const y=Math.max(56,Math.min(game.h-195,f.y));
+        rr(x-boxW/2,y-36,boxW,boxH,15,"rgba(5,9,24,.97)","rgba(255,235,90,.82)");
+        ctx.shadowColor="#000";ctx.shadowBlur=12;
+        ctx.fillStyle="#fff36a";ctx.fillText(f.text,x,y-6,boxW-24);
+        ctx.font="800 14px Segoe UI,Arial";
+        ctx.fillStyle="#fff";ctx.fillText(f.sub,x,y+20,boxW-24);
+        ctx.shadowBlur=0;
+      }else{
+        ctx.font="900 23px Segoe UI,Arial";
+        ctx.shadowColor="#000";ctx.shadowBlur=10;
+        ctx.fillStyle="#fff36a";ctx.fillText(f.text,f.x,f.y);
+        ctx.font="700 13px Segoe UI,Arial";
+        ctx.fillStyle="#fff";ctx.fillText(f.sub,f.x,f.y+20);
+        ctx.shadowBlur=0;
+      }
+    }
+    ctx.globalAlpha=1;
+  }
 
   function cannon(){
     const {x,y}=shooterPos();ctx.save();ctx.translate(x,y);
@@ -538,14 +600,15 @@
     ui.wordInput.value=SAMPLE.split("\n").map(line=>{
       const i=line.indexOf("|");if(i<0)return line;
       const en=line.slice(0,i),vi=line.slice(i+1);
-      return direction()==="en-vi"?`${en}${sep}${vi}`:`${vi}${sep}${en}`;
-    }).join("\n");countWords();toast("🎲 Đã nạp bộ từ mẫu");
+      return `${en}${sep}${vi}`;
+    }).join("\n");
+    countWords();toast("🎲 Đã nạp bộ từ mẫu");
   };
   $("btnSaveWords").onclick=saveWords;
 
   ui.wordInput.addEventListener("input",countWords);
   ui.separatorInput.addEventListener("input",()=>{updateFormatPreview();countWords();});
-  ui.studyDirection.addEventListener("change",()=>{clearTyped();updateFormatPreview();countWords();localStorage.setItem("vocabBlasterStudyDirection",direction());setTimeout(focusTyping,0);});
+  ui.studyDirection.addEventListener("change",()=>{clearTyped();updateFormatPreview();countWords();localStorage.setItem("vocabBlasterStudyModeV2",direction());setTimeout(focusTyping,0);});
   ui.difficulty.addEventListener("change",()=>{updateCustomSpeedVisibility();localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);});
   ui.customSpeed.addEventListener("input",()=>{ui.speedValue.textContent=ui.customSpeed.value;localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);});
   ui.maxEnemies.addEventListener("change",()=>localStorage.setItem("vocabBlasterMaxEnemies",ui.maxEnemies.value));

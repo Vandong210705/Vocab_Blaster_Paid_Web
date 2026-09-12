@@ -2,7 +2,7 @@
   "priceVnd": 1000,
   "accessMode": "permanent",
   "playMinutes": 60,
-  "freePlay": false,
+  "freePlay": true,
   "bankName": "",
   "bankAccount": "",
   "bankAccountName": ""
