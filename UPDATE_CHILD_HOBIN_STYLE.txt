@@ -1,0 +1,8 @@
+Đã chỉnh preset Trẻ em theo hướng bé trai dễ thương kiểu Hobin:
+- Ưu tiên voice nam/trẻ nếu trình duyệt có
+- rate = 1.03
+- pitch = 1.24
+- Tránh kiểu giọng nữ bị nâng pitch quá cao/the thé
+
+Lưu ý: Web Speech API phụ thuộc voice cài sẵn trên Chrome/Windows,
+nên không thể đảm bảo đúng 100% một voice thương mại cụ thể như Hobin.

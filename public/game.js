@@ -473,10 +473,16 @@
         || voices[0];
     }
 
-    // Trình duyệt thường không có voice "trẻ em" thật.
-    // Chọn một voice Anh rõ rồi tăng pitch ở speakEnglishWord() để tạo giọng dễ thương.
+    // Chế độ trẻ em: ưu tiên giọng nam/trẻ, sau đó mới fallback.
+    // Mục tiêu là chất giọng bé trai sáng, vui, dễ thương kiểu "Hobin",
+    // không phải chỉ lấy giọng nữ rồi tăng pitch.
     if(preset==="child"){
-      return findByNames(femaleNames)
+      const childBoyNames=[
+        "ryan","guy","davis","tony","jason","joey","andrew",
+        "oliver","jamie","boy","kid","child","young"
+      ];
+      return findByNames(childBoyNames)
+        || findByNames(maleNames)
         || voices.find(v=>String(v.lang||"").toLowerCase()==="en-us")
         || voices[0];
     }
@@ -499,8 +505,9 @@
         u.rate=.88;
         u.pitch=.78;
       }else if(preset==="child"){
-        u.rate=.96;
-        u.pitch=1.48;
+        // Bé trai dễ thương: sáng, lanh, hơi nhanh; không bị the thé.
+        u.rate=1.03;
+        u.pitch=1.24;
       }else{
         u.rate=.90;
         u.pitch=1.05;
