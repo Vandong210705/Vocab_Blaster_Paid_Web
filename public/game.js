@@ -119,7 +119,7 @@
   }
 
   const $=id=>document.getElementById(id),canvas=$("gameCanvas"),ctx=canvas.getContext("2d");
-  const ui={score:$("score"),combo:$("combo"),level:$("level"),lives:$("lives"),typingWord:$("typingWord"),typingMeaning:$("typingMeaning"),typingBar:$("typingBar"),toast:$("toast"),panel:$("wordPanel"),wordInput:$("wordInput"),wordCount:$("wordCount"),separatorInput:$("separatorInput"),formatPattern:$("formatPattern"),formatExamples:$("formatExamples"),maxEnemies:$("maxEnemies"),difficulty:$("difficulty"),speak:$("speakEnglish"),gameOver:$("gameOver"),pauseScreen:$("pauseScreen"),finalScore:$("finalScore"),finalKills:$("finalKills"),finalAccuracy:$("finalAccuracy"),finalCombo:$("finalCombo")};
+  const ui={score:$("score"),combo:$("combo"),level:$("level"),lives:$("lives"),typingWord:$("typingWord"),typingMeaning:$("typingMeaning"),typingBar:$("typingBar"),toast:$("toast"),panel:$("wordPanel"),wordInput:$("wordInput"),wordCount:$("wordCount"),separatorInput:$("separatorInput"),formatPattern:$("formatPattern"),formatExamples:$("formatExamples"),maxEnemies:$("maxEnemies"),difficulty:$("difficulty"),typingLanguage:$("typingLanguage"),speak:$("speakEnglish"),gameOver:$("gameOver"),pauseScreen:$("pauseScreen"),finalScore:$("finalScore"),finalKills:$("finalKills"),finalAccuracy:$("finalAccuracy"),finalCombo:$("finalCombo")};
   const SAMPLE=`abandon|từ bỏ\nability|khả năng\nabroad|ở nước ngoài\nabsolute|tuyệt đối\nacademic|thuộc học thuật\naccept|chấp nhận\naccident|tai nạn\nachieve|đạt được\nactive|năng động\nadventure|cuộc phiêu lưu\nadvice|lời khuyên\nafford|có đủ khả năng chi trả\nagree|đồng ý\nallow|cho phép\namazing|đáng kinh ngạc\nancient|cổ xưa\nannounce|thông báo\nanxious|lo lắng\napologize|xin lỗi\nappear|xuất hiện\napply|áp dụng, nộp đơn\narrive|đến nơi\nattention|sự chú ý\navoid|tránh\nbehavior|hành vi\nbelieve|tin tưởng\nbrave|dũng cảm\nbreathe|hít thở\ncareful|cẩn thận\nchallenge|thử thách\nchoose|lựa chọn\ncomfortable|thoải mái\ncompare|so sánh\ncomplete|hoàn thành\nconfident|tự tin\ncongratulations|chúc mừng\ncontinue|tiếp tục\ndangerous|nguy hiểm\ndecide|quyết định\ndevelop|phát triển\ndifferent|khác nhau\ndiscover|khám phá\neducation|giáo dục\nencourage|khuyến khích\nenvironment|môi trường\nexample|ví dụ\nexercise|bài tập, tập thể dục\nexperience|kinh nghiệm\nexplain|giải thích\nfamous|nổi tiếng\nfuture|tương lai\nimprove|cải thiện\nimportant|quan trọng\nknowledge|kiến thức\nopportunity|cơ hội\npractice|luyện tập\nremember|ghi nhớ\nsuccess|thành công\nsupport|hỗ trợ\ntake off|cất cánh\nunderstand|hiểu\nvictory|chiến thắng`;
   const SKINS=["🐔","🐥","🦆","🐷","🐸","🐵","🐼","🐱","👻","👽","🤖","🐙","🦀","🐡","🦄","🐧","🦖","🦕","🐲","🦊","🐰","🐝","🦋","🦇"];
   const DIFF={easy:{speed:25,spawn:1900,lives:5},normal:{speed:38,spawn:1450,lives:3},hard:{speed:55,spawn:1050,lives:3}};
@@ -157,15 +157,15 @@
     if(ui.formatExamples)ui.formatExamples.innerHTML=`abandon${esc(sep)}từ bỏ<br>ability${esc(sep)}khả năng<br>take off${esc(sep)}cất cánh`;
   }
   function countWords(){const n=parseVocabulary(ui.wordInput.value).length;ui.wordCount.textContent=`${n} từ/cụm từ hợp lệ`;ui.wordCount.style.color=n?"#72e2ff":"#ff6b7e"}
-  function saveWords(){localStorage.setItem("vocabBlasterWords",ui.wordInput.value);localStorage.setItem("vocabBlasterSeparator",rawSeparator());localStorage.setItem("vocabBlasterMaxEnemies",ui.maxEnemies.value);localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);localStorage.setItem("vocabBlasterSpeak",String(ui.speak.checked));toast("💾 Đã lưu bộ từ")}
-  function loadSaved(){ui.separatorInput.value=localStorage.getItem("vocabBlasterSeparator")||"|";ui.wordInput.value=localStorage.getItem("vocabBlasterWords")||SAMPLE;ui.maxEnemies.value=localStorage.getItem("vocabBlasterMaxEnemies")||"6";ui.difficulty.value=localStorage.getItem("vocabBlasterDifficulty")||"normal";ui.speak.checked=localStorage.getItem("vocabBlasterSpeak")!=="false";updateFormatPreview();countWords()}
+  function saveWords(){localStorage.setItem("vocabBlasterWords",ui.wordInput.value);localStorage.setItem("vocabBlasterSeparator",rawSeparator());localStorage.setItem("vocabBlasterMaxEnemies",ui.maxEnemies.value);localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);localStorage.setItem("vocabBlasterTypingLanguage",ui.typingLanguage.value);localStorage.setItem("vocabBlasterSpeak",String(ui.speak.checked));toast("💾 Đã lưu bộ từ")}
+  function loadSaved(){ui.separatorInput.value=localStorage.getItem("vocabBlasterSeparator")||"|";ui.wordInput.value=localStorage.getItem("vocabBlasterWords")||SAMPLE;ui.maxEnemies.value=localStorage.getItem("vocabBlasterMaxEnemies")||"6";ui.difficulty.value=localStorage.getItem("vocabBlasterDifficulty")||"normal";ui.typingLanguage.value=localStorage.getItem("vocabBlasterTypingLanguage")||"en";ui.speak.checked=localStorage.getItem("vocabBlasterSpeak")!=="false";updateFormatPreview();countWords()}
   function toast(t){ui.toast.textContent=t;ui.toast.classList.add("show");clearTimeout(toast.t);toast.t=setTimeout(()=>ui.toast.classList.remove("show"),1500)}
   function resize(){const r=canvas.getBoundingClientRect(),dpr=Math.max(1,Math.min(2,devicePixelRatio||1));canvas.width=Math.round(r.width*dpr);canvas.height=Math.round(r.height*dpr);ctx.setTransform(dpr,0,0,dpr,0,0);game.w=r.width;game.h=r.height;game.stars=Array.from({length:90},()=>({x:Math.random()*game.w,y:Math.random()*game.h,r:Math.random()*1.8+.3,a:Math.random()*.7+.2,s:Math.random()*8+3}));game.clouds=Array.from({length:6},(_,i)=>({x:Math.random()*game.w,y:60+Math.random()*Math.max(120,game.h*.45),size:45+Math.random()*60,speed:4+Math.random()*7,emoji:i%2?"☁️":"🌫️"}))}
   function randomWord(){if(!game.usedBag.length){game.usedBag=[...game.vocabulary];for(let i=game.usedBag.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[game.usedBag[i],game.usedBag[j]]=[game.usedBag[j],game.usedBag[i]]}}return game.usedBag.pop()}
   function spawn(){if(!game.running||game.paused)return;const max=+ui.maxEnemies.value;if(game.enemies.filter(e=>!e.dead).length>=max)return;const item=randomWord();if(!item)return;const size=46+Math.random()*16,margin=95,x=margin+Math.random()*Math.max(50,game.w-margin*2),base=DIFF[ui.difficulty.value].speed,speed=base*(1+(game.level-1)*.08)*(.8+Math.random()*.4);game.enemies.push({id:game.nextEnemyId++,en:item.en,vi:item.vi,target:norm(item.en),skin:SKINS[Math.floor(Math.random()*SKINS.length)],x,y:-50-Math.random()*70,vx:(Math.random()-.5)*24,vy:speed,size,wobble:Math.random()*Math.PI*2,dead:false,hitFlash:0,angle:0})}
-  function start(){const vocab=parseVocabulary(ui.wordInput.value);if(vocab.length<3){toast(`⚠️ Cần ít nhất 3 cặp từ dùng ngăn cách: ${visibleSeparator()||"(trống)"}`);return}saveWords();Object.assign(game,{vocabulary:vocab,usedBag:[],enemies:[],bullets:[],particles:[],floaters:[],score:0,combo:0,maxCombo:0,level:1,kills:0,correctKeys:0,wrongKeys:0,lockedId:null,typed:"",spawnTimer:0,nextEnemyId:1,lives:DIFF[ui.difficulty.value].lives,running:true,paused:false});ui.gameOver.classList.add("hidden");ui.pauseScreen.classList.add("hidden");ui.panel.classList.remove("open");hud();typingUI();spawn();spawn();spawn()}
+  function start(){const vocab=parseVocabulary(ui.wordInput.value);if(vocab.length<3){toast(`⚠️ Cần ít nhất 3 cặp từ dùng ngăn cách: ${visibleSeparator()||"(trống)"}`);return}saveWords();Object.assign(game,{vocabulary:vocab,usedBag:[],enemies:[],bullets:[],particles:[],floaters:[],score:0,combo:0,maxCombo:0,level:1,kills:0,correctKeys:0,wrongKeys:0,lockedId:null,typed:"",spawnTimer:0,nextEnemyId:1,lives:DIFF[ui.difficulty.value].lives,running:true,paused:false});ui.gameOver.classList.add("hidden");ui.pauseScreen.classList.add("hidden");ui.panel.classList.remove("open");hud();typingUI();spawn();spawn();spawn();setTimeout(focusTyping,50)}
   function hud(){ui.score.textContent=game.score.toLocaleString();ui.combo.textContent=game.combo;ui.level.textContent=game.level;ui.lives.textContent=game.lives}
-  function normalizeTyped(text){return String(text||"").toLowerCase().trim().replace(/\s+/g," ")}
+  function normalizeTyped(text){return String(text||"").normalize("NFC").toLowerCase().trim().replace(/\s+/g," ")}
   function typingUI(){
     if(!game.running){
       ui.typingWord.textContent="Chọn bộ từ rồi bắt đầu";
@@ -182,25 +182,31 @@
     const matches=game.enemies.filter(e=>!e.dead&&normalizeTyped(e.en)===answer).sort((a,b)=>b.y-a.y);
     return matches.length?matches[0]:null;
   }
+  function clearTyped(){
+    game.typed="";
+    if(imeInput)imeInput.value="";
+    typingUI();
+  }
   function submitTyped(){
     if(!game.running||game.paused)return;
     const answer=normalizeTyped(game.typed);
-    if(!answer)return;
+    if(!answer){clearTyped();focusTyping();return}
+
     const e=findEnemyByTyped();
     if(e){
       game.correctKeys++;
       shoot(e);
       e.hitFlash=.12;
       kill(e);
-      game.typed="";
+      clearTyped();
       ui.typingMeaning.textContent=`✅ ${e.en} = ${e.vi}`;
-      setTimeout(()=>typingUI(),900);
+      setTimeout(()=>{typingUI();focusTyping()},900);
     }else{
       wrong();
-      ui.typingMeaning.textContent="❌ Không có từ này trên màn hình";
-      setTimeout(()=>typingUI(),700);
+      clearTyped();
+      ui.typingMeaning.textContent="❌ Sai / không có từ này trên màn hình";
+      setTimeout(()=>{typingUI();focusTyping()},650);
     }
-    typingUI();
   }
   function typeChar(ch){if(!game.running||game.paused)return;game.typed+=ch;typingUI()}
   function wrong(){game.wrongKeys++;game.combo=0;sfx("wrong");ui.typingBar.classList.remove("shake");void ui.typingBar.offsetWidth;ui.typingBar.classList.add("shake");hud()}
@@ -209,7 +215,7 @@
   function explode(x,y){for(let i=0;i<24;i++){const a=Math.random()*Math.PI*2,sp=50+Math.random()*150;game.particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:.65+Math.random()*.45,size:2+Math.random()*5,hue:Math.random()<.5?48:330})}game.particles.push({x,y,vx:0,vy:-20,life:.7,size:30,hue:0,emoji:"💥"})}
   function miss(e){e.dead=true;game.lives--;game.combo=0;game.floaters.push({x:e.x,y:game.h-125,text:`😵 ${e.en} = ${e.vi}`,sub:"Lọt mất rồi!",life:2.2,maxLife:2.2});if(game.lockedId===e.id){game.lockedId=null;game.typed="";typingUI()}sfx("miss");hud();if(game.lives<=0)end()}
   function end(){game.running=false;game.paused=false;const total=game.correctKeys+game.wrongKeys,acc=total?Math.round(game.correctKeys/total*100):100;ui.finalScore.textContent=game.score.toLocaleString();ui.finalKills.textContent=game.kills;ui.finalAccuracy.textContent=`${acc}%`;ui.finalCombo.textContent=game.maxCombo;ui.gameOver.classList.remove("hidden")}
-  function pause(force){if(!game.running)return;game.paused=typeof force==="boolean"?force:!game.paused;ui.pauseScreen.classList.toggle("hidden",!game.paused);$("btnPause").textContent=game.paused?"▶️":"⏸️"}
+  function pause(force){if(!game.running)return;game.paused=typeof force==="boolean"?force:!game.paused;ui.pauseScreen.classList.toggle("hidden",!game.paused);$("btnPause").textContent=game.paused?"▶️":"⏸️";if(!game.paused)setTimeout(focusTyping,0)}
   function sfx(type){if(!game.sound)return;try{const AC=AudioContext||webkitAudioContext;if(!sfx.ctx)sfx.ctx=new AC();const ac=sfx.ctx,o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);const map={shot:[620,.04,"square"],boom:[120,.12,"sawtooth"],wrong:[170,.10,"square"],miss:[90,.20,"triangle"]},[f,d,w]=map[type]||map.shot;o.type=w;o.frequency.setValueAtTime(f,ac.currentTime);if(type==="boom")o.frequency.exponentialRampToValueAtTime(55,ac.currentTime+d);g.gain.setValueAtTime(.055,ac.currentTime);g.gain.exponentialRampToValueAtTime(.001,ac.currentTime+d);o.start();o.stop(ac.currentTime+d)}catch(_){}}
   function update(dt){for(const s of game.stars){s.y+=s.s*dt;if(s.y>game.h){s.y=0;s.x=Math.random()*game.w}}for(const c of game.clouds){c.x+=c.speed*dt;if(c.x>game.w+100)c.x=-120}if(!game.running||game.paused)return;const cfg=DIFF[ui.difficulty.value];game.spawnTimer-=dt*1000;const every=Math.max(520,cfg.spawn-(game.level-1)*55);if(game.spawnTimer<=0){spawn();game.spawnTimer=every*(.8+Math.random()*.4)}for(const e of game.enemies){if(e.dead)continue;e.wobble+=dt*2.3;e.angle=Math.sin(e.wobble)*.09;e.x+=(e.vx+Math.sin(e.wobble)*14)*dt;e.y+=e.vy*dt;if(e.x<55){e.x=55;e.vx=Math.abs(e.vx)}if(e.x>game.w-55){e.x=game.w-55;e.vx=-Math.abs(e.vx)}e.hitFlash=Math.max(0,e.hitFlash-dt);if(e.y>game.h-105)miss(e)}game.enemies=game.enemies.filter(e=>!e.dead||Math.random()>.97);for(const b of game.bullets)b.life-=dt;game.bullets=game.bullets.filter(b=>b.life>0);for(const p of game.particles){p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;p.vy+=100*dt}game.particles=game.particles.filter(p=>p.life>0);for(const f of game.floaters){f.life-=dt;f.y-=18*dt}game.floaters=game.floaters.filter(f=>f.life>0);game.muzzle=Math.max(0,game.muzzle-dt)}
   function rr(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);if(fill){ctx.fillStyle=fill;ctx.fill()}if(stroke){ctx.strokeStyle=stroke;ctx.stroke()}}
@@ -221,13 +227,104 @@
   function cannon(){const x=game.w/2,y=game.h-72;ctx.save();ctx.translate(x,y);if(game.muzzle>0){ctx.font="42px serif";ctx.textAlign="center";ctx.fillText("💥",0,-42)}ctx.font="50px 'Segoe UI Emoji',sans-serif";ctx.textAlign="center";ctx.textBaseline="middle";ctx.fillText("😎",0,0);ctx.font="34px 'Segoe UI Emoji',sans-serif";ctx.fillText("🔫",28,-8);ctx.restore()}
   function draw(t){if(!game.w||!game.h)return;ctx.clearRect(0,0,game.w,game.h);background(t);for(const e of game.enemies)if(!e.dead)drawEnemy(e);drawBullets();drawParticles();drawFloaters();cannon()}
   function loop(t){const dt=Math.min(.033,(t-game.lastTime)/1000||0);game.lastTime=t;update(dt);draw(t);requestAnimationFrame(loop)}
+  // Input ẩn chỉ dùng cho chế độ Tiếng Việt để UniKey/IME tự ghép dấu.
+  const imeInput=document.createElement("input");
+  imeInput.type="text";
+  imeInput.autocomplete="off";
+  imeInput.spellcheck=false;
+  imeInput.setAttribute("aria-hidden","true");
+  Object.assign(imeInput.style,{
+    position:"fixed",left:"-10000px",top:"-10000px",
+    width:"1px",height:"1px",opacity:"0",pointerEvents:"none"
+  });
+  document.body.appendChild(imeInput);
+
+  function typingMode(){return ui.typingLanguage?.value==="vi"?"vi":"en"}
+
+  function focusTyping(){
+    if(!game.running||game.paused||ui.panel.classList.contains("open"))return;
+    if(typingMode()==="vi"){
+      imeInput.value=game.typed;
+      imeInput.focus({preventScroll:true});
+      try{imeInput.setSelectionRange(imeInput.value.length,imeInput.value.length)}catch(_){}
+    }else{
+      if(document.activeElement===imeInput)imeInput.blur();
+      const active=document.activeElement;
+      if(active && /^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName))active.blur();
+    }
+  }
+
+  function englishCharFromCode(ev){
+    // Dùng event.code (phím vật lý), không dùng event.key.
+    // Vì vậy UniKey đang bật vẫn gõ được "injure": i n j u r e.
+    if(/^Key[A-Z]$/.test(ev.code))return ev.code.slice(3).toLowerCase();
+    if(/^Digit[0-9]$/.test(ev.code))return ev.code.slice(5);
+    if(ev.code==="Space")return " ";
+    if(ev.code==="Minus")return "-";
+    if(ev.code==="Quote")return "'";
+    return null;
+  }
+
+  imeInput.addEventListener("input",()=>{
+    if(typingMode()!=="vi"||!game.running||game.paused)return;
+    game.typed=imeInput.value.normalize("NFC");
+    typingUI();
+  });
+
+  imeInput.addEventListener("compositionend",()=>{
+    if(typingMode()!=="vi")return;
+    game.typed=imeInput.value.normalize("NFC");
+    typingUI();
+  });
+
+  imeInput.addEventListener("keydown",ev=>{
+    if(typingMode()!=="vi"||!game.running||game.paused)return;
+    if(ev.key==="Enter"){
+      ev.preventDefault();
+      game.typed=imeInput.value.normalize("NFC");
+      submitTyped();
+    }
+  });
+
   document.addEventListener("keydown",ev=>{
     if(ui.panel.classList.contains("open"))return;
-    if(ev.key==="Escape"){ev.preventDefault();pause();return}
+
+    if(ev.key==="Escape"){
+      ev.preventDefault();
+      pause();
+      if(!game.paused)setTimeout(focusTyping,0);
+      return;
+    }
+
     if(!game.running||game.paused)return;
-    if(ev.key==="Enter"){ev.preventDefault();submitTyped();return}
-    if(ev.key==="Backspace"){ev.preventDefault();if(game.typed.length){game.typed=game.typed.slice(0,-1);typingUI()}return}
-    if(ev.key.length===1&&/^[a-zA-Z '\-]$/.test(ev.key)){ev.preventDefault();typeChar(ev.key.toLowerCase())}
+
+    // Tiếng Việt: để input ẩn + UniKey/IME xử lý chữ.
+    if(typingMode()==="vi"){
+      if(document.activeElement!==imeInput)setTimeout(focusTyping,0);
+      return;
+    }
+
+    // English: đọc phím vật lý bằng event.code để không bị UniKey biến đổi.
+    if(ev.key==="Enter"){
+      ev.preventDefault();
+      submitTyped();
+      return;
+    }
+
+    if(ev.key==="Backspace"){
+      ev.preventDefault();
+      if(game.typed.length){
+        game.typed=game.typed.slice(0,-1);
+        typingUI();
+      }
+      return;
+    }
+
+    const ch=englishCharFromCode(ev);
+    if(ch!==null){
+      ev.preventDefault();
+      typeChar(ch);
+    }
   });
-  $("btnStart").onclick=async()=>{if(await requireAccess())start()};$("btnWords").onclick=()=>{if(game.running)pause(true);ui.panel.classList.add("open")};$("btnCloseWords").onclick=()=>{ui.panel.classList.remove("open");if(game.running)pause(false)};$("btnPause").onclick=()=>pause();$("btnResume").onclick=()=>pause(false);$("btnRestart").onclick=async()=>{if(await requireAccess())start()};$("btnSound").onclick=()=>{game.sound=!game.sound;$("btnSound").textContent=game.sound?"🔊":"🔇"};$("btnSample").onclick=()=>{const sep=activeSeparator()||"|";ui.wordInput.value=SAMPLE.split("\n").map(line=>{const i=line.indexOf("|");return i<0?line:line.slice(0,i)+sep+line.slice(i+1)}).join("\n");countWords();toast("🎲 Đã nạp bộ từ mẫu")};$("btnSaveWords").onclick=saveWords;ui.wordInput.addEventListener("input",countWords);ui.separatorInput.addEventListener("input",()=>{updateFormatPreview();countWords()});$("fileInput").addEventListener("change",async ev=>{const f=ev.target.files?.[0];if(!f)return;try{ui.wordInput.value=await f.text();countWords();toast(`📂 Đã đọc ${f.name}`)}catch(_){toast("❌ Không đọc được tệp")}});$("btnAccess").onclick=()=>showPaymentGate();$("btnCreatePayment").onclick=createPayment;$("btnClosePayment").onclick=()=>closePaymentGate();window.addEventListener("resize",resize);loadSaved();loadAccessConfig();resize();typingUI();requestAnimationFrame(loop);
+  $("btnStart").onclick=async()=>{if(await requireAccess())start()};$("btnWords").onclick=()=>{if(game.running)pause(true);ui.panel.classList.add("open")};$("btnCloseWords").onclick=()=>{ui.panel.classList.remove("open");if(game.running)pause(false)};$("btnPause").onclick=()=>pause();$("btnResume").onclick=()=>pause(false);$("btnRestart").onclick=async()=>{if(await requireAccess())start()};$("btnSound").onclick=()=>{game.sound=!game.sound;$("btnSound").textContent=game.sound?"🔊":"🔇"};$("btnSample").onclick=()=>{const sep=activeSeparator()||"|";ui.wordInput.value=SAMPLE.split("\n").map(line=>{const i=line.indexOf("|");return i<0?line:line.slice(0,i)+sep+line.slice(i+1)}).join("\n");countWords();toast("🎲 Đã nạp bộ từ mẫu")};$("btnSaveWords").onclick=saveWords;ui.typingLanguage.addEventListener("change",()=>{game.typed="";imeInput.value="";localStorage.setItem("vocabBlasterTypingLanguage",ui.typingLanguage.value);typingUI();setTimeout(focusTyping,0)});ui.wordInput.addEventListener("input",countWords);ui.separatorInput.addEventListener("input",()=>{updateFormatPreview();countWords()});$("fileInput").addEventListener("change",async ev=>{const f=ev.target.files?.[0];if(!f)return;try{ui.wordInput.value=await f.text();countWords();toast(`📂 Đã đọc ${f.name}`)}catch(_){toast("❌ Không đọc được tệp")}});$("btnAccess").onclick=()=>showPaymentGate();$("btnCreatePayment").onclick=createPayment;$("btnClosePayment").onclick=()=>closePaymentGate();window.addEventListener("resize",resize);loadSaved();loadAccessConfig();resize();typingUI();requestAnimationFrame(loop);
 })();
