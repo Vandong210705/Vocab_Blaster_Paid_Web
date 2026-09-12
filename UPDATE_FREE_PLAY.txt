@@ -1,0 +1,11 @@
+ĐÃ THÊM LẠI NÚT CHO PHÉP CHƠI MIỄN PHÍ
+
+Admin:
+- Có checkbox "Cho phép chơi miễn phí".
+- Bật: bấm BẮT ĐẦU vào game ngay, không hiện QR, không yêu cầu thanh toán.
+- Tắt: game dùng cơ chế thanh toán như bình thường.
+
+Cập nhật GitHub:
+git add .
+git commit -m "Restore free play option"
+git push origin main

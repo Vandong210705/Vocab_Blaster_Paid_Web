@@ -87,6 +87,14 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{padding:10px;bord
       </label>
     </div>
 
+    <div style="margin-top:18px;padding:13px 14px;border:1px solid #364273;border-radius:12px;background:#0b1027">
+      <label style="display:flex;align-items:center;gap:10px;color:#eef3ff;font-weight:700;cursor:pointer">
+        <input id="freePlay" type="checkbox" style="width:auto;margin:0;transform:scale(1.15)">
+        Cho phép chơi miễn phí
+      </label>
+      <div class="hint">Bật mục này: người chơi bấm BẮT ĐẦU là vào game ngay, không hiện QR và không cần thanh toán.</div>
+    </div>
+
     <div class="row" style="margin-top:18px">
       <button id="save">💾 Lưu cấu hình</button>
       <button id="previewQr" class="gray">🔄 Cập nhật / xem mã QR</button>
@@ -151,6 +159,7 @@ async function loadAll(){
     $('bankAccountName').value=cfg.bankAccountName??'';
     $('accessMode').value=cfg.accessMode==='minutes'?'minutes':'permanent';
     $('playMinutes').value=cfg.playMinutes??60;
+    $('freePlay').checked=!!cfg.freePlay;
     syncDuration();
     await loadPayments();
     await previewQr(false);
@@ -185,7 +194,8 @@ async function saveConfig(){
     bankAccount:$('bankAccount').value.trim(),
     bankAccountName:$('bankAccountName').value.trim(),
     accessMode:$('accessMode').value,
-    playMinutes:Number($('playMinutes').value||60)
+    playMinutes:Number($('playMinutes').value||60),
+    freePlay:$('freePlay').checked
   };
   try{
     await req('/api/admin/config',{method:'POST',body:JSON.stringify(body)});
