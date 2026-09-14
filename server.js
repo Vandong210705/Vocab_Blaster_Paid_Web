@@ -5,7 +5,7 @@ const crypto = require("crypto");
 
 const PORT = Number(process.env.PORT || 3000);
 const HOST = process.env.HOST || "0.0.0.0";
-const ADMIN_KEY = process.env.ADMIN_KEY || "vandong123";
+const ADMIN_KEY = "vandong123";
 const TOKEN_SECRET = process.env.TOKEN_SECRET || "change-this-token-secret";
 const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET || "change-this-webhook-secret";
 const SEPAY_WEBHOOK_SECRET = process.env.SEPAY_WEBHOOK_SECRET || "";

@@ -8,8 +8,6 @@ services:
     healthCheckPath: /health
     autoDeploy: true
     envVars:
-      - key: ADMIN_KEY
-        sync: false
       - key: TOKEN_SECRET
         generateValue: true
       - key: WEBHOOK_SECRET

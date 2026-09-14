@@ -1,0 +1,7 @@
+Bản cập nhật giữ nguyên game hiện tại và bổ sung:
+- Thuật toán ghi nhớ chạy ẩn, không hiện số lần lặp/lịch ôn cho người học.
+- Recall nội bộ: 4 lần đúng liên tiếp cho từ cần củng cố, sau đó spaced repetition.
+- Không hiện FAIL/Sai/emoji tiêu cực trong gameplay; thay bằng lời động viên ngẫu nhiên.
+- Popup kết thúc vòng đổi sang thông điệp tích cực.
+- ADMIN_KEY được khóa cố định trong server.js: vandong123.
+- Kèm IELTS_BAND4_TO_6_TONG_HOP_1498_MUC.txt và IELTS_PARAPHRASE_CORE_120_NHOM.txt.

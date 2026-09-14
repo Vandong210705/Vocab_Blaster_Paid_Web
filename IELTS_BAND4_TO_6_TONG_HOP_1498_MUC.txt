@@ -1,0 +1,1498 @@
+Achieve : Đạt được
+Affect : Ảnh hưởng đến
+Allow : Cho phép
+Avoid : Tránh
+Believe : Tin; cho rằng
+Compare : So sánh
+Create : Tạo ra
+Damage : Làm hư hại; gây thiệt hại
+Destroy : Phá hủy
+Encourage : Khuyến khích
+Improve : Cải thiện
+Increase : Tăng
+Decrease : Giảm
+Reduce : Giảm bớt
+Provide : Cung cấp
+Support : Hỗ trợ; ủng hộ
+Protect : Bảo vệ
+Explain : Giải thích
+Express : Bày tỏ; thể hiện
+Describe : Miêu tả
+Develop : Phát triển
+Maintain : Duy trì; bảo dưỡng
+Receive : Nhận
+Spend : Tiêu; dành
+Waste : Lãng phí
+Prefer : Thích hơn
+Suggest : Gợi ý; đề xuất
+Suffer : Chịu đựng; mắc bệnh
+Manage : Quản lý; xoay xở
+Important : Quan trọng
+Essential : Thiết yếu
+Convenient : Tiện lợi
+Difficult : Khó
+Dangerous : Nguy hiểm
+Modern : Hiện đại
+Popular : Phổ biến
+Useful : Hữu ích
+Healthy : Khỏe mạnh; lành mạnh
+Expensive : Đắt
+Affordable : Có giá phải chăng
+Serious : Nghiêm trọng; nghiêm túc
+Traditional : Truyền thống
+Crowded : Đông đúc
+Peaceful : Yên bình
+Noisy : Ồn ào
+Polluted : Bị ô nhiễm
+Local : Địa phương
+Subject : Môn học; chủ đề
+Course : Khóa học
+Major : Chuyên ngành; chính
+Homework : Bài tập về nhà
+Exam : Kỳ thi
+Grade : Điểm số
+University : Trường đại học
+Tuition fee : Học phí
+Scholarship : Học bổng
+Library : Thư viện
+Knowledge : Kiến thức
+Skill : Kỹ năng
+Certificate : Bằng cấp chứng chỉ
+Graduate : Tốt nghiệp
+Attend : Tham dự
+Review : Xem lại; ôn tập
+Cheat : Gian lận
+Academic : Thuộc về học thuật
+Compulsory : Bắt buộc
+Job : Công việc
+Career : Sự nghiệp
+Office : Văn phòng
+Colleague : Đồng nghiệp
+Employee : Nhân viên
+Employer : Người sử dụng lao động sếp
+Salary : Lương theo tháng
+Income : Thu nhập
+Company : Công ty
+Business : Doanh nghiệp việc kinh doanh
+Customer : Khách hàng
+Interview : Phỏng vấn
+Experience : Kinh nghiệm; trải nghiệm
+Earn : Kiếm được
+Hire : Thuê
+Fire : Sa thải; bắn
+Apply for : Ứng tuyển; nộp đơn xin
+Quit : Bỏ; nghỉ
+Retire : Nghỉ hưu
+Full-time : Toàn thời gian
+Part-time : Bán thời gian
+Stressful : Áp lực căng thẳng
+Rewarding : Đáng giá bổ ích
+Unemployed : Thất nghiệp
+Parents : Cha mẹ
+Siblings : Anh chị em ruột
+Relative : Họ hàng
+Childhood : Tuổi thơ
+Relationship : Mối quan hệ
+Generation : Thế hệ
+Friend : Bạn bè
+Grow up : Lớn lên
+Generous : Rộng lượng hào phóng
+Strict : Nghiêm khắc
+Smartphone : Điện thoại thông minh
+Internet : Mạng Internet
+Social media : Mạng xã hội
+Device : Thiết bị
+Application : Ứng dụng
+Information : Thông tin
+Browse : Duyệt; lướt
+Download : Tải xuống
+Upload : Tải lên
+Communicate : Giao tiếp
+Depend on : Phụ thuộc vào
+Addictive : Gây nghiện
+Advanced : Tiên tiến nâng cao
+Disease : Bệnh tật
+Diet : Chế độ ăn
+Exercise : Tập thể dục; bài tập
+Gym : Phòng tập thể dục
+Hospital : Bệnh viện
+Stress : Sự căng thẳng
+Habit : Thói quen
+Relax : Thư giãn
+Gain weight : Tăng cân
+Lose weight : Giảm cân
+Fit : Vừa; phù hợp; khỏe mạnh
+Active : Năng động
+Environment : Môi trường
+Pollution : Sự ô nhiễm
+Plastic waste : Rác thải nhựa
+Nature : Tự nhiên thiên nhiên
+Climate change : Biến đổi khí hậu
+Global warming : Sự nóng lên toàn cầu
+Recycle : Tái chế
+Destination : Điểm đến
+Vehicle : Phương tiện giao thông
+Traffic jam : Kẹt xe
+Commute : Đi lại hằng ngày
+Book : Đặt trước
+Hobby : Sở thích
+Entertainment : Sự giải trí
+Festival : Lễ hội
+Concert : Buổi hòa nhạc
+Facility : Cơ sở vật chất
+Shopping mall : Trung tâm thương mại
+Cash : Tiền mặt
+Credit card : Thẻ tín dụng
+Product : Sản phẩm
+Discount : Giảm giá
+Bill : Hóa đơn
+Afford : Có đủ khả năng chi trả
+Ability : Khả năng năng lực
+Abroad : Nước ngoài ra nước ngoài
+Accident : Tai nạn sự cố ngoài ý muốn
+Accurate : Chính xác đúng đắn
+Advertise : Quảng cáo
+Agreement : Sự đồng ý hợp đồng
+Agriculture : Nông nghiệp
+Amount : Số lượng
+Analyze : Phân tích
+Ancient : Cổ xưa
+Announce : Thông báo
+Annual : Hàng năm
+Anxiety : Sự lo lắng băn khoăn
+Apologize : Xin lỗi
+Appearance : Diện mạo vẻ bề ngoài
+Appreciate : Trân trọng; đánh giá cao
+Approach : Tiếp cận
+Argue : Tranh luận
+Argument : Sự tranh luận lý lẽ
+Artificial : Nhân tạo
+Artist : Nghệ sĩ
+Aspect : Khía cạnh mặt
+Assistant : Trợ lý người phụ tá
+Atmosphere : Bầu không khí
+Attitude : Thái độ
+Attract : Thu hút
+Attractive : Thu hút quyến rũ
+Audience : Khán giả
+Author : Tác giả
+Average : Trung bình
+Background : Nền tảng lý lịch
+Balance : Cân bằng
+Ban : Cấm
+Basic : Cơ bản
+Beautiful : Đẹp xinh đẹp
+Behavior : Hành vi cách ứng xử
+Benefit : Lợi ích; có lợi
+Blame : Đổ lỗi
+Bored : Bị nhàm chán
+Boring : Gây nhàm chán
+Brain : Bộ não
+Budget : Ngân sách
+Building : Tòa nhà
+Calm : Bình tĩnh; làm dịu
+Campaign : Chiến dịch
+Cancel : Hủy
+Cancer : Bệnh ung thư
+Candidate : Ứng viên
+Capital : Thủ đô; Vốn liếng
+Celebrate : Ăn mừng; kỷ niệm
+Century : Thế kỷ
+Challenge : Thử thách
+Character : Tính cách; Nhân vật
+Charity : Từ thiện tổ chức từ thiện
+Chemical : Hóa chất thuộc về hóa học
+Choice : Sự lựa chọn
+Citizen : Công dân
+Claim : Khẳng định; yêu cầu
+Climate : Khí hậu
+Clinic : Phòng khám
+Coast : Bờ biển
+Collapse : Sụp đổ
+Combination : Sự kết hợp
+Comfortable : Thoải mái dễ chịu
+Comment : Bình luận
+Commercial : Thuộc về thương mại; Quảng cáo
+Committee : Ủy ban
+Common : Phổ biến chung
+Community : Cộng đồng
+Compete : Cạnh tranh
+Competition : Cuộc thi sự cạnh tranh
+Complain : Phàn nàn
+Complaint : Lời than phiền đơn khiếu nại
+Complete : Hoàn thành; đầy đủ
+Complex : Phức tạp
+Complicated : Phức tạp rắc rối
+Concentrate : Tập trung
+Concentration : Sự tập trung
+Concept : Khái niệm
+Concern : Lo ngại; liên quan
+Conclusion : Kết luận
+Condition : Điều kiện trạng thái
+Conduct : Tiến hành
+Confidence : Sự tự tin
+Confident : Tự tin
+Confirm : Xác nhận
+Conflict : Mâu thuẫn xung đột
+Confused : Bị bối rối lẫn lộn
+Connect : Kết nối
+Connection : Sự kết nối
+Conscious : Có ý thức nhận thức được
+Consequence : Hậu quả kết quả
+Consider : Cân nhắc
+Considerable : Đáng kể to lớn
+Consist of : Bao gồm
+Constant : Liên tục không đổi
+Construct : Xây dựng
+Construction : Sự xây dựng công trình
+Consume : Tiêu thụ
+Consumer : Người tiêu dùng
+Contact : Liên hệ
+Contain : Chứa
+Contemporary : Đương đại hiện đại
+Content : Nội dung; Hài lòng
+Continent : Châu lục
+Continue : Tiếp tục
+Continuous : Liên tục không ngừng
+Contribute : Đóng góp
+Contribution : Sự đóng góp
+Control : Kiểm soát; điều khiển
+Conversation : Cuộc hội thoại
+Convince : Thuyết phục
+Cooperate : Hợp tác
+Cope with : Đối phó với
+Corporation : Tập đoàn
+Correct : Đúng; sửa lại
+Cost : Có giá; tốn
+Council : Hội đồng
+Country : Đất nước; Vùng nông thôn
+Countryside : Vùng nông thôn
+County : Hạt tỉnh
+Couple : Một cặp một đôi
+Creation : Sự tạo ra tác phẩm
+Creative : Sáng tạo
+Credit : Tín dụng sự tin tưởng
+Crime : Tội phạm vụ tội phạm
+Criminal : Tội phạm
+Crisis : Cuộc khủng hoảng
+Critical : Chỉ trích; Quan trọng nguy kịch
+Crop : Mùa vụ
+Crowd : Đám đông
+Crucial : Cốt lõi cực kỳ quan trọng
+Cultural : Thuộc về văn hóa
+Culture : Văn hóa
+Currency : Tiền tệ
+Current : Hiện tại; Dòng lưu chất
+Currently : Hiện tại lúc này
+Daily : Hàng ngày
+Deal with : Giải quyết; đối phó
+Death : Cái chết sự tử vong
+Debate : Tranh luận
+Decide : Quyết định
+Decision : Sự quyết định
+Decline : Giảm; từ chối
+Decorate : Trang trí
+Decoration : Sự trang trí
+Deep : Sâu sắc; Sâu
+Definitely : Chắc chắn một cách rõ ràng
+Definition : Định nghĩa
+Degree : Bằng cấp; Độ
+Deliberate : Cố ý chủ tâm
+Deliver : Giao; chuyển
+Delivery : Sự giao hàng
+Demand : Yêu cầu; nhu cầu
+Demonstrate : Chứng minh; trình bày
+Deny : Phủ nhận
+Department : Phòng ban bộ phận
+Depend : Phụ thuộc
+Dependent : Lệ thuộc phụ thuộc
+Deposit : Tiền đặt cọc; gửi tiền
+Depth : Chiều sâu độ sâu
+Description : Sự miêu tả
+Deserve : Xứng đáng
+Design : Thiết kế
+Despite : Mặc dù bất chấp
+Destruction : Sự phá hủy
+Detail : Chi tiết
+Detailed : Chi tiết tỉ mỉ
+Detect : Phát hiện
+Determine : Xác định
+Determined : Quyết tâm
+Development : Sự phát triển
+Devote : Cống hiến
+Diagram : Biểu đồ sơ đồ
+Differ : Khác nhau
+Difference : Sự khác biệt
+Difficulty : Sự khó khăn
+Digital : Kỹ thuật số
+Direct : Trực tiếp; chỉ đạo
+Direction : Hướng đi sự chỉ dẫn
+Disadvantage : Nhược điểm bất lợi
+Disagree : Không đồng ý
+Disappoint : Làm thất vọng
+Disaster : Thảm họa
+Discipline : Kỷ luật
+Discovery : Sự khám phá
+Discuss : Thảo luận
+Discussion : Sự thảo luận
+Dismiss : Sa thải; bác bỏ
+Display : Hiển thị; trưng bày
+Distance : Khoảng cách
+Distant : Xa xôi cách biệt
+Distinct : Riêng biệt rõ ràng
+Distinguish : Phân biệt
+Distribute : Phân phối
+Distribution : Sự phân phối
+District : Quận huyện
+Divide : Chia
+Division : Sự phân chia; Phép chia
+Divorce : Ly hôn
+Do : Làm
+Doctor : Bác sĩ
+Document : Tài liệu
+Domestic : Trong nước; Nội trợ
+Dominate : Thống trị
+Donate : Quyên góp
+Donation : Sự quyên góp
+Double : Gấp đôi
+Doubt : Nghi ngờ
+Down : Xuống
+Dramatic : Kịch tính; Đột ngột
+Draw : Vẽ; kéo
+Drive : Lái xe
+Drop : Rơi; thả
+Drown : Chết đuối
+Drug : Thuốc; Ma túy
+Due to : Vì do
+During : Trong lúc trong suốt
+Dynamic : Năng động sống động
+Each : Mỗi
+Ear : Cái tai
+Earth : Trái đất; Mặt đất
+Earthquake : Trận động đất
+East : Phía đông
+Eastern : Thuộc về phía đông
+Easy : Dễ dàng
+Economic : Thuộc về kinh tế
+Economical : Tiết kiệm
+Economics : Ngành kinh tế học
+Economy : Nền kinh tế
+Edge : Cạnh rìa bờ
+Edit : Chỉnh sửa
+Edition : Phiên bản ấn bản
+Educate : Giáo dục
+Education : Giáo dục
+Educational : Thuộc về giáo dục
+Effect : Hiệu ứng ảnh hưởng kết quả
+Effective : Hiệu quả
+Effectively : Một cách hiệu quả
+Efficiency : Hiệu suất năng suất
+Efficient : Có năng suất hiệu quả
+Effort : Nỗ lực cố gắng
+Either : Hoặc
+Elderly : Cao tuổi người già
+Electrical : Liên quan đến điện
+Electricity : Điện năng
+Electronic : Điện tử
+Element : Yếu tố thành phần
+Eliminate : Loại bỏ
+Else : Khác nữa
+Emerge : Xuất hiện
+Emergency : Trường hợp khẩn cấp
+Emotion : Cảm xúc
+Emotional : Thuộc về cảm xúc
+Emphasize : Nhấn mạnh
+Employed : Có việc làm
+Employment : Việc làm sự thuê mướn
+Enable : Cho phép; làm cho có thể
+Encounter : Gặp phải
+Encouragement : Sự động viên
+End : Kết thúc
+Endanger : Gây nguy hiểm
+Engage : Tham gia
+Engine : Động cơ
+Engineer : Kỹ sư
+Engineering : Ngành kỹ thuật
+Enjoy : Thích; tận hưởng
+Enjoyable : Thú vị dễ chịu
+Enormous : Khổng lồ to lớn
+Enough : Đủ
+Ensure : Đảm bảo
+Enter : Đi vào; nhập
+Entire : Toàn bộ toàn thể
+Entrance : Lối vào cổng vào
+Entry : Sự đi vào; Mục nhập
+Environmental : Thuộc về môi trường
+Equal : Bằng; ngang bằng
+Equally : Một cách công bằng
+Equipment : Trang thiết bị
+Error : Lỗi sai sót
+Especially : Đặc biệt là
+Essay : Bài văn bài tiểu luận
+Establish : Thành lập; thiết lập
+Estimate : Ước tính
+Ethnic : Thuộc về tộc người
+Evaluate : Đánh giá
+Even : Ngay cả; Chẵn
+Event : Sự kiện
+Eventually : Cuối cùng thì
+Ever : Đã từng
+Every : Mỗi mọi
+Everyday : Thông thường hàng ngày
+Evidence : Bằng chứng chứng cứ
+Evolution : Sự tiến hóa
+Evolve : Phát triển; tiến hóa
+Exact : Chính xác
+Exactly : Chính xác là
+Examine : Kiểm tra
+Examination : Kỳ kiểm tra sự khám xét
+Examiner : Giám khảo
+Example : Ví dụ
+Excellent : Xuất sắc tuyệt vời
+Except : Ngoại trừ
+Excessive : Quá mức thái quá
+Exchange : Trao đổi
+Excited : Hào hứng kích động
+Exciting : Thú vị gây hào hứng
+Exhibition : Buổi triển lãm
+Exist : Tồn tại
+Exit : Lối ra; rời khỏi
+Expand : Mở rộng
+Expansion : Sự mở rộng
+Expect : Mong đợi
+Expectation : Sự mong đợi kỳ vọng
+Expense : Chi phí tiền tiêu
+Experienced : Có kinh nghiệm
+Experiment : Thí nghiệm; thử nghiệm
+Expert : Chuyên gia
+Explanation : Lời giải thích
+Explode : Phát nổ
+Explosion : Vụ nổ
+Explore : Khám phá
+Explorer : Nhà thám hiểm
+Export : Xuất khẩu
+Expose : Phơi bày; để lộ
+Exposure : Sự phơi bày tiếp xúc
+Extend : Kéo dài; mở rộng
+Extension : Sự kéo dài; Nhánh máy điện thoại
+Extensive : Rộng rãi bao quát
+Extent : Mức độ quy mô
+External : Bên ngoài ngoại lai
+Extra : Thêm vào ngoại lệ
+Extremely : Cực kỳ vô cùng
+Face : Khuôn mặt; đối mặt
+Fact : Sự thật dữ kiện
+Factor : Yếu tố nhân tố
+Factory : Nhà máy công xưởng
+Fail : Thất bại; trượt
+Failure : Sự thất bại
+Fair : Công bằng; Hội chợ
+Fairly : Khá là; Công bằng
+Fall : Rơi; ngã
+Familiar : Quen thuộc
+Family : Gia đình
+Famous : Nổi tiếng
+Far : Xa
+Farm : Nông trại trang trại
+Farmer : Nông dân
+Farming : Công việc đồng áng
+Favorite : Được yêu thích nhất
+Fear : Nỗi sợ sợ hãi
+Feature : Đặc điểm tính năng
+February : Tháng hai
+Fee : Phí lệ phí
+Feed : Cho ăn
+Feel : Cảm thấy
+Feeling : Cảm xúc cảm giác
+Female : Nữ giới giống cái
+Fever : Cơn sốt
+Few : Một vài ít
+Field : Cánh đồng; Lĩnh vực
+Fight : Chiến đấu
+Figure : Con số; Nhân vật
+File : Hồ sơ tệp tài liệu
+Fill : Lấp đầy; điền
+Film : Bộ phim; Phim ảnh
+Final : Cuối cùng trận chung kết
+Finally : Cuối cùng thì
+Finance : Tài chính; tài trợ
+Financial : Thuộc về tài chính
+Find : Tìm thấy
+Finding : Phát hiện kết quả tìm kiếm
+Finish : Hoàn thành
+Firstly : Đầu tiên là
+Fitness : Sự khỏe khoắn thể hình
+Fix : Sửa; cố định
+Flat : Căn hộ; Bằng phẳng
+Flavor : Hương vị
+Flexible : Linh hoạt
+Flight : Chuyến bay
+Float : Nổi
+Flood : Lũ lụt; làm ngập
+Floor : Sàn nhà; Tầng nhà
+Flow : Chảy; dòng chảy
+Flu : Bệnh cúm
+Fluid : Chất lưu chất lỏng
+Focus : Tập trung
+Follow : Theo; làm theo
+Following : Tiếp theo sau đây
+Food : Thức ăn thực phẩm
+For : Cho vì
+Forbid : Cấm
+Force : Lực; ép buộc
+Forecast : Dự báo
+Foreign : Nước ngoài ngoại quốc
+Foreigner : Người nước ngoài
+Forest : Khu rừng
+Forget : Quên
+Form : Hình thức; tạo thành
+Formal : Trang trọng chính thức
+Format : Định dạng
+Former : Cựu trước đây
+Formerly : Trước đây
+Formula : Công thức
+Fortnight : Hai tuần
+Foster : Nuôi dưỡng thúc đẩy
+Foundation : Nền móng; Quỹ tài trợ
+Fragile : Dễ vỡ mong manh
+Free : Tự do; Miễn phí
+Freedom : Sự tự do
+Frequently : Thường xuyên
+Fresh : Tươi mới trong lành
+Friendly : Thân thiện
+From : Từ
+Frustrated : Nản lòng bực dọc
+Fuel : Nhiên liệu chất đốt
+Fun : Vui vẻ trò vui
+Function : Chức năng hoạt động
+Fund : Quỹ; tài trợ
+Fundamental : Cơ bản cốt lõi
+Furniture : Đồ nội thất
+Further : Thêm nữa xa hơn
+Furthermore : Hơn nữa
+Future : Tương lai
+Gain : Đạt được; thu được
+Gap : Khoảng cách lỗ hổng
+Gather : Thu thập; tập hợp
+Generally : Nói chung thông thường
+Generate : Tạo ra
+Get : Nhận; lấy
+Gift : Món quà; Tài năng
+Global : Toàn cầu
+Goods : Hàng hóa
+Government : Chính phủ
+Grab : Chộp lấy
+Graduation : Lễ tốt nghiệp
+Gram : Ngữ pháp; Gam
+Grammar : Ngữ pháp
+Grant : Cấp; trợ cấp
+Graph : Đồ thị biểu đồ
+Grasp : Nắm; hiểu
+Greatly : Rất nhiều vĩ đại
+Group : Nhóm tập hợp
+Grow : Phát triển; trồng
+Growth : Sự phát triển sự tăng trưởng
+Guess : Đoán
+Guest : Khách mời khách khứa
+Guide : Hướng dẫn
+Habitat : Môi trường sống
+Happen : Xảy ra
+Happy : Hạnh phúc vui vẻ
+Harass : Quấy rối làm phiền
+Harassment : Sự quấy rối
+Hardship : Sự gian khổ khó khăn
+Harm : Gây hại; tổn hại
+Harmful : Có hại
+Harmless : Vô hại
+Harmony : Sự hòa hợp hài hòa
+Harsh : Khắc nghiệt thô ráp
+Harvest : Thu hoạch
+Headquarters : Trụ sở chính
+Heal : Chữa lành
+Health : Sức khỏe
+Hear : Nghe
+Heat : Nhiệt; làm nóng
+Help : Giúp
+Helpful : Có ích giúp ích
+Hence : Do đó vì thế
+Herb : Thảo mộc thảo dược
+Heritage : Di sản
+Hesitation : Sự do dự
+Highlight : Làm nổi bật; điểm nổi bật
+Highway : Đường quốc lộ đường cao tốc
+Historian : Nhà sử học
+Historic : Có tính lịch sử
+Historical : Thuộc về lịch sử
+History : Lịch sử
+Hold : Cầm; giữ; tổ chức
+Home : Nhà mái ấm
+Homeland : Quê hương tổ quốc
+Homeless : Vô gia cư
+Hope : Hy vọng
+Hospitality : Lòng hiếu khách
+Host : Chủ nhà; tổ chức
+Hotel : Khách sạn
+House : Nhà; cho ở
+Household : Hộ gia đình
+Housing : Việc cung cấp nhà ở; Nhà đất
+However : Tuy nhiên
+Huge : Khổng lồ to lớn
+Human : Con người; Thuộc về con người
+Humanity : Nhân loại; Lòng nhân đạo
+Idea : Ý tưởng ý kiến
+Identical : Giống hệt nhau
+Identify : Xác định; nhận diện
+Identity : Danh tính bản sắc
+Illustrate : Minh họa
+Image : Hình ảnh hình tượng
+Immigrate : Nhập cư
+Impact : Tác động
+Import : Nhập khẩu
+Importance : Sự quan trọng
+Improvement : Sự cải thiện
+Impulse : Sự bốc đồng thúc đẩy
+In : Trong ở trong
+Inaccurate : Không chính xác
+Inadequate : Không đầy đủ không thích đáng
+Inappropriate : Không phù hợp
+Incident : Sự cố biến cố
+Include : Bao gồm
+Inclusion : Sự bao gồm
+Inconvenient : Bất tiện
+Incorporate : Kết hợp hợp nhất
+Incorrect : Không chính xác sai
+Incredible : Không thể tin được tuyệt vời
+Independence : Sự độc lập
+Independent : Độc lập
+Indicate : Chỉ ra
+Indirect : Gián tiếp
+Individual : Cá nhân thuộc về cá nhân
+Inform : Thông báo
+Informal : Không trang trọng thân mật
+Ingredient : Thành phần nguyên liệu
+Inhabitant : Cư dân
+Inherit : Thừa kế
+Initially : Ban đầu lúc đầu
+Injection : Mũi tiêm sự tiêm thuốc
+Injure : Làm bị thương
+Injured : Bị thương
+Innovation : Sự đổi mới sáng kiến
+Innovative : Mang tính đổi mới sáng tạo
+Insight : Cái nhìn sâu sắc sự thấu suốt
+Inspiration : Nguồn cảm hứng
+Install : Cài đặt; lắp đặt
+Instance : Ví dụ trường hợp
+Instead : Thay vào đó
+Instead of : Thay vì
+Instruction : Sự hướng dẫn lời chỉ dẫn
+Instructor : Người hướng dẫn giảng viên
+Instrument : Nhạc cụ; Dụng cụ đo lường
+Insurance : Bảo hiểm
+Intelligence : Trí thông minh; Tình báo
+Intelligent : Thông minh
+Interact : Tương tác
+Interaction : Sự tương tác
+Internal : Nội bộ bên trong
+International : Quốc tế
+Interrupt : Ngắt lời; làm gián đoạn
+Invent : Phát minh
+Inventor : Nhà phát minh
+Invest : Đầu tư
+Investigate : Điều tra
+Investigation : Cuộc điều tra
+Investigator : Điều tra viên
+Investment : Khoản đầu tư
+Investor : Nhà đầu tư
+Invitation : Lời mời
+Invite : Mời
+Involve : Liên quan; bao gồm
+Involved : Có liên quan dính líu
+Isolate : Cách ly; cô lập
+Isolation : Sự cô lập cách ly
+Issue : Vấn đề; phát hành
+Item : Món đồ khoảng mục
+Join : Tham gia; nối
+Journalist : Nhà báo
+Judge : Thẩm phán; đánh giá
+Keep : Giữ; duy trì
+Kind : Tử tế; Loại thể loại
+Know : Biết
+Laboratory : Phòng thí nghiệm
+Labor : Lao động công việc chân tay
+Lack : Thiếu
+Land : Đất; hạ cánh
+Landscape : Phong cảnh cảnh quan
+Language : Ngôn ngữ
+Largely : Phần lớn chủ yếu là
+Lately : Gần đây
+Latter : Cái sau người sau
+Launch : Phóng; ra mắt
+Layer : Tầng lớp
+Leader : Người lãnh đạo
+Leadership : Khả năng lãnh đạo
+Learn : Học
+Learner : Người học
+Leave : Rời đi; để lại
+Lecture : Bài giảng bài thuyết trình
+Lecturer : Giảng viên đại học
+Legal : Hợp pháp thuộc về pháp luật
+Length : Chiều dài độ dài
+Lesson : Bài học
+Lifestyle : Lối sống phong cách sống
+Lifetime : Đời người khoảng thời gian sống
+Lighting : Hệ thống chiếu sáng
+Likely : Có khả năng xảy ra
+Limit : Giới hạn
+Limitation : Sự hạn chế nhược điểm
+Limited : Có giới hạn hạn chế
+Line : Dòng; hàng; đường
+Link : Liên kết
+Liquid : Chất lỏng
+List : Danh sách; liệt kê
+Listen : Lắng nghe
+Literal : Theo nghĩa đen
+Literally : Thật sự là; Theo nghĩa đen
+Literature : Văn học; Tài liệu hướng dẫn
+Lively : Sống động náo nhiệt
+Load : Tải; chất lên
+Locate : Xác định vị trí
+Location : Vị trí địa điểm
+Logic : Logic tính hợp lý
+Logical : Hợp logic hợp lý
+Look : Nhìn; vẻ ngoài
+Lose : Mất; thua
+Loss : Sự mất mát thiệt hại
+Luxury : Sự xa xỉ đồ xa xỉ
+Machine : Máy móc
+Machinery : Hệ thống máy móc
+Magazine : Tạp chí
+Main : Chính chủ yếu
+Mainly : Chủ yếu là phần lớn
+Maintenance : Sự bảo trì duy trì
+Majority : Đa số phần lớn
+Make : Làm; tạo ra
+Manager : Quản lý giám đốc
+Manifest : Biểu hiện rõ ràng; Tuyên bố
+Manufacture : Sản xuất
+Manufacturer : Nhà sản xuất
+Many : Nhiều
+Map : Bản đồ; lập bản đồ
+Mark : Dấu; đánh dấu; điểm
+Market : Thị trường; tiếp thị
+Marketing : Tiếp thị ngành marketing
+Match : Trận đấu; phù hợp
+Material : Chất liệu nguyên vật liệu
+Mathematical : Thuộc về toán học
+Maths : Môn toán
+Matter : Vấn đề; quan trọng
+Mature : Trưởng thành
+May : Có thể; Tháng năm
+Meal : Bữa ăn
+Meaningful : Có ý nghĩa
+Meanwhile : Trong khi đó
+Measure : Đo; biện pháp
+Mechanic : Thợ cơ khí thợ máy
+Mechanical : Thuộc về cơ khí máy móc
+Mechanism : Cơ chế phương thức hoạt động
+Media : Truyền thông phương tiện truyền thông
+Medical : Thuộc về y tế y khoa
+Medication : Thuốc chữa bệnh
+Medicine : Y học; Thuốc uống
+Medium : Trung bình; Phương tiện truyền thông
+Meet : Gặp; đáp ứng
+Meeting : Cuộc họp buổi gặp mặt
+Melt : Tan chảy
+Member : Thành viên
+Memory : Ký ức trí nhớ
+Mental : Thuộc về tinh thần trí óc
+Mention : Đề cập
+Merge : Sáp nhập
+Merit : Xứng đáng; Công lao ưu điểm
+Message : Tin nhắn thông điệp
+Method : Phương pháp cách thức
+Metric : Hệ mét; Tiêu chuẩn đo lường
+Might : Có thể; Sức mạnh
+Migrate : Di cư
+Migration : Sự di cư
+Mineral : Khoáng chất khoáng sản
+Minimal : Tối thiểu ít nhất
+Minimize : Giảm thiểu
+Minister : Bộ trưởng; Mục sư
+Ministry : Bộ
+Minor : Nhỏ; Thứ yếu
+Minority : Thiểu số phần ít
+Mission : Nhiệm vụ sứ mệnh
+Mixture : Hỗn hợp sự pha trộn
+Mobile : Di động có thể di chuyển
+Model : Mô hình; người mẫu
+Moderate : Vừa phải ôn hòa
+Modernization : Sự hiện đại hóa
+Modify : Sửa đổi
+Moment : Khoảnh khắc lát chốc
+Monitor : Theo dõi; màn hình
+Month : Tháng
+Monthly : Hàng tháng
+Moreover : Hơn nữa ngoài ra
+Motion : Sự chuyển động chuyển động
+Motivate : Tạo động lực
+Motivation : Động lực sự thúc đẩy
+Motive : Động cơ mục đích
+Motor : Động cơ mô tơ
+Move : Di chuyển
+Movement : Sự di chuyển phong trào
+Muscle : Cơ bắp
+Museum : Bảo tàng
+Must : Phải
+Mutual : Lẫn nhau chung
+Narrative : Chuyện kể bài tự sự
+Narrow : Hẹp; thu hẹp
+Nation : Quốc gia dân tộc
+National : Thuộc về quốc gia
+Nationality : Quốc tịch
+Native : Bản xứ tự nhiên vốn có
+Natural : Tự nhiên thiên nhiên
+Necessary : Cần thiết thiết yếu
+Need : Cần; nhu cầu
+Negative : Tiêu cực; Câu phủ định
+Network : Mạng lưới mạng máy tính
+Nevertheless : Tuy nhiên tuy thế
+News : Tin tức
+Night : Ban đêm
+Noise : Tiếng ồn tiếng động
+Nominate : Đề cử
+None : Không một ai không cái nào
+Normal : Bình thường thông thường
+Notable : Đáng chú ý nổi bật
+Notably : Đáng chú ý là nhất là
+Note : Ghi chú; lưu ý
+Notice : Chú ý; thông báo
+Noticeable : Đáng chú ý dễ nhận thấy
+Notion : Khái niệm quan niệm
+Novel : Cuốn tiểu thuyết; Mới lạ
+Nowadays : Ngày nay thời buổi này
+Nuclear : Thuộc về hạt nhân
+Number : Số lượng con số
+Numerous : Nhiều vô số
+Nurse : Y tá; chăm sóc
+Nutrition : Dinh dưỡng chế độ dinh dưỡng
+Obey : Tuân theo
+Object : Vật; phản đối
+Objection : Sự phản đối lời phản đối
+Objective : Mục tiêu; Khách quan
+Occur : Xảy ra
+Of : Của
+Officer : Sĩ quan; Viên chức nhà nước
+Official : Chính thức; Viên chức
+Officials : Giới chức bộ ngành
+Oil : Dầu ăn; Dầu mỏ
+Omit : Bỏ sót
+Online : Trực tuyến trên mạng
+Open : Mở
+Operate : Vận hành; phẫu thuật
+Operation : Sự hoạt động; Ca phẫu thuật
+Operator : Người vận hành người trực tổng đài
+Opinion : Ý kiến quan điểm
+Opportunity : Cơ hội
+Oppose : Phản đối
+Optimism : Sự lạc quan
+Optimistic : Lạc quan
+Option : Sự lựa chọn tùy chọn
+Optional : Không bắt buộc tùy chọn
+Organic : Hữu cơ
+Organize : Tổ chức
+Organization : Tổ chức cơ quan
+Origin : Nguồn gốc căn nguyên
+Original : Gốc; Độc đáo nguyên bản
+Otherwise : Nếu không thì mặt khác
+Ought to : Nên
+Outcome : Kết quả hậu quả
+Outline : Phác thảo
+Outlook : Quan điểm; Triển vọng tương lai
+Output : Sản lượng đầu ra
+Outside : Bên ngoài
+Outstanding : Nổi bật xuất sắc; Còn tồn đọng
+Overall : Tổng thể nhìn chung
+Overcome : Vượt qua
+Overlap : Chồng lên nhau
+Overlook : Bỏ qua; nhìn ra
+Overseas : Nước ngoài ở hải ngoại
+Owner : Người chủ sở hữu
+Disability : Khuyết tật
+Well-equipped : Được trang bị tốt
+Equip : Trang bị
+Teenager : Thanh thiếu niên
+immerse : đắm chìm, ngâm
+route : tuyến đường
+Phenomenon : Hiện tượng
+advice : Lời khuyên
+Have to : Phải
+anywhere : bất kì nơi nào
+occasion : dịp
+quite : khá
+reputation : danh tiếng
+worth : đáng
+obviously : một cách rõ ràng
+imagine : tưởng tượng
+reasonable : hợp lý
+As far as I'm concerned : Theo quan điểm của tôi
+calming effect : tác dụng làm dịu
+Get in touch with : Liên lạc với
+Relieved : Nhẹ nhõm
+Practical : Thực tế; thiết thực
+Realize : Nhận ra
+Assessment : sự đánh giá
+Also : cũng
+Sort : Loại; phân loại
+Whether : liệu
+Particular : cụ thể , đặc biệt
+Recently : gần đây
+Afraid of : Sợ
+Trouble : rắc rối
+Possibility : khả năng
+Eligible : đủ điều kiện
+Financially : Về mặt tài chính
+Appointment : cuộc hẹn
+Actually : thực ra
+Volunteer : tình nguyện
+Voluntary : thuộc tình nguyện
+Village : ngôi làng
+Retired : nghỉ hưu
+Coordinate : điều phối
+Get involved in : Tham gia vào
+Pretty : Khá
+Suit : phù hợp
+Suitable : phù hợp
+Another : khác
+Presume : Cho rằng; giả định
+Purpose : mục đích
+Transport : vận chuyển
+Resident : cư dân
+Struggle with : Gặp khó khăn với
+Whole : Toàn bộ
+As : Như; khi; vì
+Plenty of : Nhiều
+Let someone know : Cho ai biết
+Specialize in : Chuyên về
+In advance : Trước; trước thời hạn
+A couple : Một vài; một cặp
+Draft : Bản nháp
+Of course : Tất nhiên
+abandon : từ bỏ
+absence : sự vắng mặt
+absorb : hấp thụ; tiếp thu
+abstract : trừu tượng
+abundant : dồi dào
+accelerate : tăng tốc
+access : quyền truy cập; tiếp cận
+accommodate : cung cấp chỗ ở; đáp ứng
+accommodation : chỗ ở
+accompany : đi cùng
+accomplish : hoàn thành
+accumulate : tích lũy
+adapt : thích nghi
+adequate : đủ; phù hợp
+adjust : điều chỉnh
+adopt : áp dụng; nhận nuôi
+adult : người trưởng thành
+advantage : lợi thế
+adverse : bất lợi
+advocate : ủng hộ; người ủng hộ
+allocate : phân bổ
+alternative : phương án thay thế
+ambition : tham vọng
+ambitious : có tham vọng
+amend : sửa đổi
+approximately : xấp xỉ
+arise : phát sinh
+assess : đánh giá
+assign : giao; phân công
+assume : cho rằng; giả định
+assumption : giả định
+attempt : cố gắng; nỗ lực
+available : có sẵn
+awareness : nhận thức
+barrier : rào cản
+behave : cư xử
+bias : thiên kiến
+biodiversity : đa dạng sinh học
+boost : thúc đẩy; tăng
+boundary : ranh giới
+breakthrough : bước đột phá
+capacity : khả năng; sức chứa
+category : danh mục; loại
+cause : nguyên nhân; gây ra
+cease : ngừng
+circumstance : hoàn cảnh
+civil : dân sự
+clarify : làm rõ
+coincide : trùng hợp
+combine : kết hợp
+commit : cam kết; phạm
+commitment : sự cam kết
+compensate : bù đắp
+competent : có năng lực
+comprehensive : toàn diện
+comprise : bao gồm
+compromise : thỏa hiệp
+conserve : bảo tồn; tiết kiệm
+considerably : đáng kể
+constraint : hạn chế
+consult : tham khảo; tư vấn
+context : bối cảnh
+contract : hợp đồng; co lại
+contrast : tương phản; so sánh khác biệt
+controversial : gây tranh cãi
+controversy : tranh cãi
+conventional : truyền thống; thông thường
+convert : chuyển đổi
+core : cốt lõi
+correspond : tương ứng; trao đổi thư
+dedicate : dành cho; cống hiến
+demonstration : sự minh họa; cuộc biểu tình
+derive : bắt nguồn; suy ra
+discrimination : sự phân biệt đối xử
+diverse : đa dạng
+diversity : sự đa dạng
+duration : khoảng thời gian
+emission : khí thải
+emit : thải ra
+enhance : nâng cao
+equivalent : tương đương
+ethical : có đạo đức
+exceed : vượt quá
+exclude : loại trừ
+fluctuate : dao động
+framework : khuôn khổ
+hypothesis : giả thuyết
+implication : hệ quả; hàm ý
+impose : áp đặt
+incentive : động lực; ưu đãi
+inevitable : không thể tránh khỏi
+infrastructure : cơ sở hạ tầng
+initiative : sáng kiến
+integrate : tích hợp
+interpret : diễn giải
+intervention : sự can thiệp
+justify : biện minh; chứng minh hợp lý
+negligible : không đáng kể
+obtain : đạt được; lấy được
+participate : tham gia
+perceive : nhận thức
+percentage : tỷ lệ phần trăm
+persist : tiếp tục tồn tại
+perspective : góc nhìn
+potential : tiềm năng
+precise : chính xác
+predict : dự đoán
+principle : nguyên tắc
+prior : trước; ưu tiên
+proportion : tỷ lệ
+prospect : triển vọng
+pursue : theo đuổi
+range : phạm vi
+recover : phục hồi
+regulate : điều chỉnh; quản lý
+relevant : liên quan
+reliable : đáng tin cậy
+require : yêu cầu
+respond : phản hồi
+restrict : hạn chế
+retain : giữ lại
+reveal : tiết lộ
+significant : đáng kể; quan trọng
+stable : ổn định
+strategy : chiến lược
+subsequent : tiếp theo
+sufficient : đủ
+survey : khảo sát
+sustain : duy trì
+sustainable : bền vững
+trend : xu hướng
+valid : hợp lệ; có cơ sở
+vary : thay đổi
+widespread : phổ biến rộng rãi
+achievement : thành tựu
+admission : sự nhập học; thừa nhận
+assignment : bài tập; nhiệm vụ
+campus : khuôn viên trường
+curriculum : chương trình học
+enrol : đăng ký học
+enrolment : việc đăng ký học
+feedback : phản hồi
+qualification : bằng cấp; trình độ
+seminar : hội thảo
+syllabus : đề cương môn học
+undergraduate : sinh viên đại học
+vocational : thuộc đào tạo nghề
+workload : khối lượng công việc
+literacy : khả năng đọc viết
+numeracy : khả năng tính toán
+memorize : ghi nhớ
+performance : thành tích; hiệu suất
+progress : tiến bộ
+pressure : áp lực
+private school : trường tư
+public school : trường công
+higher education : giáo dục đại học
+distance learning : học từ xa
+online course : khóa học trực tuyến
+practical skill : kỹ năng thực hành
+critical thinking : tư duy phản biện
+problem-solving : giải quyết vấn đề
+learning outcome : kết quả học tập
+air quality : chất lượng không khí
+carbon dioxide : khí carbon dioxide
+carbon footprint : lượng khí thải carbon
+conservation : sự bảo tồn
+deforestation : nạn phá rừng
+drought : hạn hán
+ecosystem : hệ sinh thái
+endangered : có nguy cơ tuyệt chủng
+energy consumption : mức tiêu thụ năng lượng
+fossil fuel : nhiên liệu hóa thạch
+greenhouse gas : khí nhà kính
+natural resource : tài nguyên thiên nhiên
+renewable energy : năng lượng tái tạo
+non-renewable : không tái tạo
+reusable : có thể tái sử dụng
+waste disposal : xử lý rác thải
+water shortage : thiếu nước
+wildlife : động vật hoang dã
+environmental impact : tác động môi trường
+eco-friendly : thân thiện môi trường
+sustainable development : phát triển bền vững
+public transport : giao thông công cộng
+traffic congestion : ùn tắc giao thông
+urban area : khu đô thị
+rural area : vùng nông thôn
+overpopulation : quá tải dân số
+population density : mật độ dân số
+living standard : mức sống
+quality of life : chất lượng cuộc sống
+balanced diet : chế độ ăn cân bằng
+obesity : béo phì
+overweight : thừa cân
+malnutrition : suy dinh dưỡng
+nutrient : chất dinh dưỡng
+physical activity : hoạt động thể chất
+mental health : sức khỏe tinh thần
+well-being : sức khỏe và hạnh phúc
+treatment : điều trị
+symptom : triệu chứng
+prevention : sự phòng ngừa
+prevent : ngăn ngừa
+cure : chữa khỏi
+recover from : hồi phục sau
+medical care : chăm sóc y tế
+healthcare : chăm sóc sức khỏe
+life expectancy : tuổi thọ
+chronic disease : bệnh mãn tính
+infectious disease : bệnh truyền nhiễm
+immune system : hệ miễn dịch
+sleep deprivation : thiếu ngủ
+sedentary lifestyle : lối sống ít vận động
+automation : tự động hóa
+artificial intelligence : trí tuệ nhân tạo
+data : dữ liệu
+database : cơ sở dữ liệu
+digital device : thiết bị số
+digital technology : công nghệ số
+privacy : quyền riêng tư
+security : bảo mật; an ninh
+software : phần mềm
+hardware : phần cứng
+screen time : thời gian dùng màn hình
+online platform : nền tảng trực tuyến
+remote work : làm việc từ xa
+virtual : ảo
+algorithm : thuật toán
+user-friendly : dễ sử dụng
+technological advance : tiến bộ công nghệ
+access to information : khả năng tiếp cận thông tin
+digital literacy : kỹ năng số
+economic growth : tăng trưởng kinh tế
+economic development : phát triển kinh tế
+unemployment : thất nghiệp
+labour market : thị trường lao động
+workforce : lực lượng lao động
+occupation : nghề nghiệp
+profession : nghề nghiệp chuyên môn
+promotion : sự thăng chức
+productivity : năng suất
+profit : lợi nhuận
+revenue : doanh thu
+consumption : sự tiêu thụ
+supply : nguồn cung
+inflation : lạm phát
+poverty : nghèo đói
+wealth : sự giàu có; tài sản
+inequality : bất bình đẳng
+standard of living : mức sống
+financial support : hỗ trợ tài chính
+job satisfaction : sự hài lòng công việc
+working condition : điều kiện làm việc
+career opportunity : cơ hội nghề nghiệp
+flexible working : làm việc linh hoạt
+minimum wage : lương tối thiểu
+authority : chính quyền; thẩm quyền
+government policy : chính sách chính phủ
+law : luật
+legislation : pháp luật
+regulation : quy định
+crime rate : tỷ lệ tội phạm
+punishment : hình phạt
+prison : nhà tù
+society : xã hội
+social issue : vấn đề xã hội
+social class : tầng lớp xã hội
+equality : bình đẳng
+gender equality : bình đẳng giới
+elderly people : người cao tuổi
+young generation : thế hệ trẻ
+public service : dịch vụ công
+social welfare : phúc lợi xã hội
+cultural diversity : đa dạng văn hóa
+cultural identity : bản sắc văn hóa
+tradition : truyền thống
+traditional value : giá trị truyền thống
+advertisement : quảng cáo
+advertising : hoạt động quảng cáo
+broadcast : phát sóng
+journalism : báo chí
+media coverage : sự đưa tin của truyền thông
+mass media : truyền thông đại chúng
+news report : bản tin
+public opinion : dư luận
+viewer : người xem
+reader : người đọc
+source : nguồn
+information source : nguồn thông tin
+misinformation : thông tin sai lệch
+influence : ảnh hưởng
+persuade : thuyết phục
+promote : quảng bá; thúc đẩy
+brand : thương hiệu
+consumer behaviour : hành vi người tiêu dùng
+farmland : đất nông nghiệp
+food production : sản xuất thực phẩm
+food supply : nguồn cung thực phẩm
+organic food : thực phẩm hữu cơ
+processed food : thực phẩm chế biến
+raw material : nguyên liệu thô
+manufacturing : sản xuất công nghiệp
+industry : ngành công nghiệp
+industrial : thuộc công nghiệp
+production : sản xuất
+produce : sản xuất
+resource : tài nguyên
+transportation : vận tải
+trade : thương mại
+architecture : kiến trúc
+building design : thiết kế công trình
+residential area : khu dân cư
+city centre : trung tâm thành phố
+suburb : vùng ngoại ô
+urbanization : đô thị hóa
+amenity : tiện ích
+road network : mạng lưới đường bộ
+pedestrian : người đi bộ
+commuter : người đi làm hằng ngày
+journey : hành trình
+travel : du lịch; đi lại
+tourism : du lịch
+tourist attraction : điểm thu hút du lịch
+public space : không gian công cộng
+research : nghiên cứu
+researcher : nhà nghiên cứu
+sample : mẫu
+participant : người tham gia
+methodology : phương pháp luận
+result : kết quả
+analysis : phân tích
+analyse : phân tích
+statistics : số liệu thống kê
+statistical : thuộc thống kê
+data collection : thu thập dữ liệu
+questionnaire : bảng câu hỏi
+observation : sự quan sát
+conduct research : tiến hành nghiên cứu
+carry out : thực hiện
+compare with : so sánh với
+lead to : dẫn đến
+result in : dẫn đến
+result from : bắt nguồn từ
+contribute to : góp phần vào
+be caused by : được gây ra bởi
+be responsible for : chịu trách nhiệm; gây ra
+have an impact on : tác động đến
+have an effect on : ảnh hưởng đến
+play a role in : đóng vai trò trong
+account for : chiếm; giải thích cho
+rely on : dựa vào
+focus on : tập trung vào
+benefit from : hưởng lợi từ
+suffer from : chịu; mắc
+prevent from : ngăn khỏi
+protect from : bảo vệ khỏi
+participate in : tham gia
+take part in : tham gia
+engage in : tham gia
+be involved in : tham gia; liên quan
+be made up of : được tạo thành từ
+be based on : dựa trên
+be related to : liên quan đến
+be associated with : có liên quan đến
+be likely to : có khả năng
+be unlikely to : khó có khả năng
+be able to : có thể
+be willing to : sẵn lòng
+be aware of : nhận thức về
+be concerned about : lo ngại về
+be interested in : quan tâm đến
+be suitable for : phù hợp với
+be harmful to : có hại cho
+be beneficial to : có lợi cho
+be essential for : thiết yếu cho
+be necessary for : cần thiết cho
+be available to : có sẵn cho
+be accessible to : có thể tiếp cận
+be exposed to : tiếp xúc với
+be dependent on : phụ thuộc vào
+be satisfied with : hài lòng với
+be familiar with : quen thuộc với
+be capable of : có khả năng
+make use of : sử dụng
+make a decision : đưa ra quyết định
+make progress : tiến bộ
+make an effort : nỗ lực
+make a difference : tạo ra khác biệt
+take advantage of : tận dụng
+take into account : xem xét; tính đến
+take responsibility for : chịu trách nhiệm
+take measures : thực hiện biện pháp
+take action : hành động
+raise awareness : nâng cao nhận thức
+raise money : gây quỹ
+raise a question : đặt ra câu hỏi
+solve a problem : giải quyết vấn đề
+address a problem : xử lý vấn đề
+face a problem : đối mặt vấn đề
+overcome a problem : vượt qua vấn đề
+meet a need : đáp ứng nhu cầu
+meet a requirement : đáp ứng yêu cầu
+meet a target : đạt mục tiêu
+reach a goal : đạt mục tiêu
+achieve a goal : đạt mục tiêu
+gain experience : tích lũy kinh nghiệm
+gain access to : có quyền tiếp cận
+gain knowledge : thu nhận kiến thức
+provide access to : cung cấp quyền tiếp cận
+provide support : cung cấp hỗ trợ
+offer an opportunity : tạo cơ hội
+create an opportunity : tạo cơ hội
+create jobs : tạo việc làm
+reduce the risk : giảm rủi ro
+reduce costs : giảm chi phí
+reduce pollution : giảm ô nhiễm
+increase the risk : tăng rủi ro
+increase awareness : tăng nhận thức
+improve quality : cải thiện chất lượng
+improve performance : cải thiện hiệu suất
+improve living standards : cải thiện mức sống
+protect the environment : bảo vệ môi trường
+preserve the environment : bảo tồn môi trường
+save energy : tiết kiệm năng lượng
+save time : tiết kiệm thời gian
+waste time : lãng phí thời gian
+spend time on : dành thời gian cho
+a large number of : nhiều
+a small number of : một số ít
+a wide range of : nhiều loại; phạm vi rộng
+a variety of : nhiều loại
+a significant amount of : một lượng đáng kể
+the majority of : phần lớn
+the minority of : thiểu số
+in general : nhìn chung
+in particular : đặc biệt
+in contrast : trái lại
+by contrast : ngược lại
+as a result : kết quả là
+as a consequence : do đó
+for example : ví dụ
+for instance : chẳng hạn
+in addition : ngoài ra
+in other words : nói cách khác
+on the other hand : mặt khác
+on the whole : nhìn chung
+to some extent : ở một mức độ nào đó
+in terms of : xét về
+with regard to : liên quan đến
+according to : theo
+compared with : so với
+rather than : thay vì
+because of : bởi vì
+owing to : do
+although : mặc dù
+whereas : trong khi
+while : trong khi
+therefore : do đó
+thus : do đó
+consequently : do đó
+similarly : tương tự
+nearly : gần như
+roughly : xấp xỉ
+slightly : hơi; một chút
+gradually : dần dần
+rapidly : nhanh chóng
+sharply : mạnh; đột ngột
+steadily : đều đặn
+dramatically : đáng kể; mạnh
+significantly : đáng kể
+relatively : tương đối
+particularly : đặc biệt
+occasionally : thỉnh thoảng
+rarely : hiếm khi
+constantly : liên tục
+previously : trước đây
+agree with : đồng ý với
+disagree with : không đồng ý với
+in my opinion : theo ý kiến tôi
+from my perspective : theo góc nhìn của tôi
+I believe that : tôi tin rằng
+I would say that : tôi cho rằng
+one reason is that : một lý do là
+the main reason is : lý do chính là
+for this reason : vì lý do này
+this means that : điều này có nghĩa là
+it depends on : điều đó phụ thuộc vào
+I tend to : tôi thường có xu hướng
+I prefer to : tôi thích hơn
+I used to : tôi từng
+I am used to : tôi quen với
+I am interested in : tôi quan tâm đến
+I am keen on : tôi thích
+I am fond of : tôi thích
+I spend time : tôi dành thời gian
+in my free time : trong thời gian rảnh
+on a daily basis : hằng ngày
+once in a while : thỉnh thoảng
+from time to time : thỉnh thoảng
+as often as possible : thường xuyên nhất có thể
+personally : cá nhân tôi
+probably : có lẽ
+possibly : có thể
+mostly : phần lớn
+rather : khá
+highly : rất; cao
+completely : hoàn toàn
+partly : một phần
+similar : tương tự
+different from : khác với
+similar to : tương tự với
+the same as : giống như
+more important : quan trọng hơn
+less important : ít quan trọng hơn
+unusual : bất thường
+typical : điển hình
+appropriate : phù hợp
+safe : an toàn
