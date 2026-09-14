@@ -38,10 +38,30 @@
   // Mục tiêu: không còn cảnh 2 từ dính sát nhau khi rơi xuống.
   const MIN_ENEMY_VERTICAL_GAP = 145;
 
+
+  // ===== MEMORY BOOST: active recall + spaced repetition =====
+  // Nếu một từ bị FAIL, người học phải trả lời đúng từ đó 5 lần LIÊN TIẾP.
+  // Fail lại trong chuỗi => reset về 5 lần. Sau 5 lần đúng, từ được ngắt quãng
+  // theo số lượt: 3 -> 8 -> 20 -> 50, rồi chuyển sang các mốc thời gian dài hơn.
+  const MEMORY_STORAGE_KEY = "vocabBlasterMemoryV4";
+  const MEMORY_TURN_KEY_PREFIX = "vocabBlasterMemoryTurnV4:";
+  const MEMORY_CRAM_CORRECTS = 4;
+  const MEMORY_REVIEW_GAPS = [3, 8, 20, 50];
+  const MEMORY_LONG_INTERVALS = [
+    10 * 60 * 1000,          // 10 phút
+    12 * 60 * 60 * 1000,       // 12 giờ
+    24 * 60 * 60 * 1000,       // 1 ngày
+    3 * 24 * 60 * 60 * 1000,     // 3 ngày
+    7 * 24 * 60 * 60 * 1000,     // 7 ngày
+    14 * 24 * 60 * 60 * 1000,    // 14 ngày
+    30 * 24 * 60 * 60 * 1000     // 30 ngày
+  ];
+
   const game = {
     running: false, paused: false, score: 0, combo: 0, maxCombo: 0, level: 1, lives: 3, kills: 0,
     correctKeys: 0, wrongKeys: 0, enemies: [], bullets: [], particles: [], floaters: [], stars: [], clouds: [],
     vocabulary: [], usedBag: [], typed: "", spawnTimer: 0, lastTime: 0, nextEnemyId: 1, sound: true, muzzle: 0,
+    memory: {}, memoryTurn: 0, focusCramKey: "", recentWordKeys: [], studyMode: "typing",
     w: 0, h: 0
   };
 
@@ -319,13 +339,216 @@
     game.clouds = Array.from({ length: 6 }, (_, i) => ({ x: Math.random() * game.w, y: 60 + Math.random() * Math.max(120, game.h * .45), size: 45 + Math.random() * 60, speed: 4 + Math.random() * 7, emoji: i % 2 ? "☁️" : "🌫️" }));
   }
 
-  function randomWord() {
-    if (!game.usedBag.length) {
-      game.usedBag = [...game.vocabulary];
-      for (let i = game.usedBag.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1));[game.usedBag[i], game.usedBag[j]] = [game.usedBag[j], game.usedBag[i]]; }
-    }
-    return game.usedBag.pop();
+  function loadMemoryStore() {
+    try {
+      const x = JSON.parse(localStorage.getItem(MEMORY_STORAGE_KEY) || "{}");
+      return x && typeof x === "object" ? x : {};
+    } catch (_) { return {}; }
   }
+
+  function saveMemoryStore() {
+    try {
+      // Chặn localStorage phình vô hạn: chỉ giữ tối đa 3500 mục gần đây nhất.
+      const entries = Object.entries(game.memory || {}).sort((a, b) => (b[1]?.lastAt || 0) - (a[1]?.lastAt || 0)).slice(0, 3500);
+      localStorage.setItem(MEMORY_STORAGE_KEY, JSON.stringify(Object.fromEntries(entries)));
+    } catch (_) { }
+  }
+
+  function loadMemoryTurn(mode) {
+    const n = Number(localStorage.getItem(MEMORY_TURN_KEY_PREFIX + (mode || direction())) || 0);
+    return Number.isFinite(n) && n >= 0 ? n : 0;
+  }
+
+  function saveMemoryTurn() {
+    try { localStorage.setItem(MEMORY_TURN_KEY_PREFIX + (game.studyMode || direction()), String(game.memoryTurn || 0)); } catch (_) { }
+  }
+
+  function memoryKey(item) {
+    return `${game.studyMode || direction()}|${norm(item.en)}|${norm(item.vi)}`;
+  }
+
+  function memoryState(item, create = true) {
+    const key = memoryKey(item);
+    let s = game.memory[key];
+    if (!s && create) {
+      s = game.memory[key] = {
+        en: item.en, vi: item.vi, correct: 0, fail: 0, cramRemaining: 0,
+        gapIndex: -1, dueTurn: 0, longIndex: -1, dueAt: 0, lastAt: 0, lastFailAt: 0, mastered: false
+      };
+    }
+    if (s) { s.en = item.en; s.vi = item.vi; }
+    return s || null;
+  }
+
+  function itemForMemoryKey(key) {
+    return game.vocabulary.find(x => memoryKey(x) === key) || null;
+  }
+
+  function isMemoryKeyActive(key) {
+    return game.enemies.some(e => !e.dead && e.memoryKey === key);
+  }
+
+  function choosePendingCram() {
+    // Hoàn tất trọn 5 lần của một từ trước rồi mới chuyển sang từ fail khác.
+    if (game.focusCramKey) {
+      const item = itemForMemoryKey(game.focusCramKey), s = item && memoryState(item, false);
+      if (item && s?.cramRemaining > 0) return { key: game.focusCramKey, item, s };
+      game.focusCramKey = "";
+    }
+    const candidates = [];
+    for (const item of game.vocabulary) {
+      const key = memoryKey(item), s = memoryState(item, false);
+      if (s?.cramRemaining > 0) candidates.push({ key, item, s });
+    }
+    candidates.sort((a, b) => (a.s.lastFailAt || 0) - (b.s.lastFailAt || 0));
+    const c = candidates[0] || null;
+    if (c) game.focusCramKey = c.key;
+    return c;
+  }
+
+  function dueReviewCandidate() {
+    const now = Date.now(), due = [];
+    for (const item of game.vocabulary) {
+      const key = memoryKey(item), s = memoryState(item, false);
+      if (!s || isMemoryKeyActive(key) || s.cramRemaining > 0) continue;
+      if (s.gapIndex >= 0 && s.dueTurn <= game.memoryTurn) {
+        due.push({ item, key, s, kind: "review", order: s.dueTurn, weak: s.fail || 0 });
+      } else if (s.dueAt > 0 && s.dueAt <= now) {
+        due.push({ item, key, s, kind: "long", order: s.dueAt, weak: s.fail || 0 });
+      }
+    }
+    due.sort((a, b) => a.order - b.order || b.weak - a.weak || (a.s.lastAt || 0) - (b.s.lastAt || 0));
+    return due[0] || null;
+  }
+
+  function refillNormalBag() {
+    const now = Date.now();
+    const eligible = game.vocabulary.filter(item => {
+      const key = memoryKey(item), s = memoryState(item, false);
+      if (isMemoryKeyActive(key)) return false;
+      if (!s) return true;
+      if (s.cramRemaining > 0) return false;
+      if (s.gapIndex >= 0) return false;      // chờ đúng mốc lượt
+      if (s.dueAt > now) return false;        // chờ đúng mốc thời gian
+      return true;
+    });
+    const pool = eligible.length ? eligible : game.vocabulary.filter(item => !isMemoryKeyActive(memoryKey(item)));
+    game.usedBag = [...pool];
+    for (let i = game.usedBag.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [game.usedBag[i], game.usedBag[j]] = [game.usedBag[j], game.usedBag[i]];
+    }
+  }
+
+  function randomWord() {
+    // 1) FAIL rescue: spam đúng một từ cho tới khi người học trả lời đúng 5 lần liên tiếp.
+    const cram = choosePendingCram();
+    if (cram) {
+      if (isMemoryKeyActive(cram.key)) return null;
+      return { ...cram.item, _memoryKind: "cram" };
+    }
+
+    // 2) Tới hạn spaced review thì ưu tiên trước từ mới.
+    const due = dueReviewCandidate();
+    if (due) return { ...due.item, _memoryKind: due.kind };
+
+    // 3) Còn lại mới học từ mới/ít gặp, theo thứ tự xáo trộn.
+    let guard = 0;
+    while (guard++ < 3) {
+      if (!game.usedBag.length) refillNormalBag();
+      if (!game.usedBag.length) return null;
+      const item = game.usedBag.pop();
+      const key = memoryKey(item);
+      if (!isMemoryKeyActive(key)) return { ...item, _memoryKind: "normal" };
+    }
+    return null;
+  }
+
+  function scheduleFailure(item, advanceTurn = false) {
+    if (!item) return;
+    if (advanceTurn) { game.memoryTurn++; saveMemoryTurn(); }
+    const key = memoryKey(item), s = memoryState(item, true);
+    s.fail = (s.fail || 0) + 1;
+    s.cramRemaining = MEMORY_CRAM_CORRECTS;
+    s.gapIndex = -1; s.dueTurn = 0; s.longIndex = -1; s.dueAt = 0;
+    s.mastered = false; s.lastAt = Date.now(); s.lastFailAt = Date.now();
+    if (!game.focusCramKey || game.focusCramKey === key) game.focusCramKey = key;
+    saveMemoryStore();
+  }
+
+  function scheduleCorrect(e) {
+    game.memoryTurn++; saveMemoryTurn();
+    const item = { en: e.en, vi: e.vi }, key = e.memoryKey || memoryKey(item), s = memoryState(item, true);
+    s.correct = (s.correct || 0) + 1; s.lastAt = Date.now();
+    let note = "🧠 Đúng — hệ thống sẽ hỏi lại sau";
+
+    if (s.cramRemaining > 0) {
+      // Chỉ câu trả lời ĐÚNG mới trừ bộ đếm 5. Fail ở bất cứ lần nào => reset về 5.
+      s.cramRemaining = Math.max(0, s.cramRemaining - 1);
+      if (s.cramRemaining > 0) {
+        game.focusCramKey = key;
+        note = `🧠 Đúng! Còn ${s.cramRemaining}/5 lần liên tiếp để khóa từ này`;
+      } else {
+        if (game.focusCramKey === key) game.focusCramKey = "";
+        s.gapIndex = 0;
+        s.dueTurn = game.memoryTurn + MEMORY_REVIEW_GAPS[0];
+        note = `🧠 Đủ 5 lần đúng • gặp lại sau ${MEMORY_REVIEW_GAPS[0]} từ`;
+      }
+    } else if (e.memoryKind === "review" && s.gapIndex >= 0) {
+      const next = s.gapIndex + 1;
+      if (next < MEMORY_REVIEW_GAPS.length) {
+        s.gapIndex = next;
+        s.dueTurn = game.memoryTurn + MEMORY_REVIEW_GAPS[next];
+        note = `🧠 Nhớ tốt • gặp lại sau ${MEMORY_REVIEW_GAPS[next]} từ`;
+      } else {
+        s.gapIndex = -1; s.dueTurn = 0; s.longIndex = 0;
+        s.dueAt = Date.now() + MEMORY_LONG_INTERVALS[0];
+        note = "🧠 Đã qua vòng ngắn • chuyển sang ôn ngắt quãng dài";
+      }
+    } else if (e.memoryKind === "long" && s.dueAt > 0) {
+      const next = Math.min((s.longIndex < 0 ? 0 : s.longIndex) + 1, MEMORY_LONG_INTERVALS.length - 1);
+      s.longIndex = next;
+      s.dueAt = Date.now() + MEMORY_LONG_INTERVALS[next];
+      if (next >= 4) s.mastered = true;
+      const labels = ["10 phút", "12 giờ", "1 ngày", "3 ngày", "7 ngày", "14 ngày", "30 ngày"];
+      note = `🧠 Ghi nhớ bền hơn • hẹn ôn sau ${labels[next]}`;
+    } else if (e.memoryKind !== "filler") {
+      // Từ trả lời đúng ngay lần đầu vẫn cần retrieval lại; không spam 5 lần.
+      s.gapIndex = 1; // bắt đầu ở mốc 8 từ
+      s.dueTurn = game.memoryTurn + MEMORY_REVIEW_GAPS[1];
+      s.dueAt = 0; s.longIndex = -1;
+      note = `🧠 Đúng lần đầu • kiểm tra lại sau ${MEMORY_REVIEW_GAPS[1]} từ`;
+    }
+
+    saveMemoryStore();
+    return note;
+  }
+
+  function editDistance(a, b) {
+    a = norm(a); b = norm(b);
+    const dp = Array.from({ length: b.length + 1 }, (_, j) => j);
+    for (let i = 1; i <= a.length; i++) {
+      let prev = dp[0]; dp[0] = i;
+      for (let j = 1; j <= b.length; j++) {
+        const old = dp[j];
+        dp[j] = Math.min(dp[j] + 1, dp[j - 1] + 1, prev + (a[i - 1] === b[j - 1] ? 0 : 1));
+        prev = old;
+      }
+    }
+    return dp[b.length];
+  }
+
+  function likelyFailedEnemy(raw) {
+    const typed = norm(raw), active = game.enemies.filter(e => !e.dead);
+    if (!active.length || !typed) return null;
+    if (active.length === 1) return active[0];
+    const ranked = active.map(e => {
+      const target = norm(e.answer), d = editDistance(typed, target), ratio = d / Math.max(typed.length, target.length, 1);
+      return { e, ratio };
+    }).sort((a, b) => a.ratio - b.ratio || b.e.y - a.e.y);
+    return ranked[0].ratio <= 0.65 ? ranked[0].e : null;
+  }
+
 
   function displayText(item) {
     return direction() === "vi-en" ? item.vi : item.en;
@@ -359,6 +582,7 @@
     const display = displayText(item), answer = answerText(item), meaning = meaningText(item);
     game.enemies.push({
       id: game.nextEnemyId++, en: item.en, vi: item.vi, display, answer, meaning, target: norm(answer),
+      memoryKey: memoryKey(item), memoryKind: item._memoryKind || "normal",
       skin: SKINS[Math.floor(Math.random() * SKINS.length)], x, y: spawnY,
       vx: (Math.random() - .5) * 24, vy: speed, size, wobble: Math.random() * Math.PI * 2, dead: false, hitFlash: 0, angle: 0
     });
@@ -376,7 +600,7 @@
     if (vocab.length < 1) { toast("⚠️ Cần ít nhất 1 cặp từ hợp lệ"); return; }
     saveWords();
     const cfg = currentCfg();
-    Object.assign(game, { vocabulary: vocab, usedBag: [], enemies: [], bullets: [], particles: [], floaters: [], score: 0, combo: 0, maxCombo: 0, level: 1, kills: 0, correctKeys: 0, wrongKeys: 0, typed: "", spawnTimer: 0, nextEnemyId: 1, infiniteLives: !!cfg.infiniteLives, lives: cfg.infiniteLives ? Infinity : cfg.lives, running: true, paused: false });
+    Object.assign(game, { vocabulary: vocab, usedBag: [], enemies: [], bullets: [], particles: [], floaters: [], score: 0, combo: 0, maxCombo: 0, level: 1, kills: 0, correctKeys: 0, wrongKeys: 0, typed: "", spawnTimer: 0, nextEnemyId: 1, infiniteLives: !!cfg.infiniteLives, lives: cfg.infiniteLives ? Infinity : cfg.lives, running: true, paused: false, memory: loadMemoryStore(), memoryTurn: loadMemoryTurn(direction()), focusCramKey: "", recentWordKeys: [], studyMode: direction() });
     ui.gameOver.classList.add("hidden"); ui.pauseScreen.classList.add("hidden"); ui.panel.classList.remove("open");
     clearTyped(); hud(); typingUI();
     // Chỉ thả 1 từ đầu tiên. Các từ sau luôn cách nhau một khoảng ngẫu nhiên.
@@ -425,9 +649,13 @@
       ui.typingMeaning.textContent = `✅ ${e.en} = ${e.vi}`;
       setTimeout(() => { typingUI(); focusTyping(); }, 900);
     } else {
+      const failed = likelyFailedEnemy(game.typed);
+      if (failed) scheduleFailure({ en: failed.en, vi: failed.vi }, false);
       wrong(); clearTyped();
-      ui.typingMeaning.textContent = "❌ Sai / không có từ này trên màn hình";
-      setTimeout(() => { typingUI(); focusTyping(); }, 650);
+      ui.typingMeaning.textContent = failed
+        ? "❌ Sai — từ này sẽ được luyện lại cho tới khi đúng 5 lần liên tiếp"
+        : "❌ Sai / không có từ này trên màn hình";
+      setTimeout(() => { typingUI(); focusTyping(); }, 800);
     }
   }
 
@@ -506,7 +734,7 @@
         u.pitch = .78;
       } else if (preset === "child") {
         // Bé trai dễ thương: sáng, lanh, hơi nhanh; không bị the thé.
-        u.rate = 2.0;
+        u.rate = 1.03;
         u.pitch = 1.24;
       } else {
         u.rate = .90;
@@ -521,10 +749,11 @@
   function kill(e) {
     e.dead = true; game.kills++; game.combo++; game.maxCombo = Math.max(game.maxCombo, game.combo); game.level = 1 + Math.floor(game.kills / 10);
     const gain = 100 + e.target.length * 12 + Math.min(20, game.combo) * 8; game.score += gain; explode(e.x, e.y);
+    const memoryNote = scheduleCorrect(e);
     game.floaters.push({
       x: game.w / 2, y: Math.max(120, game.h - 215),
       text: `💡 ${e.en} = ${e.vi}`,
-      sub: `+${gain} • Ghi nhớ`,
+      sub: memoryNote || `+${gain} • Ghi nhớ`,
       life: 4.5, maxLife: 4.5, learning: true
     });
     speakEnglishWord(e.en);
@@ -539,27 +768,17 @@
     game.particles.push({ x, y, vx: 0, vy: -20, life: .7, size: 30, hue: 0, emoji: "💥" });
   }
 
-  function queueMissedWordForRetry(e) {
-    if (!game.infiniteLives) return;
-    const retry = { en: e.en, vi: e.vi };
-    // randomWord() lấy từ cuối mảng, nên chèn gần cuối để từ quay lại sau khoảng 3-5 lượt.
-    const gap = 3 + Math.floor(Math.random() * 3);
-    const pos = Math.max(0, game.usedBag.length - gap);
-    game.usedBag.splice(pos, 0, retry);
-  }
-
   function miss(e) {
     e.dead = true;
     game.combo = 0;
-    if (game.infiniteLives) {
-      queueMissedWordForRetry(e);
-    } else {
-      game.lives--;
-    }
+    // Rơi lọt = FAIL thật: lưu lại dù có bật sống vô hạn hay không.
+    // Từ này sẽ trở thành focus và cần 5 câu trả lời đúng liên tiếp.
+    scheduleFailure({ en: e.en, vi: e.vi }, true);
+    if (!game.infiniteLives) game.lives--;
     game.floaters.push({
       x: game.w / 2, y: Math.max(120, game.h - 215),
-      text: `🥳 ${e.en} = ${e.vi}`,
-      sub: game.infiniteLives ? "cố lên nhé sắp nhớ rồi!" : "ráng lên còn một tí nữa thôi!",
+      text: `😵 ${e.en} = ${e.vi}`,
+      sub: "🧠 FAIL → từ này sẽ lặp cho tới khi đúng 5 lần liên tiếp",
       life: 4.5, maxLife: 4.5, learning: true
     });
     sfx("miss");
@@ -779,5 +998,13 @@
   });
 
   window.addEventListener("resize", resize);
+  // Khi cần học lại từ đầu, mở Console và chạy: vocabBlasterResetMemory()
+  window.vocabBlasterResetMemory = () => {
+    localStorage.removeItem(MEMORY_STORAGE_KEY);
+    for (const m of ["typing", "en-vi", "vi-en"]) localStorage.removeItem(MEMORY_TURN_KEY_PREFIX + m);
+    game.memory = {}; game.memoryTurn = 0; game.focusCramKey = ""; game.usedBag = [];
+    toast("🧠 Đã xóa tiến độ ghi nhớ");
+  };
+
   loadSaved(); loadAccessConfig(); resize(); typingUI(); requestAnimationFrame(loop);
 })();

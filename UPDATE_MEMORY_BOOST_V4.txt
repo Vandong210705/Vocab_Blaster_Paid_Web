@@ -1,0 +1,20 @@
+MEMORY BOOST V4
+
+Mục tiêu: từ bị fail được ép luyện tới khi nhớ, sau đó giãn khoảng cách để tăng khả năng nhớ lâu.
+
+Luồng:
+1. Gõ sai gần một mục tiêu hoặc để từ rơi lọt -> FAIL.
+2. Từ FAIL trở thành focus. Hệ thống chỉ tính khi trả lời ĐÚNG.
+3. Cần ĐÚNG 5 LẦN LIÊN TIẾP. Nếu fail lại ở bất kỳ lần nào -> reset về 5.
+4. Sau 5 lần đúng: hỏi lại sau 3, 8, 20, 50 lượt.
+5. Sau đó: 10 phút -> 12 giờ -> 1 ngày -> 3 ngày -> 7 ngày -> 14 ngày -> 30 ngày.
+6. Tiến độ lưu localStorage, nên đóng/mở web vẫn nhớ lịch ôn.
+7. Từ đúng ngay lần đầu không bị spam 5 lần; nó được kiểm tra lại sau 8 lượt.
+
+Cơ sở thiết kế: active retrieval/practice testing + distributed/spaced practice.
+Đây là chiến lược học hiệu quả dựa trên nghiên cứu về retrieval practice và spacing; không có thuật toán nào đảm bảo "nhanh nhất" cho mọi người.
+
+Reset tiến độ ghi nhớ nếu cần:
+Mở DevTools Console và chạy: vocabBlasterResetMemory()
+
+Bộ IELTS_CORE_HAY_GAP_979_TU.txt cũng được kèm ở root và public/.
