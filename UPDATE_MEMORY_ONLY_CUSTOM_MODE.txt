@@ -1,0 +1,7 @@
+Cập nhật chế độ học:
+- Easy / Normal / Hard: game thuần, KHÔNG fail-repeat, KHÔNG recall 4 lần, KHÔNG spaced repetition.
+- Ở các mode game thường, bộ từ được trộn ngẫu nhiên; đi hết bag rồi mới trộn vòng mới.
+- Custom: giữ nguyên toàn bộ hệ thống học thông minh hiện tại:
+  recall nội bộ + xen từ khác + spaced repetition + lời động viên tích cực.
+- Không thêm UI mới, các chức năng khác giữ nguyên.
+- ADMIN_KEY vẫn là vandong123.

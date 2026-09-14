@@ -374,6 +374,12 @@
     return {...DIFF[ui.difficulty.value],uniform:false};
   }
 
+  // Toàn bộ cơ chế lặp lại / recall / spaced repetition chỉ chạy ở Tùy chỉnh.
+  // Easy / Normal / Hard là game thuần: đi hết bộ từ ngẫu nhiên rồi mới trộn vòng mới.
+  function memoryLearningEnabled(){
+    return ui.difficulty.value==="custom";
+  }
+
   function resize(){
     const r=canvas.getBoundingClientRect(), dpr=Math.max(1,Math.min(2,devicePixelRatio||1));
     canvas.width=Math.round(r.width*dpr); canvas.height=Math.round(r.height*dpr);
@@ -472,14 +478,26 @@
   }
 
   function refillNormalBag(){
+    // Easy / Normal / Hard: KHÔNG dùng thuật toán memory.
+    // Mỗi từ đi qua một vòng ngẫu nhiên; chỉ khi hết cả bag mới trộn lại.
+    if(!memoryLearningEnabled()){
+      game.usedBag=game.vocabulary.filter(item=>!isMemoryKeyActive(memoryKey(item)));
+      for(let i=game.usedBag.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [game.usedBag[i],game.usedBag[j]]=[game.usedBag[j],game.usedBag[i]];
+      }
+      return;
+    }
+
+    // Custom: dùng recall + spaced repetition.
     const now=Date.now();
     const eligible=game.vocabulary.filter(item=>{
       const key=memoryKey(item), s=memoryState(item,false);
       if(isMemoryKeyActive(key)) return false;
       if(!s) return true;
-      if(s.cramRemaining>0) return false; // từ yếu được đưa lại theo cramDueTurn, không trộn vào bag thường
-      if(s.gapIndex>=0) return false;      // chờ đúng mốc lượt
-      if(s.dueAt>now) return false;        // chờ đúng mốc thời gian
+      if(s.cramRemaining>0) return false;
+      if(s.gapIndex>=0) return false;
+      if(s.dueAt>now) return false;
       return true;
     });
     const pool=eligible.length?eligible:game.vocabulary.filter(item=>!isMemoryKeyActive(memoryKey(item)));
@@ -491,16 +509,29 @@
   }
 
   function randomWord(){
-    // 1) Nếu một từ yếu đã tới lượt ôn thì cho nó quay lại.
-    //    Nếu nó đang rơi hoặc chưa tới lượt, KHÔNG chặn game: đi chọn từ khác.
+    // Easy / Normal / Hard: game thuần, không ưu tiên từ fail,
+    // không lặp recall, không spaced repetition.
+    if(!memoryLearningEnabled()){
+      let guard=0;
+      while(guard++<12){
+        if(!game.usedBag.length) refillNormalBag();
+        if(!game.usedBag.length) break;
+        const item=game.usedBag.pop();
+        if(!isMemoryKeyActive(memoryKey(item))){
+          return {...item,_memoryKind:"normal"};
+        }
+      }
+      const fallback=game.vocabulary.find(item=>!isMemoryKeyActive(memoryKey(item)));
+      return fallback ? {...fallback,_memoryKind:"normal"} : null;
+    }
+
+    // Custom: từ yếu tới hạn sẽ được xen khéo léo cùng các từ khác.
     const cram=choosePendingCram();
     if(cram) return {...cram.item,_memoryKind:"cram"};
 
-    // 2) Từ spaced-review đã tới hạn.
     const due=dueReviewCandidate();
     if(due) return {...due.item,_memoryKind:due.kind};
 
-    // 3) Xen từ mới / từ bình thường để màn chơi luôn sống động.
     let guard=0;
     while(guard++<8){
       if(!game.usedBag.length) refillNormalBag();
@@ -510,21 +541,18 @@
       if(!isMemoryKeyActive(key)) return {...item,_memoryKind:"normal"};
     }
 
-    // 4) Fallback cho bộ từ nhỏ: tìm bất kỳ từ không nằm trên màn hình.
-    //    Ưu tiên từ không phải từ đang chờ recall để vẫn giữ được khoảng nghỉ.
     const relaxed=game.vocabulary.find(item=>{
       const key=memoryKey(item), s=memoryState(item,false);
       return !isMemoryKeyActive(key) && (!s || s.cramRemaining<=0);
     });
     if(relaxed) return {...relaxed,_memoryKind:"filler"};
 
-    // Nếu bộ từ chỉ có 1-2 mục, cho phép quay lại mục yếu để tránh đứng game.
     const tiny=game.vocabulary.find(item=>!isMemoryKeyActive(memoryKey(item)));
     return tiny ? {...tiny,_memoryKind:"cram"} : null;
   }
 
   function scheduleFailure(item, advanceTurn=false){
-    if(!item) return;
+    if(!item || !memoryLearningEnabled()) return;
     if(advanceTurn){ game.memoryTurn++; saveMemoryTurn(); }
     const key=memoryKey(item), s=memoryState(item,true);
     s.fail=(s.fail||0)+1;
@@ -539,6 +567,9 @@
   }
 
   function scheduleCorrect(e){
+    if(!memoryLearningEnabled()){
+      return randomEncouragement(ENCOURAGE_CORRECT);
+    }
     game.memoryTurn++; saveMemoryTurn();
     const item={en:e.en,vi:e.vi}, key=e.memoryKey||memoryKey(item), s=memoryState(item,true);
     s.correct=(s.correct||0)+1; s.lastAt=Date.now();
