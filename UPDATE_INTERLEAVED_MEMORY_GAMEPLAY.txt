@@ -1,0 +1,10 @@
+Cập nhật cơ chế ghi nhớ để game không bị đứng ở một từ:
+- Từ chưa vững vẫn cần 4 lần recall đúng nội bộ.
+- Không lặp độc quyền một từ.
+- Sau fail: xen ít nhất 1 từ khác trước khi từ yếu quay lại.
+- Sau các lần đúng: khoảng xen tăng dần 2 -> 3 -> 5 từ khác.
+- Khi từ yếu đang rơi, các từ khác vẫn tiếp tục spawn bình thường.
+- Nhiều từ yếu được xếp hàng theo mức độ cần ôn, không khóa vào một focus duy nhất.
+- Sau chuỗi recall vẫn giữ spaced repetition 3 -> 8 -> 20 -> 50 rồi các mốc dài hạn.
+- Không hiển thị bộ đếm/lịch ôn/fail cho người học; giữ toàn bộ lời động viên tích cực.
+- ADMIN_KEY vẫn cố định vandong123 và các chức năng khác giữ nguyên.

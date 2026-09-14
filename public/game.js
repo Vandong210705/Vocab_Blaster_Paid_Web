@@ -46,6 +46,10 @@
   const MEMORY_STORAGE_KEY = "vocabBlasterMemoryV4";
   const MEMORY_TURN_KEY_PREFIX = "vocabBlasterMemoryTurnV4:";
   const MEMORY_CRAM_CORRECTS = 4;
+  // Từ cần củng cố KHÔNG chiếm toàn bộ màn chơi.
+  // Sau mỗi lần gặp lại, xen 1 -> 2 -> 3 từ khác trước khi đưa từ đó quay lại.
+  // Nhờ vậy vẫn có cảm giác đang chơi, đồng thời retrieval được giãn cách dần.
+  const MEMORY_CRAM_GAPS = [1, 2, 3, 5];
   const MEMORY_REVIEW_GAPS = [3, 8, 20, 50];
   const MEMORY_LONG_INTERVALS = [
     10*60*1000,          // 10 phút
@@ -412,10 +416,15 @@
     if(!s && create){
       s=game.memory[key]={
         en:item.en,vi:item.vi,correct:0,fail:0,cramRemaining:0,
+        cramGapIndex:0,cramDueTurn:0,
         gapIndex:-1,dueTurn:0,longIndex:-1,dueAt:0,lastAt:0,lastFailAt:0,mastered:false
       };
     }
-    if(s){ s.en=item.en; s.vi=item.vi; }
+    if(s){
+      s.en=item.en; s.vi=item.vi;
+      if(!Number.isFinite(s.cramGapIndex)) s.cramGapIndex=0;
+      if(!Number.isFinite(s.cramDueTurn)) s.cramDueTurn=0;
+    }
     return s||null;
   }
 
@@ -428,21 +437,23 @@
   }
 
   function choosePendingCram(){
-    // Hoàn tất chuỗi recall nội bộ của một từ trước rồi mới chuyển sang từ cần củng cố khác.
-    if(game.focusCramKey){
-      const item=itemForMemoryKey(game.focusCramKey), s=item&&memoryState(item,false);
-      if(item && s?.cramRemaining>0) return {key:game.focusCramKey,item,s};
-      game.focusCramKey="";
-    }
+    // Có thể có nhiều từ đang cần củng cố.
+    // Chỉ gọi lại một từ khi đã xen đủ số lượt khác theo MEMORY_CRAM_GAPS.
+    // Nếu từ đó đang rơi trên màn hình, bỏ qua nó để các từ khác vẫn tiếp tục xuất hiện.
     const candidates=[];
     for(const item of game.vocabulary){
       const key=memoryKey(item), s=memoryState(item,false);
-      if(s?.cramRemaining>0) candidates.push({key,item,s});
+      if(!s || s.cramRemaining<=0) continue;
+      if(isMemoryKeyActive(key)) continue;
+      if((s.cramDueTurn||0)>game.memoryTurn) continue;
+      candidates.push({key,item,s});
     }
-    candidates.sort((a,b)=>(a.s.lastFailAt||0)-(b.s.lastFailAt||0));
-    const c=candidates[0]||null;
-    if(c) game.focusCramKey=c.key;
-    return c;
+    candidates.sort((a,b)=>
+      (a.s.cramDueTurn||0)-(b.s.cramDueTurn||0) ||
+      (b.s.fail||0)-(a.s.fail||0) ||
+      (a.s.lastAt||0)-(b.s.lastAt||0)
+    );
+    return candidates[0]||null;
   }
 
   function dueReviewCandidate(){
@@ -466,7 +477,7 @@
       const key=memoryKey(item), s=memoryState(item,false);
       if(isMemoryKeyActive(key)) return false;
       if(!s) return true;
-      if(s.cramRemaining>0) return false;
+      if(s.cramRemaining>0) return false; // từ yếu được đưa lại theo cramDueTurn, không trộn vào bag thường
       if(s.gapIndex>=0) return false;      // chờ đúng mốc lượt
       if(s.dueAt>now) return false;        // chờ đúng mốc thời gian
       return true;
@@ -480,27 +491,36 @@
   }
 
   function randomWord(){
-    // 1) Recall rescue: ưu tiên một từ cần củng cố cho tới khi đạt chuỗi đúng nội bộ.
+    // 1) Nếu một từ yếu đã tới lượt ôn thì cho nó quay lại.
+    //    Nếu nó đang rơi hoặc chưa tới lượt, KHÔNG chặn game: đi chọn từ khác.
     const cram=choosePendingCram();
-    if(cram){
-      if(isMemoryKeyActive(cram.key)) return null;
-      return {...cram.item,_memoryKind:"cram"};
-    }
+    if(cram) return {...cram.item,_memoryKind:"cram"};
 
-    // 2) Tới hạn spaced review thì ưu tiên trước từ mới.
+    // 2) Từ spaced-review đã tới hạn.
     const due=dueReviewCandidate();
     if(due) return {...due.item,_memoryKind:due.kind};
 
-    // 3) Còn lại mới học từ mới/ít gặp, theo thứ tự xáo trộn.
+    // 3) Xen từ mới / từ bình thường để màn chơi luôn sống động.
     let guard=0;
-    while(guard++<3){
+    while(guard++<8){
       if(!game.usedBag.length) refillNormalBag();
-      if(!game.usedBag.length) return null;
+      if(!game.usedBag.length) break;
       const item=game.usedBag.pop();
       const key=memoryKey(item);
       if(!isMemoryKeyActive(key)) return {...item,_memoryKind:"normal"};
     }
-    return null;
+
+    // 4) Fallback cho bộ từ nhỏ: tìm bất kỳ từ không nằm trên màn hình.
+    //    Ưu tiên từ không phải từ đang chờ recall để vẫn giữ được khoảng nghỉ.
+    const relaxed=game.vocabulary.find(item=>{
+      const key=memoryKey(item), s=memoryState(item,false);
+      return !isMemoryKeyActive(key) && (!s || s.cramRemaining<=0);
+    });
+    if(relaxed) return {...relaxed,_memoryKind:"filler"};
+
+    // Nếu bộ từ chỉ có 1-2 mục, cho phép quay lại mục yếu để tránh đứng game.
+    const tiny=game.vocabulary.find(item=>!isMemoryKeyActive(memoryKey(item)));
+    return tiny ? {...tiny,_memoryKind:"cram"} : null;
   }
 
   function scheduleFailure(item, advanceTurn=false){
@@ -509,9 +529,12 @@
     const key=memoryKey(item), s=memoryState(item,true);
     s.fail=(s.fail||0)+1;
     s.cramRemaining=MEMORY_CRAM_CORRECTS;
+    s.cramGapIndex=0;
+    // Sau khi chưa nhớ: xen ít nhất 1 từ khác rồi mới đưa từ này trở lại.
+    s.cramDueTurn=game.memoryTurn+MEMORY_CRAM_GAPS[0];
     s.gapIndex=-1; s.dueTurn=0; s.longIndex=-1; s.dueAt=0;
     s.mastered=false; s.lastAt=Date.now(); s.lastFailAt=Date.now();
-    if(!game.focusCramKey || game.focusCramKey===key) game.focusCramKey=key;
+    game.focusCramKey="";
     saveMemoryStore();
   }
 
@@ -523,9 +546,14 @@
     if(s.cramRemaining>0){
       s.cramRemaining=Math.max(0,s.cramRemaining-1);
       if(s.cramRemaining>0){
-        game.focusCramKey=key;
+        // Đúng một lần chưa có nghĩa là đã nhớ lâu.
+        // Xen ngày càng nhiều từ khác: 2 -> 3 -> 5 lượt trước lần recall kế tiếp.
+        s.cramGapIndex=Math.min((s.cramGapIndex||0)+1,MEMORY_CRAM_GAPS.length-1);
+        s.cramDueTurn=game.memoryTurn+MEMORY_CRAM_GAPS[s.cramGapIndex];
       }else{
-        if(game.focusCramKey===key) game.focusCramKey="";
+        s.cramGapIndex=0;
+        s.cramDueTurn=0;
+        game.focusCramKey="";
         s.gapIndex=0;
         s.dueTurn=game.memoryTurn+MEMORY_REVIEW_GAPS[0];
       }
