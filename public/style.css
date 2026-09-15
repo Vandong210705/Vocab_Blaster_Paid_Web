@@ -84,24 +84,8 @@
   z-index:7;
   pointer-events:none;
 }
-.choice-tip{
-  position:absolute;
-  left:50%;
-  bottom:178px;
-  transform:translateX(-50%);
-  padding:5px 10px;
-  border-radius:10px;
-  background:rgba(8,12,30,.80);
-  border:1px solid rgba(91,222,255,.26);
-  color:#bdeeff;
-  font-size:11px;
-  font-weight:800;
-  white-space:nowrap;
-  pointer-events:none;
-}
 .choice-card{
   position:absolute;
-  bottom:92px;
   width:min(220px,25vw);
   min-height:62px;
   padding:10px 12px;
@@ -122,6 +106,8 @@
 .choice-card:active{cursor:grabbing;transform:scale(.97)}
 .choice-left{right:calc(50% + 92px)}
 .choice-right{left:calc(50% + 92px)}
+.choice-top{bottom:155px}
+.choice-bottom{bottom:92px}
 .choice-ghost{
   position:fixed;
   z-index:1000;
@@ -143,8 +129,9 @@
   filter:drop-shadow(0 0 8px rgba(255,238,90,.9));
 }
 @media(max-width:850px){
-  .choice-card{width:min(170px,32vw);font-size:13px;min-height:56px;bottom:86px}
+  .choice-card{width:min(170px,32vw);font-size:13px;min-height:56px}
   .choice-left{right:calc(50% + 62px)}
   .choice-right{left:calc(50% + 62px)}
-  .choice-tip{bottom:158px;font-size:10px}
+  .choice-top{bottom:145px}
+  .choice-bottom{bottom:86px}
 }

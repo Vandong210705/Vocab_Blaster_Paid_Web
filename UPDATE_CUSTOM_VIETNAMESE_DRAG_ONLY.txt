@@ -1,0 +1,6 @@
+CUSTOM BEHAVIOR
+- English xuất hiện: chỉ gõ English + Enter, không bao giờ kéo.
+- Tiếng Việt xuất hiện: kéo 1 trong 4 đáp án English.
+- Mỗi lượt kéo: 1 đúng + 3 nhiễu.
+- Không bao giờ bắt gõ tiếng Việt.
+- Các phần khác giữ nguyên.

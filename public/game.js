@@ -21,7 +21,7 @@
     formatPattern: $("formatPattern"), formatExamples: $("formatExamples"), maxEnemies: $("maxEnemies"),
     difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"), infiniteLives: $("infiniteLives"),
     speedValue: $("speedValue"), speak: $("speakEnglish"), voicePreset: $("voicePreset"), gameOver: $("gameOver"),
-    choiceDock: $("choiceDock"), choiceLeft: $("choiceLeft"), choiceRight: $("choiceRight"), choiceGhost: $("choiceGhost"),
+    choiceDock: $("choiceDock"), choice1: $("choice1"), choice2: $("choice2"), choice3: $("choice3"), choice4: $("choice4"), choiceGhost: $("choiceGhost"),
     pauseScreen: $("pauseScreen"), finalScore: $("finalScore"), finalKills: $("finalKills"),
     finalAccuracy: $("finalAccuracy"), finalCombo: $("finalCombo"), payQr: $("payQr"), payQrEmpty: $("payQrEmpty")
   };
@@ -650,24 +650,33 @@
 
 
   function customTaskFor(item){
-    const useDrag=Math.random()<CUSTOM_DRAG_CHANCE;
+    // CUSTOM:
+    // - Hiện English => chỉ gõ English, KHÔNG kéo.
+    // - Hiện tiếng Việt => kéo 1 trong 4 đáp án English.
+    // - Tuyệt đối không bắt gõ tiếng Việt.
+    const alreadyHasDrag=game.enemies.some(e=>!e.dead&&e.inputKind==="drag");
 
-    if(useDrag){
-      // 50/50:
-      // English rơi -> kéo nghĩa Việt
-      // Việt rơi -> kéo English
-      if(Math.random()<.5){
-        return {inputKind:"drag", taskMode:"drag-vi", display:item.en, answer:item.vi, meaning:item.en, answerLang:"vi"};
-      }
-      return {inputKind:"drag", taskMode:"drag-en", display:item.vi, answer:item.en, meaning:item.vi, answerLang:"en"};
+    // Nếu chưa có mục tiêu kéo, thỉnh thoảng cho nghĩa Việt xuất hiện để kéo English.
+    if(!alreadyHasDrag && Math.random()<CUSTOM_DRAG_CHANCE){
+      return {
+        inputKind:"drag",
+        taskMode:"drag-en",
+        display:item.vi,
+        answer:item.en,
+        meaning:item.vi,
+        answerLang:"en"
+      };
     }
 
-    // Task gõ: luôn gõ English để khỏi mỏi vì IME tiếng Việt.
-    // 50/50 giữa gõ lại English và nhìn Việt -> nhớ English.
-    if(Math.random()<.5){
-      return {inputKind:"type", taskMode:"type-copy-en", display:item.en, answer:item.en, meaning:item.vi, answerLang:"en"};
-    }
-    return {inputKind:"type", taskMode:"type-from-vi", display:item.vi, answer:item.en, meaning:item.vi, answerLang:"en"};
+    // Còn lại luôn là English -> gõ English.
+    return {
+      inputKind:"type",
+      taskMode:"type-copy-en",
+      display:item.en,
+      answer:item.en,
+      meaning:item.vi,
+      answerLang:"en"
+    };
   }
 
   function pickChoiceDistractor(item, answerLang){
@@ -683,12 +692,34 @@
 
   function makeChoiceOptions(item, task){
     const correct=task.answer;
-    const wrong=pickChoiceDistractor(item,task.answerLang);
+    const used=new Set([norm(correct)]);
+    const wrongs=[];
+
+    const pool=[...game.vocabulary].sort(()=>Math.random()-.5);
+    for(const v of pool){
+      const text=task.answerLang==="vi" ? v.vi : v.en;
+      const key=norm(text);
+      if(!key || used.has(key)) continue;
+      used.add(key);
+      wrongs.push(text);
+      if(wrongs.length===3) break;
+    }
+
+    while(wrongs.length<3){
+      wrongs.push(task.answerLang==="vi" ? "nghĩa khác" : "another word");
+    }
+
     const arr=[
       {text:correct,correct:true},
-      {text:wrong,correct:false}
+      {text:wrongs[0],correct:false},
+      {text:wrongs[1],correct:false},
+      {text:wrongs[2],correct:false}
     ];
-    if(Math.random()<.5) arr.reverse();
+
+    for(let i=arr.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
     return arr;
   }
 
@@ -842,19 +873,19 @@
 
     game.choiceTargetId=e.id;
     const opts=e.choiceOptions||[];
-    if(opts.length<2){
+    if(opts.length<4){
       ui.choiceDock.classList.add("hidden");
       return;
     }
 
-    ui.choiceLeft.textContent=opts[0].text;
-    ui.choiceRight.textContent=opts[1].text;
-    ui.choiceLeft.dataset.value=opts[0].text;
-    ui.choiceRight.dataset.value=opts[1].text;
-    ui.choiceLeft.dataset.correct=String(!!opts[0].correct);
-    ui.choiceRight.dataset.correct=String(!!opts[1].correct);
-    ui.choiceLeft.dataset.targetId=String(e.id);
-    ui.choiceRight.dataset.targetId=String(e.id);
+    const cards=[ui.choice1,ui.choice2,ui.choice3,ui.choice4];
+    cards.forEach((card,i)=>{
+      card.textContent=opts[i].text;
+      card.dataset.value=opts[i].text;
+      card.dataset.correct=String(!!opts[i].correct);
+      card.dataset.targetId=String(e.id);
+    });
+
     ui.choiceDock.classList.remove("hidden");
   }
 
@@ -921,7 +952,7 @@
     }
   }
 
-  for(const card of [ui.choiceLeft,ui.choiceRight]){
+  for(const card of [ui.choice1,ui.choice2,ui.choice3,ui.choice4]){
     card.addEventListener("pointerdown",ev=>beginChoiceDrag(ev,card));
     card.addEventListener("pointermove",ev=>{
       if(game.dragChoice&&game.dragChoice.pointerId===ev.pointerId){
