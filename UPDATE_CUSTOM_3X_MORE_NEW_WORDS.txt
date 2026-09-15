@@ -1,0 +1,12 @@
+Cơ chế học mới trong Custom:
+- Easy / Normal / Hard vẫn là game thuần, không lặp memory.
+- Custom: từ cần củng cố chỉ cần 3 lần trả lời đúng.
+- Sau fail: từ đó quay lại sau khoảng 3 từ khác.
+- Sau lần đúng thứ 1: quay lại sau khoảng 7 từ khác.
+- Sau lần đúng thứ 2: quay lại sau khoảng 12 từ khác.
+- Sau lần đúng thứ 3: không dí tiếp; review lại sau khoảng 25 từ khác,
+  rồi 60 -> 120 -> 250 từ khác nếu tiếp tục đúng.
+- Mục tiêu: vẫn nhớ được từ yếu nhưng màn chơi mở rộng sang nhiều từ mới hơn,
+  tránh quanh quẩn vài từ gây chán.
+- Bộ đếm và lịch ôn vẫn hoàn toàn ẩn với người dùng.
+- Lời động viên tích cực và ADMIN_KEY=vandong123 giữ nguyên.

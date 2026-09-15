@@ -1,0 +1,14 @@
+CUSTOM MIXED TYPE + DRAG
+- Chỉ áp dụng khi Độ khó = Tùy chỉnh.
+- Game tự random khoảng 45% mục tiêu là kéo/chọn, còn lại là gõ.
+- Task gõ KHÔNG bao giờ bắt gõ tiếng Việt:
+  1) hiện English -> gõ English
+  2) hiện tiếng Việt -> gõ English
+- Task kéo/chọn:
+  1) hiện English -> kéo nghĩa tiếng Việt đúng
+  2) hiện tiếng Việt -> kéo English đúng
+- Hai bảng đáp án nằm hai bên cạnh người bắn; giữ chuột/ngón tay và kéo lên mục tiêu.
+- Nếu có nhiều mục tiêu kéo, hệ thống ưu tiên mục tiêu gần người bắn nhất.
+- Easy / Normal / Hard giữ nguyên game cũ, không mixed drag.
+- Memory Custom 3 lần + khoảng xen từ mới giữ nguyên.
+- ADMIN_KEY giữ nguyên vandong123.

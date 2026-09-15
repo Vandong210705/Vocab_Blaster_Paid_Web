@@ -42,6 +42,13 @@
         <div id="typingMeaning" class="typing-meaning">Enter = bắn mục tiêu</div>
       </div>
 
+      <div id="choiceDock" class="choice-dock hidden" aria-live="polite">
+        <div class="choice-tip">Kéo bảng đúng lên mục tiêu</div>
+        <button id="choiceLeft" class="choice-card choice-left" type="button"></button>
+        <button id="choiceRight" class="choice-card choice-right" type="button"></button>
+      </div>
+      <div id="choiceGhost" class="choice-ghost hidden"></div>
+
       <input id="imeSink" class="ime-sink" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-hidden="true" />
       <div id="toast" class="toast"></div>
 
@@ -207,6 +214,7 @@
           ❤️ Sống vô hạn — học từ, không Game Over
         </label>
         <small>Khi từ rơi lọt: không mất mạng, vẫn hiện Anh = Việt và từ đó sẽ quay lại sau vài lượt để học lại.</small>
+        <small>🎮 Trong Tùy chỉnh: game tự trộn ngẫu nhiên giữa gõ English và kéo bảng đáp án. Không bắt gõ tiếng Việt.</small>
       </div>
 
       <label class="check"><input id="speakEnglish" type="checkbox" checked /> Đọc từ tiếng Anh khi hạ</label>
