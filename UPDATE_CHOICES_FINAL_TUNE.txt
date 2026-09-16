@@ -1,0 +1,5 @@
+TINH CHỈNH CUỐI BỐ CỤC ĐÁP ÁN
+- 4 nút đáp án nhích lên thêm một chút.
+- Nút to hơn nhẹ để dễ nhìn và dễ bấm.
+- Giữ bố cục 2 trái + 2 phải.
+- Giữ nguyên random vị trí, TTS, chọn sai -> memory, và toàn bộ logic khác.

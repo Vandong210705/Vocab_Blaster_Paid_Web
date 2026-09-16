@@ -1,0 +1,6 @@
+CHỈ CHỈNH BỐ CỤC ĐÁP ÁN
+- Giữ nguyên toàn bộ logic game.
+- 4 đáp án vẫn random, 1 đúng + 3 nhiễu.
+- Nhích cụm đáp án lên một chút để không đè lên khung nhập.
+- Kéo hai cụm trái/phải vào gần giữa một chút để cân đối hơn.
+- Không đổi kích thước, memory, TTS hay cách chọn đáp án.
