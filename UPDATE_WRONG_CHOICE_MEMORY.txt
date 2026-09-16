@@ -1,0 +1,10 @@
+SỬA HÀNH VI KHI CHỌN SAI
+- Chỉ áp dụng cho câu hỏi chọn 1/4 đáp án trong Custom.
+- Chọn sai: con hiện tại biến mất ngay.
+- Không thể bấm thử tiếp 3 đáp án còn lại.
+- Không cộng điểm, không tính là trả lời đúng.
+- Từ đó được đánh dấu 'chưa thuộc' trong thuật toán memory.
+- Hiện Anh = Việt và lời động viên tích cực.
+- Từ sẽ quay lại sau theo cơ chế học lại hiện có.
+- Chọn đúng vẫn tự bắn và tiêu diệt như trước.
+- Các phần khác giữ nguyên.

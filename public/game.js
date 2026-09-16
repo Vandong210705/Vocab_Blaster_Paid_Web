@@ -957,10 +957,33 @@
       ui.typingMeaning.textContent=`✅ ${e.en} = ${e.vi}`;
       setTimeout(()=>{typingUI();focusTyping();},700);
     }else{
-      scheduleFailure({en:e.en,vi:e.vi},false);
+      // Chọn sai = coi như CHƯA THUỘC.
+      // Mục tiêu biến mất ngay để người học không thể bấm mò cho tới đáp án đúng.
+      e.dead=true;
+      game.choiceTargetId=0;
+      ui.choiceDock.classList.add("hidden");
+
+      // Ghi nhận như một lần chưa nhớ và đưa từ vào cơ chế học lại hiện tại.
+      // advanceTurn=true vì lượt này đã kết thúc hoàn toàn.
+      scheduleFailure({en:e.en,vi:e.vi},true);
       wrong();
-      ui.typingMeaning.textContent=randomEncouragement(ENCOURAGE_RETRY);
-      setTimeout(()=>typingUI(),650);
+
+      // Không cộng điểm, không tính đúng, không gọi scheduleCorrect().
+      // Chỉ tạo hiệu ứng biến mất nhẹ.
+      explode(e.x,e.y);
+
+      // Hiện lại cặp Anh = Việt theo hướng tích cực để người học biết đáp án,
+      // sau đó từ này sẽ quay lại theo lịch memory.
+      game.floaters.push({
+        x:game.w/2,
+        y:Math.max(120,game.h-215),
+        text:`🌱 ${e.en} = ${e.vi}`,
+        sub:randomEncouragement(ENCOURAGE_MISS),
+        life:4.5,maxLife:4.5,learning:true
+      });
+
+      ui.typingMeaning.textContent=`🌱 ${e.en} = ${e.vi}`;
+      setTimeout(()=>typingUI(),900);
     }
   }
 
