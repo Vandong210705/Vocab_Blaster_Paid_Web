@@ -19,7 +19,8 @@
     imeSink: $("imeSink"), toast: $("toast"), panel: $("wordPanel"), wordInput: $("wordInput"),
     wordCount: $("wordCount"), separatorInput: $("separatorInput"), studyDirection: $("studyDirection"),
     formatPattern: $("formatPattern"), formatExamples: $("formatExamples"), maxEnemies: $("maxEnemies"),
-    difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"), infiniteLives: $("infiniteLives"), customLives: $("customLives"), customLivesWrap: $("customLivesWrap"),
+    difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"), infiniteLives: $("infiniteLives"),
+    customLivesWrap: $("customLivesWrap"), customLives: $("customLives"),
     speedValue: $("speedValue"), speak: $("speakEnglish"), voicePreset: $("voicePreset"), gameOver: $("gameOver"),
     choiceDock: $("choiceDock"), choice1: $("choice1"), choice2: $("choice2"), choice3: $("choice3"), choice4: $("choice4"),
     pauseScreen: $("pauseScreen"), finalScore: $("finalScore"), finalKills: $("finalKills"),
@@ -350,6 +351,7 @@
     localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);
     localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);
     localStorage.setItem("vocabBlasterInfiniteLives",String(ui.infiniteLives.checked));
+    localStorage.setItem("vocabBlasterCustomLives",String(Math.max(1,Math.min(99,parseInt(ui.customLives.value||"3",10)||3))));
     localStorage.setItem("vocabBlasterSpeak",String(ui.speak.checked));
     localStorage.setItem("vocabBlasterVoicePreset",ui.voicePreset.value);
     toast("💾 Đã lưu bộ từ và cài đặt");
@@ -364,12 +366,12 @@
     ui.customSpeed.value=localStorage.getItem("vocabBlasterCustomSpeed")||"28";
     ui.speedValue.textContent=ui.customSpeed.value;
     ui.infiniteLives.checked=localStorage.getItem("vocabBlasterInfiniteLives")==="true";
+    ui.customLives.value=localStorage.getItem("vocabBlasterCustomLives")||"3";
     ui.speak.checked=localStorage.getItem("vocabBlasterSpeak")!=="false";
     ui.voicePreset.value=localStorage.getItem("vocabBlasterVoicePreset")||"female";
     updateCustomSpeedVisibility();
     updateFormatPreview();
     countWords();
-    ui.customLives.value=localStorage.getItem("vocabBlasterCustomLives")||"3";
   }
 
   function toast(t){
@@ -379,15 +381,17 @@
 
   function updateCustomSpeedVisibility(){
     const isCustom=ui.difficulty.value==="custom";
-    ui.customBox?.classList.toggle("hidden",!isCustom);
-    if(ui.customLivesWrap){
-      ui.customLivesWrap.classList.toggle("hidden",!isCustom || !!ui.infiniteLives.checked);
-    }
+    ui.customSpeedWrap.classList.toggle("hidden",!isCustom);
+    ui.speedValue.textContent=ui.customSpeed.value;
+
+    // Chỉ hiện ô số tim khi đang ở Custom và KHÔNG bật sống vô hạn.
+    ui.customLivesWrap.classList.toggle("hidden",!isCustom || ui.infiniteLives.checked);
   }
 
   function currentCfg(){
     if(ui.difficulty.value==="custom"){
-      const customLives=Math.max(1,Math.min(99,parseInt(ui.customLives?.value||"3",10)||3));
+      const customLives=Math.max(1,Math.min(99,parseInt(ui.customLives.value||"3",10)||3));
+      ui.customLives.value=String(customLives);
       return {speed:+ui.customSpeed.value,spawn:1450,lives:customLives,uniform:true,infiniteLives:!!ui.infiniteLives.checked};
     }
     return {...DIFF[ui.difficulty.value],uniform:false};
@@ -977,8 +981,7 @@
       scheduleFailure({en:e.en,vi:e.vi},true);
       wrong();
 
-      // Chọn sai cũng mất 1 tim như một lỗi bình thường.
-      // Nếu đang bật sống vô hạn thì không trừ.
+      // Chọn sai mất 1 tim như lỗi bình thường.
       if(!game.infiniteLives){
         game.lives=Math.max(0,game.lives-1);
         hud();
@@ -1001,7 +1004,7 @@
       ui.typingMeaning.textContent=`🌱 ${e.en} = ${e.vi}`;
 
       if(!game.infiniteLives && game.lives<=0){
-        setTimeout(()=>end(),500);
+        setTimeout(()=>end(),450);
         return;
       }
 
@@ -1351,19 +1354,6 @@
   ui.wordInput.addEventListener("input",countWords);
   ui.separatorInput.addEventListener("input",()=>{updateFormatPreview();countWords();});
   ui.studyDirection.addEventListener("change",()=>{clearTyped();updateFormatPreview();countWords();localStorage.setItem("vocabBlasterStudyModeV2",direction());setTimeout(focusTyping,0);});
-
-  ui.customLives.addEventListener("input",()=>{
-    let n=parseInt(ui.customLives.value||"3",10);
-    if(!Number.isFinite(n)) n=3;
-    n=Math.max(1,Math.min(99,n));
-    ui.customLives.value=String(n);
-    localStorage.setItem("vocabBlasterCustomLives",String(n));
-  });
-  ui.infiniteLives.addEventListener("change",()=>{
-    localStorage.setItem("vocabBlasterInfiniteLives",ui.infiniteLives.checked?"1":"0");
-    updateCustomSpeedVisibility();
-  });
-
   ui.difficulty.addEventListener("change",()=>{
     updateCustomSpeedVisibility();
     localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);
@@ -1373,7 +1363,17 @@
   });
   ui.customSpeed.addEventListener("input",()=>{ui.speedValue.textContent=ui.customSpeed.value;localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);});
   ui.maxEnemies.addEventListener("change",()=>localStorage.setItem("vocabBlasterMaxEnemies",ui.maxEnemies.value));
-  ui.infiniteLives.addEventListener("change",()=>localStorage.setItem("vocabBlasterInfiniteLives",String(ui.infiniteLives.checked)));
+  ui.customLives.addEventListener("change",()=>{
+    let n=parseInt(ui.customLives.value||"3",10);
+    if(!Number.isFinite(n)) n=3;
+    n=Math.max(1,Math.min(99,n));
+    ui.customLives.value=String(n);
+    localStorage.setItem("vocabBlasterCustomLives",String(n));
+  });
+  ui.infiniteLives.addEventListener("change",()=>{
+    localStorage.setItem("vocabBlasterInfiniteLives",String(ui.infiniteLives.checked));
+    updateCustomSpeedVisibility();
+  });
   ui.speak.addEventListener("change",()=>localStorage.setItem("vocabBlasterSpeak",String(ui.speak.checked)));
   ui.voicePreset.addEventListener("change",()=>localStorage.setItem("vocabBlasterVoicePreset",ui.voicePreset.value));
 
@@ -1391,6 +1391,5 @@
     toast("🧠 Đã xóa tiến độ ghi nhớ");
   };
 
-  loadSaved();
-  updateCustomSpeedVisibility();loadAccessConfig();resize();typingUI();requestAnimationFrame(loop);
+  loadSaved();loadAccessConfig();resize();typingUI();requestAnimationFrame(loop);
 })();

@@ -1,0 +1,10 @@
+BẢN SỬA LẠI TỪ BẢN ỔN ĐỊNH CUỐI
+- Không thay đổi bố cục game, 4 đáp án, random, TTS hay memory hiện có.
+- Chỉ thêm ô Số tim trong Custom.
+- Tắt Sống vô hạn -> hiện Số tim.
+- Bật Sống vô hạn -> ẩn Số tim.
+- Số tim 1..99, mặc định 3, được lưu localStorage.
+- Chọn sai 1/4 -> con biến mất + memory học lại + mất 1 tim.
+- Sống vô hạn -> chọn sai không mất tim.
+- Hết tim -> Game Over bình thường.
+- Fix lỗi bản trước: customSpeedWrap vẫn được hiển thị đúng.
