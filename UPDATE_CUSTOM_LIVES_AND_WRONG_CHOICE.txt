@@ -1,0 +1,14 @@
+CUSTOM LIVES
+- Chỉ thêm đúng phần số tim trong Tùy chỉnh.
+- Nếu bật Sống vô hạn: ô Số tim tự ẩn.
+- Nếu tắt Sống vô hạn: hiện ô Số tim để nhập 1..99.
+- Số tim được lưu trong trình duyệt.
+- Khi bắt đầu Custom, game dùng đúng số tim đã nhập.
+
+CHỌN SAI
+- Chọn sai 1/4 đáp án: con đó vẫn biến mất ngay.
+- Vẫn được đánh dấu chưa thuộc và đưa vào memory học lại.
+- Đồng thời mất 1 tim như lỗi bình thường.
+- Nếu bật Sống vô hạn thì không mất tim.
+- Hết tim thì kết thúc lượt chơi như bình thường.
+- Các phần giao diện và logic khác giữ nguyên.

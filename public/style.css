@@ -140,3 +140,31 @@
   .choice-top{bottom:111px}
   .choice-bottom{bottom:72px}
 }
+
+
+/* Custom lives — chỉ hiện khi không bật sống vô hạn */
+.custom-lives-wrap{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+}
+.custom-lives-wrap label{
+  font-size:12px;
+  font-weight:800;
+  opacity:.88;
+}
+.custom-lives-wrap input{
+  width:74px;
+  height:34px;
+  padding:5px 9px;
+  border-radius:9px;
+  border:1px solid rgba(113,211,255,.45);
+  background:rgba(12,20,48,.94);
+  color:#fff;
+  font-weight:800;
+  outline:none;
+}
+.custom-lives-wrap input:focus{
+  border-color:rgba(95,224,255,.95);
+}

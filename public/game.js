@@ -19,7 +19,7 @@
     imeSink: $("imeSink"), toast: $("toast"), panel: $("wordPanel"), wordInput: $("wordInput"),
     wordCount: $("wordCount"), separatorInput: $("separatorInput"), studyDirection: $("studyDirection"),
     formatPattern: $("formatPattern"), formatExamples: $("formatExamples"), maxEnemies: $("maxEnemies"),
-    difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"), infiniteLives: $("infiniteLives"),
+    difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"), infiniteLives: $("infiniteLives"), customLives: $("customLives"), customLivesWrap: $("customLivesWrap"),
     speedValue: $("speedValue"), speak: $("speakEnglish"), voicePreset: $("voicePreset"), gameOver: $("gameOver"),
     choiceDock: $("choiceDock"), choice1: $("choice1"), choice2: $("choice2"), choice3: $("choice3"), choice4: $("choice4"),
     pauseScreen: $("pauseScreen"), finalScore: $("finalScore"), finalKills: $("finalKills"),
@@ -369,6 +369,7 @@
     updateCustomSpeedVisibility();
     updateFormatPreview();
     countWords();
+    ui.customLives.value=localStorage.getItem("vocabBlasterCustomLives")||"3";
   }
 
   function toast(t){
@@ -377,12 +378,18 @@
   }
 
   function updateCustomSpeedVisibility(){
-    ui.customSpeedWrap.classList.toggle("hidden",ui.difficulty.value!=="custom");
-    ui.speedValue.textContent=ui.customSpeed.value;
+    const isCustom=ui.difficulty.value==="custom";
+    ui.customBox?.classList.toggle("hidden",!isCustom);
+    if(ui.customLivesWrap){
+      ui.customLivesWrap.classList.toggle("hidden",!isCustom || !!ui.infiniteLives.checked);
+    }
   }
 
   function currentCfg(){
-    if(ui.difficulty.value==="custom") return {speed:+ui.customSpeed.value,spawn:1450,lives:3,uniform:true,infiniteLives:!!ui.infiniteLives.checked};
+    if(ui.difficulty.value==="custom"){
+      const customLives=Math.max(1,Math.min(99,parseInt(ui.customLives?.value||"3",10)||3));
+      return {speed:+ui.customSpeed.value,spawn:1450,lives:customLives,uniform:true,infiniteLives:!!ui.infiniteLives.checked};
+    }
     return {...DIFF[ui.difficulty.value],uniform:false};
   }
 
@@ -970,6 +977,13 @@
       scheduleFailure({en:e.en,vi:e.vi},true);
       wrong();
 
+      // Chọn sai cũng mất 1 tim như một lỗi bình thường.
+      // Nếu đang bật sống vô hạn thì không trừ.
+      if(!game.infiniteLives){
+        game.lives=Math.max(0,game.lives-1);
+        hud();
+      }
+
       // Không cộng điểm, không tính đúng, không gọi scheduleCorrect().
       // Chỉ tạo hiệu ứng biến mất nhẹ.
       explode(e.x,e.y);
@@ -985,6 +999,12 @@
       });
 
       ui.typingMeaning.textContent=`🌱 ${e.en} = ${e.vi}`;
+
+      if(!game.infiniteLives && game.lives<=0){
+        setTimeout(()=>end(),500);
+        return;
+      }
+
       setTimeout(()=>typingUI(),900);
     }
   }
@@ -1331,6 +1351,19 @@
   ui.wordInput.addEventListener("input",countWords);
   ui.separatorInput.addEventListener("input",()=>{updateFormatPreview();countWords();});
   ui.studyDirection.addEventListener("change",()=>{clearTyped();updateFormatPreview();countWords();localStorage.setItem("vocabBlasterStudyModeV2",direction());setTimeout(focusTyping,0);});
+
+  ui.customLives.addEventListener("input",()=>{
+    let n=parseInt(ui.customLives.value||"3",10);
+    if(!Number.isFinite(n)) n=3;
+    n=Math.max(1,Math.min(99,n));
+    ui.customLives.value=String(n);
+    localStorage.setItem("vocabBlasterCustomLives",String(n));
+  });
+  ui.infiniteLives.addEventListener("change",()=>{
+    localStorage.setItem("vocabBlasterInfiniteLives",ui.infiniteLives.checked?"1":"0");
+    updateCustomSpeedVisibility();
+  });
+
   ui.difficulty.addEventListener("change",()=>{
     updateCustomSpeedVisibility();
     localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);
@@ -1358,5 +1391,6 @@
     toast("🧠 Đã xóa tiến độ ghi nhớ");
   };
 
-  loadSaved();loadAccessConfig();resize();typingUI();requestAnimationFrame(loop);
+  loadSaved();
+  updateCustomSpeedVisibility();loadAccessConfig();resize();typingUI();requestAnimationFrame(loop);
 })();
