@@ -77,51 +77,66 @@
 }
 
 
-/* ===== CUSTOM CHOICE — INSIDE BOTTOM BAR ===== */
+/* ===== CUSTOM CHOICE — COMPACT 2 LEFT + 2 RIGHT ===== */
 .choice-dock{
-  grid-column:1 / -1;
-  position:static;
-  width:100%;
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  gap:7px;
-  margin-top:2px;
-  pointer-events:auto;
+  position:absolute;
+  inset:0;
+  z-index:7;
+  pointer-events:none;
 }
 .choice-card{
-  position:static;
-  width:100%;
-  min-width:0;
-  min-height:36px;
-  padding:6px 8px;
+  position:absolute;
+  width:min(150px,17vw);
+  min-height:38px;
+  padding:6px 9px;
   border-radius:10px;
-  border:1.5px solid rgba(94,226,255,.62);
-  background:linear-gradient(180deg,rgba(25,37,78,.96),rgba(10,18,43,.96));
+  border:1.5px solid rgba(94,226,255,.66);
+  background:linear-gradient(180deg,rgba(25,37,78,.97),rgba(10,18,43,.97));
   color:#fff;
   font-weight:850;
   font-size:12px;
-  line-height:1.15;
+  line-height:1.12;
   text-align:center;
-  box-shadow:0 5px 14px rgba(0,0,0,.28);
+  box-shadow:0 5px 14px rgba(0,0,0,.30);
   cursor:pointer;
   user-select:none;
   touch-action:manipulation;
   pointer-events:auto;
 }
 .choice-card:hover{
-  border-color:rgba(255,237,101,.92);
+  border-color:rgba(255,237,101,.95);
   background:linear-gradient(180deg,rgba(35,49,96,.98),rgba(13,22,52,.98));
 }
 .choice-card:active{transform:scale(.98)}
 
-@media(max-width:850px){
-  .choice-dock{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:5px;
-  }
+/* Nằm sát hai bên khu vực nhập, không che phần giữa để nhìn/gõ rõ. */
+.choice-left{right:calc(50% + 205px)}
+.choice-right{left:calc(50% + 205px)}
+.choice-top{bottom:101px}
+.choice-bottom{bottom:56px}
+
+@media(max-width:1100px){
   .choice-card{
-    min-height:32px;
-    padding:5px 6px;
+    width:min(132px,18vw);
+    min-height:35px;
+    padding:5px 7px;
     font-size:11px;
   }
+  .choice-left{right:calc(50% + 170px)}
+  .choice-right{left:calc(50% + 170px)}
+  .choice-top{bottom:98px}
+  .choice-bottom{bottom:56px}
+}
+
+@media(max-width:760px){
+  .choice-card{
+    width:min(112px,24vw);
+    min-height:32px;
+    padding:4px 6px;
+    font-size:10px;
+  }
+  .choice-left{right:calc(50% + 110px)}
+  .choice-right{left:calc(50% + 110px)}
+  .choice-top{bottom:94px}
+  .choice-bottom{bottom:56px}
 }

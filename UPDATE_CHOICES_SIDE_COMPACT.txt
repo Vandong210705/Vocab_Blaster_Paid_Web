@@ -1,0 +1,7 @@
+CHỈ SỬA BỐ CỤC ĐÁP ÁN
+- Giữ 4 đáp án random: 1 đúng + 3 nhiễu.
+- Giữ click đúng = tự bắn + TTS như cũ.
+- Giữ click sai = biến mất + đưa vào memory học lại.
+- 4 đáp án trở lại bố cục 2 bên: 2 trái + 2 phải.
+- Nút được thu nhỏ và đặt sát khu vực nhập phía dưới để không che màn chơi.
+- Không xếp 4 nút thành một hàng trong thanh nhập nữa.
