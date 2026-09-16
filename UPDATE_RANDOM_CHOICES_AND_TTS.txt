@@ -1,0 +1,7 @@
+RANDOM CHOICES + TTS
+- Mỗi câu chọn 1/4, vị trí đáp án đúng được xáo ngẫu nhiên.
+- 3 đáp án nhiễu cũng đổi vị trí theo mỗi câu.
+- Chọn đúng vẫn gọi đúng luồng kill() như khi gõ đúng.
+- Vì vậy nếu bật chức năng đọc từ English, game vẫn đọc bình thường sau khi chọn đúng.
+- Chọn sai vẫn biến mất và vào memory học lại như bản trước.
+- 4 đáp án vẫn nằm trong thanh dưới, không che màn chơi.

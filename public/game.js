@@ -953,6 +953,8 @@
       game.correctKeys++;
       shoot(e);
       e.hitFlash=.12;
+      // Dùng đúng luồng kill() như khi gõ đúng:
+      // vẫn cộng điểm, cập nhật memory và đọc English nếu bật nút loa.
       kill(e);
       ui.typingMeaning.textContent=`✅ ${e.en} = ${e.vi}`;
       setTimeout(()=>{typingUI();focusTyping();},700);

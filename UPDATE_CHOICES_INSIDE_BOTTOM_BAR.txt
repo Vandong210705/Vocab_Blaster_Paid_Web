@@ -1,0 +1,7 @@
+CHỈ SỬA BỐ CỤC 4 ĐÁP ÁN
+- 4 đáp án không còn nổi giữa màn chơi.
+- Đáp án nằm hoàn toàn trong thanh giao diện phía dưới.
+- Desktop: 4 đáp án nhỏ trên một hàng.
+- Màn hình nhỏ: tự xếp 2 x 2.
+- Nút đáp án nhỏ hơn để không che từ đang rơi.
+- Logic chọn sai/đúng, memory và các chế độ khác giữ nguyên.
