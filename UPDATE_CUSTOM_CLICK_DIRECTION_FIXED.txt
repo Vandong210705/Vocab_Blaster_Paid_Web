@@ -1,0 +1,18 @@
+CUSTOM CLICK DIRECTION FIX
+- Tất cả thay đổi dưới đây CHỈ áp dụng khi Difficulty = Custom.
+- Easy / Normal / Hard giữ nguyên cơ chế cũ.
+
+Việt -> Anh trong Custom:
+- Chủ yếu hiện tiếng Việt: bắt buộc gõ English + Enter.
+- Thỉnh thoảng hiện English: hiện 4 nghĩa tiếng Việt, chỉ cần nhấn chọn.
+
+Anh -> Việt trong Custom:
+- Chủ yếu hiện English: hiện 4 nghĩa tiếng Việt, chỉ cần nhấn chọn.
+- Lâu lâu hiện tiếng Việt: bắt buộc gõ English + Enter.
+
+Đáp án chọn:
+- 4 lựa chọn = 1 đúng + 3 nhiễu.
+- Nhấn đúng là tự bắn và tiêu diệt mục tiêu ngay.
+- Không kéo, không thả.
+- Không bắt gõ tiếng Việt trong Custom.
+- Memory, lời động viên, ADMIN_KEY=vandong123 và các phần khác giữ nguyên.

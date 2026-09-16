@@ -98,33 +98,16 @@
   line-height:1.18;
   text-align:center;
   box-shadow:0 10px 28px rgba(0,0,0,.38),0 0 20px rgba(64,224,255,.09);
-  cursor:grab;
+  cursor:pointer;
   user-select:none;
   touch-action:none;
   pointer-events:auto;
 }
-.choice-card:active{cursor:grabbing;transform:scale(.97)}
+.choice-card:active{transform:scale(.97)}
 .choice-left{right:calc(50% + 92px)}
 .choice-right{left:calc(50% + 92px)}
 .choice-top{bottom:155px}
 .choice-bottom{bottom:92px}
-.choice-ghost{
-  position:fixed;
-  z-index:1000;
-  width:min(230px,42vw);
-  padding:10px 12px;
-  border-radius:15px;
-  border:2px solid rgba(255,238,110,.85);
-  background:rgba(20,28,62,.96);
-  color:white;
-  font-weight:900;
-  font-size:15px;
-  line-height:1.2;
-  text-align:center;
-  box-shadow:0 14px 36px rgba(0,0,0,.5),0 0 26px rgba(255,238,110,.18);
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-}
 .custom-drag-target{
   filter:drop-shadow(0 0 8px rgba(255,238,90,.9));
 }

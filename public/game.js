@@ -21,7 +21,7 @@
     formatPattern: $("formatPattern"), formatExamples: $("formatExamples"), maxEnemies: $("maxEnemies"),
     difficulty: $("difficulty"), customSpeedWrap: $("customSpeedWrap"), customSpeed: $("customSpeed"), infiniteLives: $("infiniteLives"),
     speedValue: $("speedValue"), speak: $("speakEnglish"), voicePreset: $("voicePreset"), gameOver: $("gameOver"),
-    choiceDock: $("choiceDock"), choice1: $("choice1"), choice2: $("choice2"), choice3: $("choice3"), choice4: $("choice4"), choiceGhost: $("choiceGhost"),
+    choiceDock: $("choiceDock"), choice1: $("choice1"), choice2: $("choice2"), choice3: $("choice3"), choice4: $("choice4"),
     pauseScreen: $("pauseScreen"), finalScore: $("finalScore"), finalKills: $("finalKills"),
     finalAccuracy: $("finalAccuracy"), finalCombo: $("finalCombo"), payQr: $("payQr"), payQrEmpty: $("payQrEmpty")
   };
@@ -52,10 +52,11 @@
   // Sau khi đủ 3 lần đúng, từ đó lùi xa hơn để nhường chỗ cho nhiều từ mới.
   const MEMORY_CRAM_GAPS = [3, 7, 12];
   const MEMORY_REVIEW_GAPS = [25, 60, 120, 250];
-  // Custom mixed interaction:
-  // ~45% mục tiêu dùng kéo/chọn, còn lại gõ English.
-  // Tiếng Việt chỉ dùng để hiển thị hoặc kéo/chọn, không bắt người học gõ tiếng Việt.
-  const CUSTOM_DRAG_CHANCE = 0.45;
+  // Custom mixed interaction theo hướng học.
+  // Anh→Việt: chủ yếu chọn nghĩa Việt; lâu lâu hiện Việt để gõ English.
+  // Việt→Anh: chủ yếu hiện Việt để gõ English; thỉnh thoảng chọn nghĩa Việt.
+  const CUSTOM_CHOICE_CHANCE_EN_VI = 0.78;
+  const CUSTOM_CHOICE_CHANCE_VI_EN = 0.28;
 
   const MEMORY_LONG_INTERVALS = [
     10*60*1000,          // 10 phút
@@ -72,7 +73,7 @@
     correctKeys:0, wrongKeys:0, enemies:[], bullets:[], particles:[], floaters:[], stars:[], clouds:[],
     vocabulary:[], usedBag:[], typed:"", spawnTimer:0, lastTime:0, nextEnemyId:1, sound:true, muzzle:0,
     memory:{}, memoryTurn:0, focusCramKey:"", recentWordKeys:[], studyMode:"typing",
-    choiceTargetId:0, dragChoice:null,
+    choiceTargetId:0,
     w:0, h:0
   };
 
@@ -638,7 +639,7 @@
   }
 
   function likelyFailedEnemy(raw){
-    const typed=norm(raw), active=game.enemies.filter(e=>!e.dead&&e.inputKind!=="drag");
+    const typed=norm(raw), active=game.enemies.filter(e=>!e.dead&&e.inputKind!=="choice");
     if(!active.length || !typed) return null;
     if(active.length===1) return active[0];
     const ranked=active.map(e=>{
@@ -650,17 +651,39 @@
 
 
   function customTaskFor(item){
-    // CUSTOM:
-    // - Hiện English => chỉ gõ English, KHÔNG kéo.
-    // - Hiện tiếng Việt => kéo 1 trong 4 đáp án English.
-    // - Tuyệt đối không bắt gõ tiếng Việt.
-    const alreadyHasDrag=game.enemies.some(e=>!e.dead&&e.inputKind==="drag");
+    const mode=direction();
+    const alreadyHasChoice=game.enemies.some(e=>!e.dead&&e.inputKind==="choice");
 
-    // Nếu chưa có mục tiêu kéo, thỉnh thoảng cho nghĩa Việt xuất hiện để kéo English.
-    if(!alreadyHasDrag && Math.random()<CUSTOM_DRAG_CHANCE){
+    // Tập gõ trong Custom: vẫn đơn giản English -> gõ English.
+    if(mode==="typing"){
       return {
-        inputKind:"drag",
-        taskMode:"drag-en",
+        inputKind:"type",
+        taskMode:"type-copy-en",
+        display:item.en,
+        answer:item.en,
+        meaning:item.vi,
+        answerLang:"en"
+      };
+    }
+
+    // Anh -> Việt:
+    // Phần lớn: English rơi -> NHẤN 1/4 nghĩa tiếng Việt.
+    // Lâu lâu: tiếng Việt rơi -> bắt buộc GÕ English.
+    if(mode==="en-vi"){
+      const useChoice=!alreadyHasChoice && Math.random()<CUSTOM_CHOICE_CHANCE_EN_VI;
+      if(useChoice){
+        return {
+          inputKind:"choice",
+          taskMode:"choice-vi",
+          display:item.en,
+          answer:item.vi,
+          meaning:item.en,
+          answerLang:"vi"
+        };
+      }
+      return {
+        inputKind:"type",
+        taskMode:"type-from-vi",
         display:item.vi,
         answer:item.en,
         meaning:item.vi,
@@ -668,11 +691,24 @@
       };
     }
 
-    // Còn lại luôn là English -> gõ English.
+    // Việt -> Anh:
+    // Chủ yếu: tiếng Việt rơi -> bắt buộc GÕ English.
+    // Thỉnh thoảng: English rơi -> NHẤN 1/4 nghĩa tiếng Việt.
+    const useChoice=!alreadyHasChoice && Math.random()<CUSTOM_CHOICE_CHANCE_VI_EN;
+    if(useChoice){
+      return {
+        inputKind:"choice",
+        taskMode:"choice-vi",
+        display:item.en,
+        answer:item.vi,
+        meaning:item.en,
+        answerLang:"vi"
+      };
+    }
     return {
       inputKind:"type",
-      taskMode:"type-copy-en",
-      display:item.en,
+      taskMode:"type-from-vi",
+      display:item.vi,
       answer:item.en,
       meaning:item.vi,
       answerLang:"en"
@@ -772,7 +808,7 @@
       skin:SKINS[Math.floor(Math.random()*SKINS.length)], x, y:spawnY,
       vx:(Math.random()-.5)*24, vy:speed, size, wobble:Math.random()*Math.PI*2, dead:false, hitFlash:0, angle:0
     };
-    if(enemy.inputKind==="drag"){
+    if(enemy.inputKind==="choice"){
       enemy.choiceOptions=makeChoiceOptions(item,task);
     }
     game.enemies.push(enemy);
@@ -791,7 +827,7 @@
     saveWords();
     const cfg=currentCfg();
     const studyMode=memoryLearningEnabled() ? "custom-mixed" : direction();
-    Object.assign(game,{vocabulary:vocab,usedBag:[],enemies:[],bullets:[],particles:[],floaters:[],score:0,combo:0,maxCombo:0,level:1,kills:0,correctKeys:0,wrongKeys:0,typed:"",spawnTimer:0,nextEnemyId:1,infiniteLives:!!cfg.infiniteLives,lives:cfg.infiniteLives?Infinity:cfg.lives,running:true,paused:false,memory:loadMemoryStore(),memoryTurn:loadMemoryTurn(studyMode),focusCramKey:"",recentWordKeys:[],studyMode,choiceTargetId:0,dragChoice:null});
+    Object.assign(game,{vocabulary:vocab,usedBag:[],enemies:[],bullets:[],particles:[],floaters:[],score:0,combo:0,maxCombo:0,level:1,kills:0,correctKeys:0,wrongKeys:0,typed:"",spawnTimer:0,nextEnemyId:1,infiniteLives:!!cfg.infiniteLives,lives:cfg.infiniteLives?Infinity:cfg.lives,running:true,paused:false,memory:loadMemoryStore(),memoryTurn:loadMemoryTurn(studyMode),focusCramKey:"",recentWordKeys:[],studyMode,choiceTargetId:0});
     ui.gameOver.classList.add("hidden"); ui.pauseScreen.classList.add("hidden"); ui.panel.classList.remove("open");
     clearTyped(); hud(); typingUI();
     // Chỉ thả 1 từ đầu tiên. Các từ sau luôn cách nhau một khoảng ngẫu nhiên.
@@ -811,8 +847,20 @@
       return;
     }
     if(memoryLearningEnabled()){
-      ui.typingWord.textContent=game.typed || "Gõ English khi cần • hoặc kéo bảng đúng lên mục tiêu";
-      ui.typingMeaning.textContent="🎮 Custom: gõ English + kéo chọn Anh/Việt được trộn ngẫu nhiên";
+      const choice=activeChoiceEnemy();
+      if(choice){
+        ui.typingWord.textContent=game.typed || "Chọn 1 trong 4 đáp án";
+        ui.typingMeaning.textContent=choice.answerLang==="vi"
+          ? "English → chọn nghĩa tiếng Việt"
+          : "Chọn đáp án đúng";
+      }else{
+        ui.typingWord.textContent=game.typed || "Gõ English rồi Enter";
+        ui.typingMeaning.textContent=direction()==="vi-en"
+          ? "Tiếng Việt → gõ English"
+          : direction()==="en-vi"
+            ? "Lâu lâu tiếng Việt xuất hiện → gõ English"
+            : "English → gõ English";
+      }
       return;
     }
     const mode=direction();
@@ -832,7 +880,7 @@
 
   function findEnemyByTyped(){
     const answer=norm(game.typed); if(!answer) return null;
-    const list=game.enemies.filter(e=>!e.dead&&e.inputKind!=="drag"&&norm(e.answer)===answer).sort((a,b)=>b.y-a.y);
+    const list=game.enemies.filter(e=>!e.dead&&e.inputKind!=="choice"&&norm(e.answer)===answer).sort((a,b)=>b.y-a.y);
     return list[0]||null;
   }
 
@@ -859,7 +907,7 @@
   function activeChoiceEnemy(){
     if(!memoryLearningEnabled() || !game.running || game.paused) return null;
     return game.enemies
-      .filter(e=>!e.dead&&e.inputKind==="drag")
+      .filter(e=>!e.dead&&e.inputKind==="choice")
       .sort((a,b)=>b.y-a.y)[0] || null;
   }
 
@@ -889,86 +937,37 @@
     ui.choiceDock.classList.remove("hidden");
   }
 
-  function beginChoiceDrag(ev,card){
-    if(!game.running||game.paused||!memoryLearningEnabled()) return;
+  function chooseAnswer(card){
+    if(!game.running || game.paused || !memoryLearningEnabled()) return;
+
     const targetId=Number(card.dataset.targetId||0);
     if(!targetId) return;
-    ev.preventDefault();
 
-    game.dragChoice={
-      pointerId:ev.pointerId,
-      targetId,
-      value:card.dataset.value||card.textContent||"",
-      correct:card.dataset.correct==="true"
-    };
-
-    ui.choiceGhost.textContent=game.dragChoice.value;
-    ui.choiceGhost.classList.remove("hidden");
-    moveChoiceGhost(ev.clientX,ev.clientY);
-    try{card.setPointerCapture(ev.pointerId);}catch(_){}
-  }
-
-  function moveChoiceGhost(x,y){
-    ui.choiceGhost.style.left=x+"px";
-    ui.choiceGhost.style.top=y+"px";
-  }
-
-  function finishChoiceDrag(ev){
-    const drag=game.dragChoice;
-    if(!drag) return;
-
-    game.dragChoice=null;
-    ui.choiceGhost.classList.add("hidden");
-
-    const e=game.enemies.find(x=>x.id===drag.targetId&&!x.dead);
+    const e=game.enemies.find(x=>x.id===targetId && !x.dead && x.inputKind==="choice");
     if(!e) return;
 
-    const r=canvas.getBoundingClientRect();
-    const px=ev.clientX-r.left;
-    const py=ev.clientY-r.top;
+    const value=card.dataset.value || card.textContent || "";
+    const correct=card.dataset.correct==="true";
 
-    // Vùng thả rộng gồm cả emoji + bảng chữ của mục tiêu để thao tác nhẹ tay.
-    const dx=px-e.x, dy=py-(e.y+e.size*.28);
-    const hit=Math.abs(dx)<=Math.max(95,e.size*1.65) && Math.abs(dy)<=Math.max(82,e.size*1.55);
-
-    if(!hit){
-      ui.typingMeaning.textContent="🌱 Kéo bảng lên đúng mục tiêu đang rơi nha";
-      setTimeout(()=>typingUI(),700);
-      return;
-    }
-
-    if(drag.correct && norm(drag.value)===norm(e.answer)){
+    if(correct && norm(value)===norm(e.answer)){
       game.correctKeys++;
       shoot(e);
       e.hitFlash=.12;
       kill(e);
       ui.typingMeaning.textContent=`✅ ${e.en} = ${e.vi}`;
-      setTimeout(()=>typingUI(),850);
+      setTimeout(()=>{typingUI();focusTyping();},700);
     }else{
       scheduleFailure({en:e.en,vi:e.vi},false);
       wrong();
       ui.typingMeaning.textContent=randomEncouragement(ENCOURAGE_RETRY);
-      setTimeout(()=>typingUI(),800);
+      setTimeout(()=>typingUI(),650);
     }
   }
 
   for(const card of [ui.choice1,ui.choice2,ui.choice3,ui.choice4]){
-    card.addEventListener("pointerdown",ev=>beginChoiceDrag(ev,card));
-    card.addEventListener("pointermove",ev=>{
-      if(game.dragChoice&&game.dragChoice.pointerId===ev.pointerId){
-        moveChoiceGhost(ev.clientX,ev.clientY);
-      }
-    });
-    card.addEventListener("pointerup",ev=>{
-      if(game.dragChoice&&game.dragChoice.pointerId===ev.pointerId) finishChoiceDrag(ev);
-    });
-    card.addEventListener("pointercancel",ev=>{
-      if(game.dragChoice&&game.dragChoice.pointerId===ev.pointerId){
-        game.dragChoice=null;
-        ui.choiceGhost.classList.add("hidden");
-      }
-    });
+    card.addEventListener("click",()=>chooseAnswer(card));
   }
+
 
   function shooterPos(){ return {x:game.w/2,y:game.h-132}; }
   function shoot(e){
@@ -1096,7 +1095,7 @@
 
   function end(){
     game.running=false; game.paused=false; ui.imeSink.blur();
-    ui.choiceDock.classList.add("hidden"); ui.choiceGhost.classList.add("hidden"); game.dragChoice=null;
+    ui.choiceDock.classList.add("hidden");
     const total=game.correctKeys+game.wrongKeys,acc=total?Math.round(game.correctKeys/total*100):100;
     ui.finalScore.textContent=game.score.toLocaleString(); ui.finalKills.textContent=game.kills; ui.finalAccuracy.textContent=`${acc}%`; ui.finalCombo.textContent=game.maxCombo;
     ui.gameOver.classList.remove("hidden");
@@ -1106,7 +1105,7 @@
     if(!game.running) return;
     game.paused=typeof force==="boolean"?force:!game.paused;
     ui.pauseScreen.classList.toggle("hidden",!game.paused); $("btnPause").textContent=game.paused?"▶️":"⏸️";
-    if(game.paused){ui.choiceDock.classList.add("hidden");ui.choiceGhost.classList.add("hidden");game.dragChoice=null;}
+    if(game.paused){ui.choiceDock.classList.add("hidden");}
     if(!game.paused) setTimeout(focusTyping,0);
   }
 
@@ -1172,7 +1171,7 @@
 
   function drawEnemy(e){
     ctx.save();ctx.translate(e.x,e.y);ctx.rotate(e.angle);
-    if(e.id===game.choiceTargetId && e.inputKind==="drag"){
+    if(e.id===game.choiceTargetId && e.inputKind==="choice"){
       ctx.shadowColor="#fff16a";ctx.shadowBlur=24;
     }else if(e.hitFlash>0){
       ctx.shadowColor="#fff";ctx.shadowBlur=25;
@@ -1312,8 +1311,6 @@
     localStorage.setItem("vocabBlasterDifficulty",ui.difficulty.value);
     if(ui.difficulty.value!=="custom"){
       ui.choiceDock.classList.add("hidden");
-      ui.choiceGhost.classList.add("hidden");
-      game.dragChoice=null;
     }
   });
   ui.customSpeed.addEventListener("input",()=>{ui.speedValue.textContent=ui.customSpeed.value;localStorage.setItem("vocabBlasterCustomSpeed",ui.customSpeed.value);});
